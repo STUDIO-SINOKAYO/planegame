@@ -101,7 +101,8 @@ func finish_drawing():
 	# Send the drawn path to the plane if it's long enough
 	if current_drawing.size() > 3 and plane:
 		var loops = detect_loops_2()                 # Check for loops = speed boost
-		plane.set_wind_path(current_drawing, loops)
+		if(loops > 0):
+			plane.set_wind_path(current_drawing, loops)
 
 func detect_loops() -> int:
 	# Simple loop detection - counts direction changes to estimate loops
@@ -140,15 +141,22 @@ func detect_loops_2() -> int:
 	
 	#go through directions
 	var prev_direction = Vector2(0,0)
+	var prev_x = 0
+	var prev_y = 0
 	for i in range(1, current_drawing.size()):
 		var current_direction = (current_drawing[i] - current_drawing[i-1]).normalized()
+		
 		if(i > 1):
-			if(current_direction.x <= 0 && (prev_direction.x == 0 || (current_direction.x / prev_direction.x) < 0)):
+			if(prev_x != 0 && current_direction.x <= 0 && ((current_direction.x / prev_x) < 0)):
 				up_count += 1
-			if(current_direction.x >= 0 && prev_direction.x == 0 || (current_direction.x / prev_direction.x) < 0):
+			if(prev_x != 0 && current_direction.x >= 0 && (current_direction.x / prev_x) < 0):
 				down_count += 1
-			if(current_direction.x <= 0 && prev_direction.y == 0 || (current_direction.y / prev_direction.y) < 0):
+			if(prev_y != 0 && current_direction.x <= 0 && (current_direction.y / prev_y) < 0):
 				left_count += 1
+		if current_direction.x != 0:
+			prev_x = current_direction.x
+		if current_direction.y != 0:
+			prev_y = current_direction.y
 		prev_direction = current_direction
 	loops = min(up_count, left_count, down_count)
 	print(up_count)
