@@ -5,6 +5,7 @@ extends Node2D
 
 # Node references - grabbed automatically when scene loads
 @onready var plane: CharacterBody2D = $Plane
+@onready var ui: CanvasLayer = $UI  # UI layer for screen-space drawing
 @onready var stamina_bar: ProgressBar = $UI/StaminaContainer/StaminaBar
 @onready var game_over_screen: Control = $UI/GameOverScreen
 @onready var settings_button: Button = $UI/SettingsButton
@@ -37,12 +38,13 @@ func _ready():
 
 func setup_drawing():
 	# Create the cyan line that shows your drawing
+	# Put it in the UI layer so camera movement doesn't affect it
 	drawn_path_line = Line2D.new()
 	drawn_path_line.width = 3.0
 	drawn_path_line.default_color = Color.CYAN
 	drawn_path_line.joint_mode = Line2D.LINE_JOINT_ROUND
 	drawn_path_line.end_cap_mode = Line2D.LINE_CAP_ROUND
-	add_child(drawn_path_line)
+	ui.add_child(drawn_path_line)  # Add to UI layer instead of world space
 
 func _input(event):
 	if game_over:
@@ -52,41 +54,44 @@ func _input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed and current_stamina > 0:
-				# Important: get_global_mouse_position() works with cameras
+				# Use viewport mouse position for screen coordinates
+				var screen_pos = get_viewport().get_mouse_position()
+				# Use global mouse position for world coordinates (physics)
 				var world_pos = get_global_mouse_position()
-				start_drawing(world_pos)
+				start_drawing(screen_pos, world_pos)
 			else:
 				finish_drawing()
 	
 	# Mouse dragging
 	elif event is InputEventMouseMotion:
 		if is_drawing and current_stamina > 0:
+			var screen_pos = get_viewport().get_mouse_position()
 			var world_pos = get_global_mouse_position()
-			continue_drawing(world_pos)
+			continue_drawing(screen_pos, world_pos)
 
-func start_drawing(mouse_pos: Vector2):
+func start_drawing(screen_pos: Vector2, world_pos: Vector2):
 	if current_stamina <= 0:
 		return
 		
 	is_drawing = true
 	current_drawing.clear()                    
 	drawn_path_line.clear_points()             
-	current_drawing.append(mouse_pos)          
-	drawn_path_line.add_point(mouse_pos)       
+	current_drawing.append(world_pos)          # Store world coords for physics
+	drawn_path_line.add_point(screen_pos)      # Draw at screen coords for UI
 
-func continue_drawing(mouse_pos: Vector2):
+func continue_drawing(screen_pos: Vector2, world_pos: Vector2):
 	if current_drawing.size() == 0 or current_stamina <= 0:
 		if current_stamina <= 0:
 			finish_drawing()  # Auto-stop when stamina runs out
 		return
 	
 	var last_point = current_drawing[current_drawing.size() - 1]
-	var distance = mouse_pos.distance_to(last_point)
+	var distance = world_pos.distance_to(last_point)  # Check distance in world space
 	
 	# Only add points that are far enough apart (keeps line smooth)
 	if distance >= min_point_distance:
-		current_drawing.append(mouse_pos)          
-		drawn_path_line.add_point(mouse_pos)       
+		current_drawing.append(world_pos)          # Store world coords for physics
+		drawn_path_line.add_point(screen_pos)      # Draw at screen coords for UI       
 
 func finish_drawing():
 	is_drawing = false
