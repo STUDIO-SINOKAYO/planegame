@@ -134,6 +134,7 @@ func detect_loops() -> int:
 	return int(loops)
 
 func detect_loops_2() -> int:
+	center.clear_points()
 	#loop detection mitas idea
 	#reset direction counts
 	var up_count = 0
@@ -180,14 +181,10 @@ func detect_loops_2() -> int:
 					up = false
 					left = false
 					## PLOT CENTER POINT FOR DEBUG
-					center.clear_points()
+					
 					center.default_color = Color.RED
 					center.width = 7
 					ui.add_child(center)
-					center.add_point((up_coords + down_coords) / 2)
-					center.add_point(((up_coords + down_coords) / 2) + Vector2(0, 0.1))
-					center.add_point(((up_coords + down_coords) / 2) + Vector2(0.1, 0.1))
-					center.add_point(((up_coords + down_coords) / 2) + Vector2(0.1, 0))
 					center.add_point((up_coords + down_coords) / 2)
 					
 		if current_direction.x != 0:
