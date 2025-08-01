@@ -137,11 +137,8 @@ func detect_loops_2() -> int:
 	
 	#for calculating size
 	var area = 0
-	
 	var up = false
 	var left = false
-	var down = false
-	
 	var up_coords = Vector2(0, 0)
 	var left_coords = Vector2(0, 0)
 	var down_coords = Vector2(0, 0)
@@ -150,8 +147,7 @@ func detect_loops_2() -> int:
 		return 0
 	var loops = 0
 	
-	#go through directions
-	var prev_direction = Vector2(0,0)
+	#go through coordinates in drawing
 	var prev_x = 0
 	var prev_y = 0
 	for i in range(1, current_drawing.size()):
@@ -178,16 +174,24 @@ func detect_loops_2() -> int:
 					print(area)
 					up = false
 					left = false
+					## PLOT CENTER POINT FOR DEBUG
+					var center = Line2D.new()
+					center.default_color = Color.RED
+					center.width = 7
+					ui.add_child(center)
+					var correction = Vector2(505, -80)
+					
+					center.add_point((up_coords + down_coords) / 2 + correction)
+					center.add_point(((up_coords + down_coords) / 2) + Vector2(0, 0.1) + correction)
+					center.add_point(((up_coords + down_coords) / 2) + Vector2(0.1, 0.1) + correction)
+					center.add_point(((up_coords + down_coords) / 2) + Vector2(0.1, 0) + correction)
+					center.add_point((up_coords + down_coords) / 2 + correction)
 					
 		if current_direction.x != 0:
 			prev_x = current_direction.x
 		if current_direction.y != 0:
 			prev_y = current_direction.y
-		prev_direction = current_direction
 	loops = min(up_count, left_count, down_count)
-	print(up_count)
-	print(left_count)
-	print(down_count)
 	print("LOOPS: ")
 	print(loops)
 	
