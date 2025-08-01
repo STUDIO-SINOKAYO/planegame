@@ -1,3 +1,15 @@
-[gd_scene format=3 uid="uid://ig7nbplla4pc"]
+[gd_scene load_steps=3 format=3 uid="uid://ig7nbplla4pc"]
+
+[ext_resource type="Script" uid="uid://cqn84wdm076k5" path="res://Level.gd" id="1_7q8xc"]
+[ext_resource type="Script" uid="uid://pakfejb3s2jx" path="res://Plane.gd" id="2_plane"]
 
 [node name="Level" type="Node2D"]
+script = ExtResource("1_7q8xc")
+
+[node name="Plane" type="CharacterBody2D" parent="."]
+position = Vector2(100, 100)
+script = ExtResource("2_plane")
+
+[node name="PlaneVisual" type="Polygon2D" parent="Plane"]
+color = Color(0, 0, 1, 1)
+polygon = PackedVector2Array(15, 0, -8, 8, -5, 0, -8, -8)
