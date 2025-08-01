@@ -147,7 +147,7 @@ func detect_loops_2() -> int:
 				up_count += 1
 			if(current_direction.x >= 0 && prev_direction.x == 0 || (current_direction.x / prev_direction.x) < 0):
 				down_count += 1
-			if(current_direction.x >= 0 && prev_direction.y == 0 || (current_direction.y / prev_direction.y) < 0):
+			if(current_direction.x <= 0 && prev_direction.y == 0 || (current_direction.y / prev_direction.y) < 0):
 				left_count += 1
 		prev_direction = current_direction
 	loops = min(up_count, left_count, down_count)
