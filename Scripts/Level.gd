@@ -142,12 +142,12 @@ func detect_loops_2() -> int:
 	var prev_direction = Vector2(0,0)
 	for i in range(1, current_drawing.size()):
 		var current_direction = (current_drawing[i] - current_drawing[i-1]).normalized()
-		if(i > 1 && prev_direction.x != 0):
-			if((current_direction.x <= 0 && (current_direction.x / prev_direction.x) < 0)):
+		if(i > 1):
+			if(current_direction.x <= 0 && (prev_direction.x == 0 || (current_direction.x / prev_direction.x) < 0)):
 				up_count += 1
-			if((current_direction.x >= 0 && (current_direction.x / prev_direction.x) < 0)):
+			if(current_direction.x >= 0 && prev_direction.x == 0 || (current_direction.x / prev_direction.x) < 0):
 				down_count += 1
-			if((current_direction.x >= 0 && (current_direction.y / prev_direction.y) < 0)):
+			if(current_direction.x >= 0 && prev_direction.y == 0 || (current_direction.y / prev_direction.y) < 0):
 				left_count += 1
 		prev_direction = current_direction
 	loops = min(up_count, left_count, down_count)
