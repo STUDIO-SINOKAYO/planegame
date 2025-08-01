@@ -2,8 +2,8 @@ extends CharacterBody2D
 class_name PlayerPlane
 
 # Tunable physics parameters - mess with these in the editor
-@export var base_speed: float = 200.0           # How fast plane moves right
-@export var gravity: float = 500.0              # Downward pull
+@export var base_speed: float = 50.0           # How fast plane moves right
+@export var gravity: float = 100.0              # Downward pull
 @export var loop_speed_multiplier: float = 50.0 # Speed bonus per loop
 @export var rotation_speed: float = 5.0         # How fast plane rotates to face movement
 @export var wind_influence_radius: float = 100.0 # How close to drawn lines to feel wind

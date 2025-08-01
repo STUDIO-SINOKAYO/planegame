@@ -12,6 +12,8 @@ extends Node2D
 @onready var restart_button: Button = $UI/GameOverScreen/RestartButton
 @onready var settings_panel: Control = $UI/SettingsPanel
 @onready var close_settings_button: Button = $UI/SettingsPanel/Panel/CloseButton
+@onready var speed_label: Label = $UI/Statistics/SpeedLabel
+@onready var altitude_label: Label = $UI/Statistics/AltitudeLabel
 
 # Drawing stuff
 var drawn_path_line: Line2D      # The cyan line you see when drawing
@@ -127,7 +129,8 @@ func detect_loops() -> int:
 
 func _process(delta):
 	update_stamina(delta)      
-	update_stamina_bar()       
+	update_stamina_bar()   
+	update_flight_info()    
 	queue_redraw()             
 
 func update_stamina(delta):
@@ -151,6 +154,16 @@ func update_stamina_bar():
 	
 	stamina_bar.add_theme_stylebox_override("fill", style)
 
+func update_flight_info():
+	# Update speed display (convert from pixels/sec to m/s for readability)
+	var speed_ms = plane.velocity.length() / 100.0  # Assume 100 pixels = 1 meter cus yk
+	speed_label.text = "Speed: %.1f m/s" % speed_ms
+	
+	# Update altitude display (higher Y = lower altitude, so invert it)
+	var altitude_m = (ground_level - plane.global_position.y) / 100.0  # Convert to meters
+	altitude_label.text = "Altitude: %.1f m" % max(0, altitude_m)  # Don't show negative altitude
+
+
 # Button callbacks
 func _on_game_over():
 	game_over = true
@@ -165,14 +178,3 @@ func _on_close_settings_pressed():
 func _on_restart_pressed():
 	# Just reload the whole scene, easiest way to reset everything
 	get_tree().reload_current_scene()
-
-func restart_game():
-	# Internal reset function, not used by main restart button
-	game_over = false
-	game_over_screen.visible = false
-	current_stamina = max_stamina              
-	current_drawing.clear()                    
-	drawn_path_line.clear_points()             
-	plane.global_position = Vector2(100, 200)  
-	plane.velocity = Vector2.ZERO              
-	plane.reset_plane()
