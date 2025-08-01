@@ -1,15 +1,15 @@
 [gd_scene load_steps=3 format=3 uid="uid://ig7nbplla4pc"]
 
-[ext_resource type="Script" uid="uid://cqn84wdm076k5" path="res://Level.gd" id="1_7q8xc"]
-[ext_resource type="Script" uid="uid://pakfejb3s2jx" path="res://Plane.gd" id="2_plane"]
+[ext_resource type="Script" uid="uid://cqn84wdm076k5" path="res://Scripts/Level.gd" id="1_k5f4k"]
+[ext_resource type="Script" uid="uid://pakfejb3s2jx" path="res://Scripts/Plane.gd" id="2_6phgx"]
 
 [node name="Level" type="Node2D"]
-script = ExtResource("1_7q8xc")
+script = ExtResource("1_k5f4k")
 
 [node name="Plane" type="CharacterBody2D" parent="."]
 position = Vector2(72, 407)
-script = ExtResource("2_plane")
-wind_influence_radius = 500.0
+script = ExtResource("2_6phgx")
+wind_influence_radius = 1500.0
 
 [node name="PlaneVisual" type="Polygon2D" parent="Plane"]
 color = Color(0, 0, 1, 1)

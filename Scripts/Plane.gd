@@ -22,7 +22,7 @@ signal game_over
 func _ready():
 	current_speed = base_speed
 
-func _physics_process(delta):
+func _physics_process(delta): 
 	# Don't move until player draws first line
 	if not game_started:
 		velocity = Vector2.ZERO
