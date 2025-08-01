@@ -135,6 +135,17 @@ func detect_loops_2() -> int:
 	var left_count = 0
 	var down_count = 0
 	
+	#for calculating size
+	var area = 0
+	
+	var up = false
+	var left = false
+	var down = false
+	
+	var up_coords = Vector2(0, 0)
+	var left_coords = Vector2(0, 0)
+	var down_coords = Vector2(0, 0)
+	
 	if current_drawing.size() < 10:
 		return 0
 	var loops = 0
@@ -147,12 +158,27 @@ func detect_loops_2() -> int:
 		var current_direction = (current_drawing[i] - current_drawing[i-1]).normalized()
 		
 		if(i > 1):
-			if(prev_x != 0 && current_direction.x <= 0 && ((current_direction.x / prev_x) < 0)):
+			if(prev_x != 0 && current_direction.x <= 0 && ((current_direction.x / prev_x) < 0)): #UP
 				up_count += 1
-			if(prev_x != 0 && current_direction.x >= 0 && (current_direction.x / prev_x) < 0):
-				down_count += 1
-			if(prev_y != 0 && current_direction.x <= 0 && (current_direction.y / prev_y) < 0):
+				up = true
+				up_coords = current_drawing[i]
+			if(prev_y != 0 && current_direction.x <= 0 && (current_direction.y / prev_y) < 0): #LEFT
 				left_count += 1
+				left = true
+				left_coords = current_drawing[i]
+			if(prev_x != 0 && current_direction.x >= 0 && (current_direction.x / prev_x) < 0): #DOWN
+				down_count += 1
+				#Calculate and add approx. area of loop
+				if up && left:
+					down_coords = current_drawing[i]
+					var a = up_coords.distance_to(down_coords) / 2
+					var b = ((up_coords + down_coords) / 2).distance_to(left_coords)
+					area += 3.1415 * a * b
+					print("AREA")
+					print(area)
+					up = false
+					left = false
+					
 		if current_direction.x != 0:
 			prev_x = current_direction.x
 		if current_direction.y != 0:
