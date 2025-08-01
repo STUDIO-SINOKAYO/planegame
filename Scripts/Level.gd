@@ -18,9 +18,11 @@ extends Node2D
 # Drawing stuff
 var drawn_path_line: Line2D      # The cyan line you see when drawing
 var current_drawing: Array = []  # Points of what you're currently drawing
+var current_screen: Array = []	# Points of current drawing based on SCREEN POS
 var is_drawing = false           
 var min_point_distance = 8.0     # Don't add points too close together
 var game_over = false            
+var center = Line2D.new() 		# FOR DEBUG (detect loops 2)
 
 # Stamina prevents infinite drawing spam
 var max_stamina: float = 100.0        
@@ -76,10 +78,12 @@ func start_drawing(screen_pos: Vector2, world_pos: Vector2):
 		return
 		
 	is_drawing = true
-	current_drawing.clear()                    
+	current_drawing.clear()
+	current_screen.clear()
 	drawn_path_line.clear_points()             
 	current_drawing.append(world_pos)          # Store world coords for physics
 	drawn_path_line.add_point(screen_pos)      # Draw at screen coords for UI
+	current_screen.append(screen_pos)		# Store screen coords for debug
 
 func continue_drawing(screen_pos: Vector2, world_pos: Vector2):
 	if current_drawing.size() == 0 or current_stamina <= 0:
@@ -93,7 +97,8 @@ func continue_drawing(screen_pos: Vector2, world_pos: Vector2):
 	# Only add points that are far enough apart (keeps line smooth)
 	if distance >= min_point_distance:
 		current_drawing.append(world_pos)          # Store world coords for physics
-		drawn_path_line.add_point(screen_pos)      # Draw at screen coords for UI       
+		drawn_path_line.add_point(screen_pos)      # Draw at screen coords for UI  
+		current_screen.append(screen_pos)
 
 func finish_drawing():
 	is_drawing = false
@@ -157,16 +162,16 @@ func detect_loops_2() -> int:
 			if(prev_x != 0 && current_direction.x <= 0 && ((current_direction.x / prev_x) < 0)): #UP
 				up_count += 1
 				up = true
-				up_coords = current_drawing[i]
+				up_coords = current_screen[i]
 			if(prev_y != 0 && current_direction.x <= 0 && (current_direction.y / prev_y) < 0): #LEFT
 				left_count += 1
 				left = true
-				left_coords = current_drawing[i]
+				left_coords = current_screen[i]
 			if(prev_x != 0 && current_direction.x >= 0 && (current_direction.x / prev_x) < 0): #DOWN
 				down_count += 1
 				#Calculate and add approx. area of loop
 				if up && left:
-					down_coords = current_drawing[i]
+					down_coords = current_screen[i]
 					var a = up_coords.distance_to(down_coords) / 2
 					var b = ((up_coords + down_coords) / 2).distance_to(left_coords)
 					area += 3.1415 * a * b
@@ -175,17 +180,15 @@ func detect_loops_2() -> int:
 					up = false
 					left = false
 					## PLOT CENTER POINT FOR DEBUG
-					var center = Line2D.new()
+					center.clear_points()
 					center.default_color = Color.RED
 					center.width = 7
 					ui.add_child(center)
-					var correction = Vector2(505, -80)
-					
-					center.add_point((up_coords + down_coords) / 2 + correction)
-					center.add_point(((up_coords + down_coords) / 2) + Vector2(0, 0.1) + correction)
-					center.add_point(((up_coords + down_coords) / 2) + Vector2(0.1, 0.1) + correction)
-					center.add_point(((up_coords + down_coords) / 2) + Vector2(0.1, 0) + correction)
-					center.add_point((up_coords + down_coords) / 2 + correction)
+					center.add_point((up_coords + down_coords) / 2)
+					center.add_point(((up_coords + down_coords) / 2) + Vector2(0, 0.1))
+					center.add_point(((up_coords + down_coords) / 2) + Vector2(0.1, 0.1))
+					center.add_point(((up_coords + down_coords) / 2) + Vector2(0.1, 0))
+					center.add_point((up_coords + down_coords) / 2)
 					
 		if current_direction.x != 0:
 			prev_x = current_direction.x
