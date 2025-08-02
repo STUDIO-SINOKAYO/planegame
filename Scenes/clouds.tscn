@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dx16h0mn7uvo5"]
+
+[ext_resource type="Texture2D" uid="uid://d02dwmif63q64" path="res://icon.svg" id="1_hmje7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kt4y7"]
+size = Vector2(1528, 107)
+
+[node name="Clouds" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(388.5, 0)
+scale = Vector2(12.1484, 1)
+texture = ExtResource("1_hmje7")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(386, 2.5)
+shape = SubResource("RectangleShape2D_kt4y7")

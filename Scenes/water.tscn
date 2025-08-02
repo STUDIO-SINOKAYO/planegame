@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dem8j6v2j76kv" path="res://Scripts/Water.gd" id="2_gf5bf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gf5bf"]
-size = Vector2(63, 589)
+size = Vector2(66, 589)
 
 [node name="water" type="Node2D"]
 
@@ -17,8 +17,5 @@ texture = ExtResource("1_slmpt")
 script = ExtResource("2_gf5bf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-1.5, 15.5)
+position = Vector2(0, 15.5)
 shape = SubResource("RectangleShape2D_gf5bf")
-
-[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
-[connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]

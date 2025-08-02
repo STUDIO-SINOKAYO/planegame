@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ig7nbplla4pc"]
+[gd_scene load_steps=9 format=3 uid="uid://ig7nbplla4pc"]
 
 [ext_resource type="Script" uid="uid://cqn84wdm076k5" path="res://Scripts/Level.gd" id="1_k5f4k"]
 [ext_resource type="Script" uid="uid://pakfejb3s2jx" path="res://Scripts/Plane.gd" id="2_6phgx"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://3ljseolo2rts" path="res://Assets/Spite.png" id="4_81xng"]
 [ext_resource type="PackedScene" uid="uid://ba0tj3luxxix5" path="res://Scenes/fire.tscn" id="5_wqkje"]
 [ext_resource type="PackedScene" uid="uid://csjtfwpgo02uf" path="res://Scenes/water.tscn" id="6_0f350"]
+[ext_resource type="PackedScene" uid="uid://dx16h0mn7uvo5" path="res://Scenes/clouds.tscn" id="7_8c0lf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0f350"]
 size = Vector2(41, 7)
@@ -16,11 +17,6 @@ script = ExtResource("1_k5f4k")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(70, 612.5)
 scale = Vector2(0.8125, 2.82031)
-texture = ExtResource("2_81xng")
-
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-position = Vector2(1911, 786)
-scale = Vector2(20.5313, 2.71875)
 texture = ExtResource("2_81xng")
 
 [node name="Plane" type="CharacterBody2D" parent="."]
@@ -55,7 +51,10 @@ shape = SubResource("RectangleShape2D_0f350")
 position = Vector2(356, 293)
 
 [node name="water" parent="Obstacles" instance=ExtResource("6_0f350")]
-position = Vector2(777, 379)
+position = Vector2(795, 416)
+
+[node name="Clouds" parent="Obstacles" instance=ExtResource("7_8c0lf")]
+position = Vector2(374, 44)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
