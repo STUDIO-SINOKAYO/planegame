@@ -2,8 +2,8 @@ extends CharacterBody2D
 class_name PlayerPlane
 
 # Tunable physics parameters - mess with these in the editor
-@export var base_speed: float = 50.0           # How fast plane moves right
-@export var gravity: float = 30.0              # Gentle downward pull for paper airplane
+@export var base_speed: float = 100.0           # How fast plane moves right
+@export var gravity: float = 9.8              # Gentle downward pull for paper airplane
 @export var loop_speed_multiplier: float = 50.0 # UNUSED - kept for compatibility, speed no longer changes
 @export var rotation_speed: float = 10.0         # How fast plane rotates to face movement
 @export var wind_influence_radius: float = 100.0 # How close to loop paths to feel wind forces
@@ -11,7 +11,7 @@ class_name PlayerPlane
 
 # Wind vortex parameters - controls how loops affect plane movement
 @export var loop_suction_radius: float = 100.0  # How close to loop centers before they start pulling the plane in
-@export var loop_suction_strength: float = 30.0  # How hard loops suck the plane toward their centers (gentle so it doesn't go crazy)
+@export var loop_suction_strength: float = 300.0  # How hard loops suck the plane toward their centers (gentle so it doesn't go crazy)
 @export var loop_acceleration: float = 80.0      # How hard loops push the plane toward the next loop in the chain (also gentle)
 
 # Game state variables
@@ -94,10 +94,19 @@ func apply_wind_forces(delta):
 			
 			if loop_path.size() < 3:  # Skip broken loops with too few points
 				continue
+			
+			# Calculate this loop's actual size by finding the furthest point from center
+			var loop_radius = 0.0
+			for point in loop_path:
+				var distance_from_center = point.distance_to(loop_center)
+				loop_radius = max(loop_radius, distance_from_center)
+			
+			# Use the actual loop size as the suction radius (with a minimum for very small loops)
+			var this_loop_suction_radius = max(loop_radius, 50.0)  # At least 50 units minimum
 				
 			# Check if plane is close enough to this loop to feel its effects
 			var distance_to_center = global_position.distance_to(loop_center)
-			if distance_to_center < loop_suction_radius:
+			if distance_to_center < this_loop_suction_radius:
 				# Apply wind forces if plane is within the influence zone
 				if distance_to_center < wind_influence_radius:
 					# Get the direction this loop should push the plane (toward the next loop)
@@ -110,7 +119,7 @@ func apply_wind_forces(delta):
 					var path_strength = 1.0 - (distance_to_center / wind_influence_radius)
 					path_strength = path_strength * path_strength  # Square it for smooth falloff
 					
-					var center_strength = 1.0 - (distance_to_center / loop_suction_radius)
+					var center_strength = 1.0 - (distance_to_center / this_loop_suction_radius)
 					center_strength = center_strength * center_strength  # Square it for smooth falloff
 					
 					# Force 1: Suction toward the loop center (creates the vortex effect)
