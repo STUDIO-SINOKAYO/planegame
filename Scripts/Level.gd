@@ -120,6 +120,7 @@ func continue_drawing(screen_pos: Vector2, _world_pos: Vector2):
 		current_screen.append(screen_pos)
 
 func finish_drawing():
+	loop_centers = []
 	is_drawing = false
 	
 	# Move the drawn line from UI layer back to world space for physics
@@ -327,13 +328,7 @@ func detect_loops_2() -> int:
 			center.add_point(loop_center_pos)
 	
 	print("Loop centers found for red line: ", loop_centers.size())
-	var close = false
-	for i in range(0, current_drawing.size()):
-		if plane.position.distance_to(current_drawing[i]) < 100:
-			close = true
-	if close:
-		for i in range(0, loop_centers.size()):
-			plane.create_waypoint_at_position(loop_centers[i])
+	
 	
 	return loops
 
@@ -444,7 +439,18 @@ func _process(delta):
 	update_stamina(delta)      
 	update_stamina_bar()   
 	update_flight_info()    
+	create_plane_waypoints()
 	queue_redraw()             
+
+func create_plane_waypoints():
+	var close = false
+	for i in range(0, current_drawing.size()):
+		if plane.position.distance_to(current_drawing[i]) < 50:
+			close = true
+	if close:
+		for i in range(0, loop_centers.size()):
+			plane.create_waypoint_at_position(loop_centers[i])
+		loop_centers = []
 
 func update_stamina(delta):
 	# Drain stamina while drawing, regen when not
