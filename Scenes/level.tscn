@@ -244,6 +244,7 @@ scale = Vector2(20.5313, 2.71875)
 texture = ExtResource("2_81xng")
 
 [connection signal="game_over" from="Plane" to="." method="_on_game_over"]
+[connection signal="waypoint_reached" from="Plane" to="." method="_on_plane_waypoint_reached"]
 [connection signal="pressed" from="UI/SettingsButton" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="UI/GameOverScreen/RestartButton" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="UI/SettingsPanel/Panel/CloseButton" to="." method="_on_close_settings_pressed"]

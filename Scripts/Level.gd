@@ -27,6 +27,7 @@ var min_point_distance = 8.0     # Don't add points too close together
 var game_over = false            
 var center = Line2D.new() 		# FOR DEBUG (detect loops 2)
 var loop_centers: Array = []
+var waypoints: Array = []
 
 # Old drawing cleanup system
 var cleanup_timer: Timer         # Timer for removing old drawings
@@ -441,15 +442,21 @@ func _process(delta):
 	update_flight_info()    
 	create_plane_waypoints()
 	queue_redraw()             
+	
 
 func create_plane_waypoints():
 	var close = false
 	for i in range(0, current_drawing.size()):
-		if plane.position.distance_to(current_drawing[i]) < 50:
+		##Check if plane is near current drawing
+		if plane.position.distance_to(current_drawing[i]) < 30:
 			close = true
 	if close:
 		for i in range(0, loop_centers.size()):
-			plane.create_waypoint_at_position(loop_centers[i])
+			waypoints.append(loop_centers[i])
+		#Start first waypoint
+		if(loop_centers.size() > 0):
+			plane.create_waypoint_at_position(waypoints.pop_front())
+		#Reset loop_centers
 		loop_centers = []
 
 func update_stamina(delta):
@@ -507,3 +514,8 @@ func _on_cleanup_old_drawings():
 			old_line.get_parent().remove_child(old_line)
 			old_line.queue_free()
 		finished_lines.remove_at(0)  # Remove from array
+
+
+func _on_plane_waypoint_reached(position: Vector2) -> void:
+	if waypoints.size() > 0:
+		plane.create_waypoint_at_position(waypoints.pop_front())
