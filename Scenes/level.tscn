@@ -21,6 +21,9 @@ texture = ExtResource("2_81xng")
 [node name="Plane" type="CharacterBody2D" parent="."]
 position = Vector2(72, 407)
 script = ExtResource("2_6phgx")
+max_speed = 300.0
+speed_deceleration = 1.0
+gravity_strength = 150.0
 
 [node name="PlaneVisual" type="Polygon2D" parent="Plane"]
 visible = false
@@ -28,10 +31,12 @@ color = Color(0, 0, 1, 1)
 polygon = PackedVector2Array(15, 0, -8, 8, -5, 0, -8, -8)
 
 [node name="Camera2D" type="Camera2D" parent="Plane"]
+offset = Vector2(300, 0)
+position_smoothing_enabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Plane"]
 position = Vector2(0.9, 1.06)
-scale = Vector2(0.11, 0.11)
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("4_81xng")
 
 [node name="UI" type="CanvasLayer" parent="."]

@@ -3,33 +3,33 @@ class_name PlayerPlane
 
 # Movement and Physics Parameters
 @export_group("Movement")
-@export var base_speed: float = 0.0
-@export var max_speed: float = 600.0
-@export var speed_acceleration: float = 10.0
-@export var speed_deceleration: float = 2.0
-@export var boost_speed: float = 600.0
-@export var rotation_speed: float = 5.0
+@export var base_speed: float = 0.0 ## Starting speed when the game begins
+@export var max_speed: float = 600.0 ## Maximum speed the plane can reach
+@export var speed_acceleration: float = 10.0 ## How quickly the plane accelerates when pointing downward
+@export var speed_deceleration: float = 2.0 ## How quickly the plane slows down when pointing upward
+@export var boost_speed: float = 600.0 ## Speed applied when using right-click boost
+@export var rotation_speed: float = 0.5 ## How slowly the plane rotates toward its velocity
 
 @export_group("Physics")
-@export var gravity_strength: float = 300.0
-@export var gravity_damping: float = 0.98
-@export var max_upward_angle: float = 0.2
-@export var terminal_velocity: float = 500.0
+@export var gravity_strength: float = 300.0 ## How strong gravity affects the plane when pointing upward
+@export var gravity_damping: float = 0.98 ## Reduces gravity velocity over time (0.0-1.0)
+@export var max_upward_angle: float = 0.2 ## Maximum upward angle before gravity kicks in
+@export var terminal_velocity: float = 500.0 ## Maximum speed from gravity alone
 
 @export_group("Wind System")
-@export var wind_influence_radius: float = 100.0
-@export var wind_force_strength: float = 800.0
-@export var loop_speed_multiplier: float = 50.0
-@export var lift_power: float = 100.0
+@export var wind_influence_radius: float = 100.0 ## Distance from wind points where the plane is affected
+@export var wind_force_strength: float = 800.0 ## Strength of wind forces applied to the plane
+@export var loop_speed_multiplier: float = 50.0 ## Speed bonus multiplier for completing loops
+@export var lift_power: float = 100.0 ## Additional lift force from wind effects
 
 @export_group("Velocity Visualization")
-@export var show_velocity_line: bool = true
-@export var velocity_line_scale: float = 0.5
-@export var velocity_line_color: Color = Color.RED
-@export var velocity_line_width: float = 3.0
+@export var show_velocity_line: bool = true ## Whether to display the velocity direction line
+@export var velocity_line_scale: float = 0.5 ## Scale factor for the velocity visualization line
+@export var velocity_line_color: Color = Color.RED ## Color of the velocity direction line
+@export var velocity_line_width: float = 3.0 ## Width of the velocity direction line in pixels
 
 @export_group("Game Settings")
-@export var ground_level: float = 600.0
+@export var ground_level: float = 600.0 ## Y position where the ground is located (game over point)
 
 # Internal state variables
 var wind_points: Array = []
@@ -85,8 +85,25 @@ func start_game() -> void:
 #-------------------------------------------------------------------------------
 func apply_boost() -> void:
 	"""Apply speed boost to the plane"""
+	if not game_started:
+		return
+	
+	# Get cursor position and calculate direction
+	var cursor_position: Vector2 = get_global_mouse_position()
+	var boost_direction: Vector2 = (cursor_position - global_position).normalized()
+	
+	# Set velocity directly toward cursor with full boost speed
+	velocity = boost_direction * boost_speed
+	
+	# Set current speed to boost speed for consistent behavior
 	current_speed = boost_speed
 	speed_changed.emit(current_speed)
+	
+	# Clear gravity velocity since we're overriding it
+	gravity_velocity = Vector2.ZERO
+	
+	# Immediately orient the plane toward the cursor for boost
+	rotation = boost_direction.angle()
 
 #-------------------------------------------------------------------------------
 func _physics_process(delta: float) -> void:
@@ -94,11 +111,11 @@ func _physics_process(delta: float) -> void:
 		_handle_stationary_state()
 		return
 	
-	_update_rotation()
+	
 	_update_movement(delta)
 	_update_velocity_visualization()
+	_update_rotation()
 	_check_boundaries()
-	
 	move_and_slide()
 
 #-------------------------------------------------------------------------------
@@ -109,10 +126,23 @@ func _handle_stationary_state() -> void:
 
 #-------------------------------------------------------------------------------
 func _update_rotation() -> void:
-	"""Update plane rotation to face mouse position"""
-	var direction: Vector2 = get_global_mouse_position() - global_position
-	var mouse_angle: float = direction.angle()
-	rotation = mouse_angle
+	"""Update plane rotation to gradually face velocity direction"""
+	# Only rotate if we have significant velocity
+	if velocity.length() > 10.0:
+		var target_angle: float = velocity.angle()
+		var current_angle: float = rotation
+		
+		# Calculate the shortest angular distance
+		var angle_diff: float = target_angle - current_angle
+		
+		# Normalize to [-PI, PI] range
+		while angle_diff > PI:
+			angle_diff -= 2 * PI
+		while angle_diff < -PI:
+			angle_diff += 2 * PI
+		
+		# Gradually rotate toward the velocity direction
+		rotation += angle_diff * rotation_speed * get_physics_process_delta_time()
 
 #-------------------------------------------------------------------------------
 func _update_movement(delta: float) -> void:
