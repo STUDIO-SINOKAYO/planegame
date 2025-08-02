@@ -160,7 +160,7 @@ func finish_drawing():
 		var loops = detect_loops_2()                 # Check for loops = wind physics
 		if(loops > 0):
 			# Create the red line connecting loop centers AFTER reparenting
-			create_red_line_after_reparent()
+			#create_red_line_after_reparent()
 			
 			# Send loop data to the plane for wind physics (no speed changes)
 			var loop_centers = get_loop_centers()  # Get the red dot positions
@@ -448,8 +448,9 @@ func create_plane_waypoints():
 	var close = false
 	for i in range(0, current_drawing.size()):
 		##Check if plane is near current drawing
-		if plane.position.distance_to(current_drawing[i]) < 30:
+		if plane.position.distance_to(current_drawing[i]) < 50:
 			close = true
+			break
 	if close:
 		for i in range(0, loop_centers.size()):
 			waypoints.append(loop_centers[i])

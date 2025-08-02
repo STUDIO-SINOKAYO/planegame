@@ -24,13 +24,13 @@ class_name PlayerPlane
 @export var lift_power: float = 100.0 ## Additional lift force from wind effects
 
 @export_group("Velocity Visualization")
-@export var show_velocity_line: bool = true ## Whether to display the velocity direction line
+@export var show_velocity_line: bool = false ## Whether to display the velocity direction line
 @export var velocity_line_scale: float = 0.5 ## Scale factor for the velocity visualization line
 @export var velocity_line_color: Color = Color.RED ## Color of the velocity direction line
 @export var velocity_line_width: float = 3.0 ## Width of the velocity direction line in pixels
 
 @export_group("Waypoint System")
-@export var show_waypoint_visual: bool = true ## Whether to display the waypoint visual indicator
+@export var show_waypoint_visual: bool = false ## Whether to display the waypoint visual indicator
 @export var enable_debug_waypoint_click: bool = false ## Enable right-click to create waypoints for debugging
 @export var waypoint_reach_threshold: float = 50.0 ## Distance threshold to consider waypoint reached
 
