@@ -10,9 +10,9 @@ class_name PlayerPlane
 @export var wind_force_strength: float = 800.0  # UNUSED - individual loop forces calculated differently
 
 # Wind vortex parameters - controls how loops affect plane movement
-@export var loop_suction_radius: float = 100.0  # How far loop centers can pull in the plane
-@export var loop_suction_strength: float = 30.0  # Strength of suction toward loop centers (gentle)
-@export var loop_acceleration: float = 80.0      # Force pushing plane toward next loop (gentle)
+@export var loop_suction_radius: float = 100.0  # How close to loop centers before they start pulling the plane in
+@export var loop_suction_strength: float = 30.0  # How hard loops suck the plane toward their centers (gentle so it doesn't go crazy)
+@export var loop_acceleration: float = 80.0      # How hard loops push the plane toward the next loop in the chain (also gentle)
 
 # Game state variables
 var wind_points = []                # UNUSED - kept for compatibility, no longer used for physics
@@ -81,57 +81,54 @@ func set_loop_directions(directions: Array):
 
 func apply_wind_forces(delta):
 	# Core wind vortex physics: loops create suction and directional forces
-	# Plane gets pulled toward nearby loop centers and pushed along the red flow direction
-	# No forces applied from straight lines - only detected loops create wind effects
+	# When the plane gets near a loop, it gets sucked toward the center AND pushed toward the next loop
+	# This creates a smooth flow between loops - no forces from straight lines, only loops matter
 	
 	var total_wind_force = Vector2.ZERO
 	
-	# Apply forces from each detected loop vortex
+	# Go through each detected loop and see if it should affect the plane
 	for i in range(loop_paths.size()):
-		if i < loop_centers.size():  # Ensure we have matching center and path data
+		if i < loop_centers.size():  # Make sure we have both path and center data
 			var loop_path = loop_paths[i]
 			var loop_center = loop_centers[i]
 			
-			if loop_path.size() < 3:  # Skip invalid loops with too few points
+			if loop_path.size() < 3:  # Skip broken loops with too few points
 				continue
 				
-			# Check if plane is within suction range of this loop center
+			# Check if plane is close enough to this loop to feel its effects
 			var distance_to_center = global_position.distance_to(loop_center)
 			if distance_to_center < loop_suction_radius:
-				# Apply wind forces if plane is close enough to the loop center
+				# Apply wind forces if plane is within the influence zone
 				if distance_to_center < wind_influence_radius:
-					# Get the specific direction for this loop (points to next loop center)
-					var path_direction = Vector2.RIGHT  # Default fallback
+					# Get the direction this loop should push the plane (toward the next loop)
+					var path_direction = Vector2.RIGHT  # Default fallback if something breaks
 					if i < loop_directions.size():
 						path_direction = loop_directions[i]
-					# No red line fallback - only use individual loop directions
+					# These directions point from this loop center to the next one
 					
-					# Calculate force strength based on distance to loop center (closer = stronger)
+					# Calculate how strong the forces should be based on distance (closer = stronger)
 					var path_strength = 1.0 - (distance_to_center / wind_influence_radius)
-					path_strength = path_strength * path_strength  # Square for smooth falloff
+					path_strength = path_strength * path_strength  # Square it for smooth falloff
 					
-					# Calculate suction strength based on distance to loop center
 					var center_strength = 1.0 - (distance_to_center / loop_suction_radius)
-					center_strength = center_strength * center_strength  # Square for smooth falloff
+					center_strength = center_strength * center_strength  # Square it for smooth falloff
 					
-					# Force 2: Suction toward the loop center (creates vortex effect)
-					# This pulls the plane toward the center of the detected loop
+					# Force 1: Suction toward the loop center (creates the vortex effect)
+					# This pulls the plane into the loop center so it doesn't just fly past
 					var to_center = (loop_center - global_position).normalized()
 					var suction_to_center = to_center * loop_suction_strength * center_strength
 					
-					# Force 3: Acceleration toward the next loop in the sequence
-					# This pushes the plane from one vortex toward the next one
+					# Force 2: Push toward the next loop in the chain
+					# This is what makes the plane flow from one loop to the next
 					var follow_path = path_direction * loop_acceleration * path_strength
 					
-					# Combine both forces for this loop's effect
+					# Add both forces together for this loop's total effect
 					total_wind_force += suction_to_center + follow_path
 	
 	
-	# Apply all accumulated wind forces to the plane's velocity
-	if total_wind_force.length() > 0:
-		velocity += total_wind_force * delta
-	else:
-		velocity += total_wind_force * delta
+	# Apply all the accumulated wind forces to the plane's velocity
+	# This is where the magic happens - all those loop forces get added to the plane's movement
+	velocity += total_wind_force * delta
 
 func get_closest_point_on_segment(point: Vector2, segment_start: Vector2, segment_end: Vector2) -> Vector2:
 	# Math utility: find the closest point on a line segment to a given point
