@@ -1,78 +1,253 @@
 extends CharacterBody2D
 class_name PlayerPlane
 
+# Movement and Physics Parameters
+@export_group("Movement")
+@export var base_speed: float = 0.0
+@export var max_speed: float = 600.0
+@export var speed_acceleration: float = 10.0
+@export var speed_deceleration: float = 2.0
+@export var boost_speed: float = 600.0
+@export var rotation_speed: float = 5.0
 
-# Tunable physics parameters - mess with these in the editor
-@export var base_speed: float = 100.0           # How fast plane moves right
-@export var gravity: float = 9.8           # Downward pull
-@export var loop_speed_multiplier: float = 50.0 # Speed bonus per loop
-@export var rotation_speed: float = 5.0         # How fast plane rotates to face movement
-@export var wind_influence_radius: float = 100.0 # How close to drawn lines to feel wind
-@export var wind_force_strength: float = 800.0  # How strong the wind effect is
-@export var lift_power: float = 100
-@export var terminal_velocity: float = 500
-# Game state stuff
-var wind_points = []                # Points from the currently drawn line
-var current_speed: float            # Actual speed (base + loop bonuses)
-var loop_count: int = 0             # How many loops detected
-var ground_level: float = 600.0     # Y position = death
-var game_started: bool = false      # Don't move until first line drawn
-var debug_wind_info: String = ""    # Debug text
+@export_group("Physics")
+@export var gravity_strength: float = 300.0
+@export var gravity_damping: float = 0.98
+@export var max_upward_angle: float = 0.2
+@export var terminal_velocity: float = 500.0
+
+@export_group("Wind System")
+@export var wind_influence_radius: float = 100.0
+@export var wind_force_strength: float = 800.0
+@export var loop_speed_multiplier: float = 50.0
+@export var lift_power: float = 100.0
+
+@export_group("Velocity Visualization")
+@export var show_velocity_line: bool = true
+@export var velocity_line_scale: float = 0.5
+@export var velocity_line_color: Color = Color.RED
+@export var velocity_line_width: float = 3.0
+
+@export_group("Game Settings")
+@export var ground_level: float = 600.0
+
+# Internal state variables
+var wind_points: Array = []
+var current_speed: float = 0.0
+var loop_count: int = 0
+var game_started: bool = false
+var debug_wind_info: String = ""
+var velocity_line: Line2D
+var gravity_velocity: Vector2 = Vector2.ZERO
+
+# Signals
 signal game_over
+signal speed_changed(new_speed: float)
+signal loop_detected(loop_count: int)
+
+#-------------------------------------------------------------------------------
+func _ready() -> void:
+	_initialize_plane()
+	_setup_velocity_visualization()
+
+#-------------------------------------------------------------------------------
+func _initialize_plane() -> void:
+	"""Initialize plane state and properties"""
+	current_speed = base_speed
+	gravity_velocity = Vector2.ZERO
+	game_started = false
+
+#-------------------------------------------------------------------------------
+func _setup_velocity_visualization() -> void:
+	"""Create and configure the velocity visualization line"""
+	if not show_velocity_line:
+		return
+		
+	velocity_line = Line2D.new()
+	velocity_line.width = velocity_line_width
+	velocity_line.default_color = velocity_line_color
+	velocity_line.z_index = 10
+	add_child(velocity_line)
 
 #-------------------------------------------------------------------------------
 func _input(event: InputEvent) -> void:
-	if Input.is_action_pressed("ui_accept"):
-		game_started = true
+	if Input.is_action_just_pressed("ui_accept"):
+		start_game()
+	
+	if Input.is_action_just_pressed("right_click"):
+		apply_boost()
+
 #-------------------------------------------------------------------------------
-func _ready():
-	current_speed = base_speed
-#---=PHYSICSPROCESS=------------------------------------------------------------
-func _physics_process(delta): 
+func start_game() -> void:
+	"""Start the game and enable movement"""
+	game_started = true
+
+#-------------------------------------------------------------------------------
+func apply_boost() -> void:
+	"""Apply speed boost to the plane"""
+	current_speed = boost_speed
+	speed_changed.emit(current_speed)
+
+#-------------------------------------------------------------------------------
+func _physics_process(delta: float) -> void:
 	if not game_started:
-		velocity = Vector2.ZERO
+		_handle_stationary_state()
 		return
 	
-	# Set up base speed
-	current_speed = base_speed
-	# Get angle of mouse in relation to node
-	var direction: Vector2 = get_global_mouse_position() - global_position
-	var mouseangle: float = direction.angle()
-	
-	#Rotate node in accordance to mouse
-	rotation = mouseangle
-	
-	# Rotational components
-	var forward: Vector2 = Vector2.RIGHT.rotated(rotation)  # plane's nose direction
-	var right: Vector2 = Vector2(-forward.y, forward.x)
-	# Velocity components
-
-	velocity.y += gravity
-	velocity.y = min(velocity.y, terminal_velocity) # THESE TWO ARE USED TO CLAMP THE VELOCITY TO 
-	velocity.x = min(velocity.x, terminal_velocity) # THE TERMINAL VELOCITY
-	var velocity_magnitude = velocity.length() # VELOCITY MAGNITUDE
-	
-	# Lift, drag, and angle of attack
-	var lift: float = 0
-	var drag: float = 0
-	var angle_of_attack: float = 0
-	
-	
-	
-	print("forward: ", forward)
-	print("velocity_magnitude: ", velocity_magnitude)
+	_update_rotation()
+	_update_movement(delta)
+	_update_velocity_visualization()
+	_check_boundaries()
 	
 	move_and_slide()
+
 #-------------------------------------------------------------------------------
-func set_wind_path(current_drawing, loops):
-	pass
+func _handle_stationary_state() -> void:
+	"""Handle plane behavior when game hasn't started"""
+	velocity = Vector2.ZERO
+	_update_velocity_visualization()
+
 #-------------------------------------------------------------------------------
-func apply_wind_forces(delta):
-	pass
-# ------------------------------------------------------------------------------
-func reset_plane():
-	# Reset everything for new game
-	wind_points.clear()         
-	loop_count = 0              
-	current_speed = base_speed  
+func _update_rotation() -> void:
+	"""Update plane rotation to face mouse position"""
+	var direction: Vector2 = get_global_mouse_position() - global_position
+	var mouse_angle: float = direction.angle()
+	rotation = mouse_angle
+
+#-------------------------------------------------------------------------------
+func _update_movement(delta: float) -> void:
+	"""Update plane movement including thrust and gravity"""
+	var forward_direction: Vector2 = Vector2.RIGHT.rotated(rotation)
+	
+	_apply_thrust(forward_direction, delta)
+	_apply_gravity(forward_direction, delta)
+	_update_final_velocity(forward_direction)
+
+#-------------------------------------------------------------------------------
+func _apply_thrust(forward_direction: Vector2, delta: float) -> void:
+	"""Apply thrust based on plane's forward direction"""
+	var speed_multiplier: float = max(forward_direction.y, 0.0)
+	
+	if forward_direction.y >= 0.0:
+		# Accelerate when pointing downward
+		current_speed += speed_acceleration * speed_multiplier
+	else:
+		# Decelerate when pointing upward
+		current_speed -= speed_deceleration
+	
+	current_speed = clamp(current_speed, 0.0, max_speed)
+	speed_changed.emit(current_speed)
+
+#-------------------------------------------------------------------------------
+func _apply_gravity(forward_direction: Vector2, delta: float) -> void:
+	"""Apply gravity effects based on plane orientation"""
+	if forward_direction.y < 0.0:
+		# Apply stronger gravity when pointing upward
+		var upward_factor: float = -min(forward_direction.y, max_upward_angle)
+		gravity_velocity += Vector2.DOWN * gravity_strength * delta * upward_factor
+		gravity_velocity *= gravity_damping
+	
+	# Clamp gravity velocity to prevent excessive speeds
+	if gravity_velocity.length() > terminal_velocity:
+		gravity_velocity = gravity_velocity.normalized() * terminal_velocity
+
+#-------------------------------------------------------------------------------
+func _update_final_velocity(forward_direction: Vector2) -> void:
+	"""Combine thrust and gravity to create final velocity"""
+	var forward_velocity: Vector2 = forward_direction * current_speed
+	velocity = forward_velocity + gravity_velocity
+
+#-------------------------------------------------------------------------------
+func _update_velocity_visualization() -> void:
+	"""Update the Line2D that visualizes the velocity vector"""
+	if not show_velocity_line or not velocity_line:
+		return
+	
+	velocity_line.clear_points()
+	
+	if velocity.length() > 0.1:
+		velocity_line.add_point(Vector2.ZERO)
+		# Convert to local coordinates and scale
+		var local_velocity: Vector2 = velocity.rotated(-rotation) * velocity_line_scale
+		velocity_line.add_point(local_velocity)
+
+#-------------------------------------------------------------------------------
+func _check_boundaries() -> void:
+	"""Check if plane has hit ground or other boundaries"""
+	if global_position.y >= ground_level:
+		## Commented out for thing
+		#_trigger_game_over() 
+		pass
+
+#-------------------------------------------------------------------------------
+func _trigger_game_over() -> void:
+	"""Handle game over state"""
+	game_over.emit()
+
+#-------------------------------------------------------------------------------
+func set_wind_path(current_drawing: Array, loops: int) -> void:
+	"""Set the current wind path for physics calculations"""
+	wind_points = current_drawing
+	loop_count = loops
+	loop_detected.emit(loop_count)
+
+#-------------------------------------------------------------------------------
+func apply_wind_forces(delta: float) -> void:
+	"""Apply wind forces based on proximity to drawn lines"""
+	if wind_points.is_empty():
+		return
+	
+	var closest_distance: float = INF
+	var wind_force: Vector2 = Vector2.ZERO
+	
+	for point in wind_points:
+		var distance: float = global_position.distance_to(point)
+		if distance < wind_influence_radius and distance < closest_distance:
+			closest_distance = distance
+			# Calculate wind direction (simplified)
+			var direction: Vector2 = (point - global_position).normalized()
+			var strength: float = (wind_influence_radius - distance) / wind_influence_radius
+			wind_force = direction * wind_force_strength * strength
+	
+	if wind_force.length() > 0:
+		velocity += wind_force * delta
+
+#-------------------------------------------------------------------------------
+func get_current_speed() -> float:
+	"""Get the current speed of the plane"""
+	return current_speed
+
+#-------------------------------------------------------------------------------
+func get_loop_count() -> int:
+	"""Get the current loop count"""
+	return loop_count
+
+#-------------------------------------------------------------------------------
+func is_game_active() -> bool:
+	"""Check if the game is currently active"""
+	return game_started
+
+#-------------------------------------------------------------------------------
+func reset_plane() -> void:
+	"""Reset plane to initial state for new game"""
+	wind_points.clear()
+	loop_count = 0
+	current_speed = base_speed
+	gravity_velocity = Vector2.ZERO
 	game_started = false
+	
+	if velocity_line:
+		velocity_line.clear_points()
+	
+	# Reset position if needed
+	velocity = Vector2.ZERO
+
+#-------------------------------------------------------------------------------
+func _get_debug_info() -> String:
+	"""Get debug information string"""
+	return "Speed: %.1f | Loops: %d | Gravity: %s | Game Active: %s" % [
+		current_speed, 
+		loop_count, 
+		str(gravity_velocity), 
+		str(game_started)
+	]

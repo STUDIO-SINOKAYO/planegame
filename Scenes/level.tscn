@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://ig7nbplla4pc"]
+[gd_scene load_steps=5 format=3 uid="uid://ig7nbplla4pc"]
 
 [ext_resource type="Script" uid="uid://cqn84wdm076k5" path="res://Scripts/Level.gd" id="1_k5f4k"]
 [ext_resource type="Script" uid="uid://pakfejb3s2jx" path="res://Scripts/Plane.gd" id="2_6phgx"]
 [ext_resource type="Texture2D" uid="uid://d02dwmif63q64" path="res://icon.svg" id="2_81xng"]
+[ext_resource type="Texture2D" uid="uid://3ljseolo2rts" path="res://Assets/Spite.png" id="4_81xng"]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_k5f4k")
@@ -31,14 +32,18 @@ texture = ExtResource("2_81xng")
 [node name="Plane" type="CharacterBody2D" parent="."]
 position = Vector2(72, 407)
 script = ExtResource("2_6phgx")
-wind_influence_radius = 1500.0
-wind_force_strength = 100.0
 
 [node name="PlaneVisual" type="Polygon2D" parent="Plane"]
+visible = false
 color = Color(0, 0, 1, 1)
 polygon = PackedVector2Array(15, 0, -8, 8, -5, 0, -8, -8)
 
 [node name="Camera2D" type="Camera2D" parent="Plane"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Plane"]
+position = Vector2(0.9, 1.06)
+scale = Vector2(0.11, 0.11)
+texture = ExtResource("4_81xng")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
