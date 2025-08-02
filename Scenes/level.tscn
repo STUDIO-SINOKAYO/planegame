@@ -8,25 +8,14 @@
 [node name="Level" type="Node2D"]
 script = ExtResource("1_k5f4k")
 
-[node name="Parallax2D" type="Parallax2D" parent="."]
-repeat_size = Vector2(400, 400)
-autoscroll = Vector2(1, 1)
-repeat_times = 4
-
-[node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
-modulate = Color(0, 0.966667, 1, 1)
-position = Vector2(557, 285.5)
-scale = Vector2(8.79687, 4.53906)
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(70, 612.5)
+scale = Vector2(0.8125, 2.82031)
 texture = ExtResource("2_81xng")
 
-[node name="Sprite2D2" type="Sprite2D" parent="Parallax2D"]
-position = Vector2(252, 231)
-scale = Vector2(2.0625, 1.125)
-texture = ExtResource("2_81xng")
-
-[node name="Sprite2D3" type="Sprite2D" parent="Parallax2D"]
-position = Vector2(792, 148)
-scale = Vector2(2.0625, 1.125)
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(1986, 615)
+scale = Vector2(20.5313, 2.71875)
 texture = ExtResource("2_81xng")
 
 [node name="Plane" type="CharacterBody2D" parent="."]
@@ -201,18 +190,27 @@ offset_top = 39.0
 offset_right = 40.0
 offset_bottom = 62.0
 
-[node name="Ground" type="ColorRect" parent="."]
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = 565.0
-offset_right = 1152.0
-offset_bottom = 645.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 8
-color = Color(0.6, 0.3, 0.1, 1)
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(982, 97)
+texture = ExtResource("2_81xng")
+
+[node name="Icon2" type="Sprite2D" parent="."]
+position = Vector2(1201, 347.5)
+scale = Vector2(1, 1.92969)
+texture = ExtResource("2_81xng")
+
+[node name="Icon3" type="Sprite2D" parent="."]
+position = Vector2(1260, 58)
+texture = ExtResource("2_81xng")
+
+[node name="Icon4" type="Sprite2D" parent="."]
+position = Vector2(1667, 403)
+scale = Vector2(1, 1.48438)
+texture = ExtResource("2_81xng")
+
+[node name="Icon5" type="Sprite2D" parent="."]
+position = Vector2(1670, 42)
+texture = ExtResource("2_81xng")
 
 [connection signal="game_over" from="Plane" to="." method="_on_game_over"]
 [connection signal="pressed" from="UI/SettingsButton" to="." method="_on_settings_pressed"]
