@@ -1,7 +1,8 @@
 extends Node2D
 
-# Main game controller - handles drawing lines that turn into wind currents for the plane
-# Draw with mouse, plane gets blown around by your lines instead of following them rigidly
+# Main game controller - handles drawing loops that create wind vortexes for the plane
+# Draw counterclockwise loops with mouse, plane gets pulled into vortexes and follows the red flow line
+# Only loops affect the plane - straight lines just start the game without physics effects
 
 # Node references - grabbed automatically when scene loads
 @onready var plane: CharacterBody2D = $Plane
@@ -26,6 +27,10 @@ var min_point_distance = 8.0     # Don't add points too close together
 var game_over = false            
 var center = Line2D.new() 		# FOR DEBUG (detect loops 2)
 
+# Old drawing cleanup system
+var cleanup_timer: Timer         # Timer for removing old drawings
+var old_drawing_fade_time: float = 1.0  # How long old drawings stay visible after new one
+
 # Stamina prevents infinite drawing spam
 var max_stamina: float = 100.0        
 var current_stamina: float = 100.0    
@@ -37,6 +42,7 @@ var ground_level: float = 600.0
 
 func _ready():
 	setup_drawing()
+	setup_cleanup_timer()
 	
 	# Signals are now connected through the editor instead of code
 	# Go to each button in the scene and connect their "pressed" signal
@@ -45,6 +51,14 @@ func _ready():
 func setup_drawing():
 	# Initialize the drawing system - first line will be created when needed
 	pass
+
+func setup_cleanup_timer():
+	# Create timer for cleaning up old drawings
+	cleanup_timer = Timer.new()
+	cleanup_timer.wait_time = old_drawing_fade_time
+	cleanup_timer.one_shot = true
+	cleanup_timer.timeout.connect(_on_cleanup_old_drawings)
+	add_child(cleanup_timer)
 
 func _input(event):
 	if game_over:
@@ -133,21 +147,33 @@ func finish_drawing():
 		# Add this line to the finished lines array
 		finished_lines.append(drawn_path_line)
 		drawn_path_line = null  # Clear reference so new line can be created
+		
+		# Start cleanup timer to remove old drawings after 1 second
+		if cleanup_timer and finished_lines.size() > 1:
+			cleanup_timer.start()
 	
 	# Send the drawn path to the plane if it's long enough
 	if current_drawing.size() > 3 and plane:
-		var loops = detect_loops_2()                 # Check for loops = speed boost
+		var loops = detect_loops_2()                 # Check for loops = wind physics
 		if(loops > 0):
-			# Send both the path and loop center positions to the plane
+			# Create the red line connecting loop centers AFTER reparenting
+			create_red_line_after_reparent()
+			
+			# Send loop data to the plane for wind physics (no speed changes)
 			var loop_centers = get_loop_centers()  # Get the red dot positions
-			plane.set_wind_path(current_drawing, loops)
+			var loop_directions = get_loop_flow_directions()  # Direction each loop points
+			plane.set_wind_path(current_drawing, loops)  # Just for game start trigger
 			plane.set_loop_centers(loop_centers)   # For suction effect
 			plane.set_loop_paths(detected_loop_paths)  # For path following
-			plane.set_red_line_direction(get_red_line_direction())  # For overall flow direction
+			plane.set_loop_directions(loop_directions)  # Individual flow directions for each loop
+		else:
+			# No loops detected - just start the game if needed
+			if not plane.game_started:
+				plane.game_started = true
 
 func detect_loops() -> int:
 	# Simple loop detection - counts direction changes to estimate loops
-	# More loops = more speed for the plane
+	# This is the old detection method, now replaced by detect_loops_2()
 	if current_drawing.size() < 10:
 		return 0
 	
@@ -166,6 +192,7 @@ func detect_loops() -> int:
 		last_direction = current_direction
 	
 	# Rough guess: full loop = about 8 big direction changes
+	# NOTE: This old method is not used anymore, see detect_loops_2() instead
 	loops = max(0, direction_changes / 8.0)
 	return int(loops)
 
@@ -176,16 +203,18 @@ func detect_loops_2() -> int:
 	print("=== LOOP DETECTION DEBUG ===")
 	print("Drawing size: ", current_drawing.size())
 	
-	#loop detection mitas idea
+	# Mita's loop detection algorithm - detects counterclockwise loops by finding
+	# specific directional pattern: UP movement, then LEFT movement, then DOWN movement
+	# Each detected pattern creates a wind vortex at the calculated loop center
 	#reset direction counts
 	var up_count = 0
 	var left_count = 0
 	var down_count = 0
 	
-	# Array to collect all loop centers first
+	# Array to collect all loop centers before creating the red debug line
 	var loop_centers_found = []
 	
-	#for calculating size
+	# Variables for calculating loop area and tracking directional changes
 	var area = 0
 	var up = false
 	var left = false
@@ -201,95 +230,149 @@ func detect_loops_2() -> int:
 		return 0
 	var loops = 0
 	
-	#go through coordinates in drawing
+	# Analyze each segment of the drawn line to detect directional changes
+	# Look for the pattern: upward movement → leftward movement → downward movement
 	var prev_x = 0
 	var prev_y = 0
 	for i in range(1, current_drawing.size()):
 		var current_direction = (current_drawing[i] - current_drawing[i-1]).normalized()
 		
 		if(i > 1):
+			# Detect upward movement (negative change in x direction)
 			if(prev_x != 0 && current_direction.x <= 0 && ((current_direction.x / prev_x) < 0)): #UP
 				up_count += 1
 				up = true
 				up_coords = current_screen[i]
 				up_index = i
 				print("UP detected at index: ", i)
+			# Detect leftward movement (negative change in y direction while moving left)
 			if(prev_y != 0 && current_direction.x <= 0 && (current_direction.y / prev_y) < 0): #LEFT
 				left_count += 1
 				left = true
 				left_coords = current_screen[i]
 				left_index = i
 				print("LEFT detected at index: ", i)
+			# Detect downward movement (positive change in x direction after going up and left)
 			if(prev_x != 0 && current_direction.x >= 0 && (current_direction.x / prev_x) < 0): #DOWN
 				down_count += 1
 				down_index = i
 				print("DOWN detected at index: ", i, " | up=", up, " left=", left)
-				#Calculate and add approx. area of loop
+				# When we have UP→LEFT→DOWN sequence, create a loop center and calculate area
 				if up && left:
 					print("CREATING LOOP CENTER!")
 					down_coords = current_screen[i]
+					print("UP coords: ", up_coords)
+					print("LEFT coords: ", left_coords)
+					print("DOWN coords: ", down_coords)
+					
+					# Calculate elliptical area approximation for the detected loop
 					var a = up_coords.distance_to(down_coords) / 2
 					var b = ((up_coords + down_coords) / 2).distance_to(left_coords)
 					area += 3.1415 * a * b
 					print("AREA: ", area)
 					
-					# Store loop center for later
+					# Calculate the center point between up and down coordinates
 					var loop_center_pos = (up_coords + down_coords) / 2
+					print("Calculated loop center: ", loop_center_pos)
 					loop_centers_found.append(loop_center_pos)
 					
-					# Extract the loop path (from up point to down point)
+					# Extract the path segment from this loop for wind physics
 					var loop_path = []
 					var start_idx = min(up_index, left_index)
 					var end_idx = down_index
 					for j in range(start_idx, min(end_idx + 1, current_drawing.size())):
 						loop_path.append(current_drawing[j])  # Use world coordinates for physics
 					
+					# Only store loops with enough points to be meaningful
 					if loop_path.size() > 3:  # Only add meaningful loops
 						detected_loop_paths.append(loop_path)
 					
+					# Reset flags to look for the next loop pattern
 					up = false
 					left = false
 					
+		# Track the previous direction components for comparison
 		if current_direction.x != 0:
 			prev_x = current_direction.x
 		if current_direction.y != 0:
 			prev_y = current_direction.y
 	
-	# Now create the red line connecting all loop centers
+	# Create the red debug line connecting all detected loop centers
+	# This shows the overall flow direction for the wind vortex system
 	if loop_centers_found.size() > 0:
-		center.default_color = Color.RED
-		center.width = 7
-		ui.add_child(center)
-		
-		# Add all loop center points to create a connected red line
-		for loop_center_pos in loop_centers_found:
-			center.add_point(loop_center_pos)
+		# Don't create the red line here - it will be created after reparenting
+		pass
 	
+	# Final loop count is the minimum of all three directional changes
+	# (ensures we only count complete UP→LEFT→DOWN sequences)
 	loops = min(up_count, left_count, down_count)
 	print("Final counts - up:", up_count, " left:", left_count, " down:", down_count)
 	print("LOOPS: ", loops)
-	print("Loop centers created: ", center.get_point_count())
+	
+	# Store loop centers for later red line creation (after reparenting)
+	center.clear_points()  # Clear any previous points
+	if loop_centers_found.size() > 0:
+		# Sort loop centers by X coordinate (left to right) for consistent flow direction
+		loop_centers_found.sort_custom(func(a, b): return a.x < b.x)
+		print("Sorted loop centers by X coordinate: ", loop_centers_found)
+		
+		for loop_center_pos in loop_centers_found:
+			center.add_point(loop_center_pos)
+	
+	print("Loop centers found for red line: ", loop_centers_found.size())
 	
 	return loops
 
+func create_red_line_after_reparent():
+	# Create the red debug line connecting loop centers after drawing is reparented to world space
+	# This ensures the red line coordinates match the world coordinate system
+	if center.get_point_count() > 0:
+		# Remove existing red line if any
+		if center.get_parent():
+			center.get_parent().remove_child(center)
+		
+		# Convert screen coordinates to world coordinates for the red line
+		var world_centers = []
+		var camera = get_viewport().get_camera_2d()
+		
+		print("=== CREATING RED LINE AFTER REPARENT ===")
+		for i in range(center.get_point_count()):
+			var screen_center = center.get_point_position(i)
+			print("Screen center ", i, ": ", screen_center)
+			
+			if camera:
+				var world_center = camera.global_position + (screen_center - get_viewport_rect().size * 0.5) / camera.zoom
+				world_centers.append(world_center)
+				print("World center ", i, ": ", world_center)
+			else:
+				world_centers.append(screen_center)
+				print("World center ", i, " (no camera): ", screen_center)
+		
+		# Clear and recreate the red line with world coordinates
+		center.clear_points()
+		center.default_color = Color.RED
+		center.width = 7
+		add_child(center)  # Add to Level (world space) instead of UI
+		
+		# Add world coordinate points to the red line
+		for world_center in world_centers:
+			center.add_point(world_center)
+		
+		print("Red line created with ", center.get_point_count(), " world coordinate points")
+
 func get_loop_centers() -> Array:
-	# Extract the center points from the debug line for loop suction physics
-	# Convert from screen coordinates to world coordinates for plane physics
+	# Extract the center points from the red line for loop suction physics
+	# Red line is now already in world coordinates after reparenting
 	var centers = []
-	var camera = get_viewport().get_camera_2d()
+	
+	print("=== LOOP CENTERS (already in world coords) ===")
 	
 	for i in range(center.get_point_count()):
-		var screen_center = center.get_point_position(i)
-		
-		if camera:
-			# Convert screen coordinates to world coordinates for physics
-			var world_center = camera.global_position + (screen_center - get_viewport_rect().size * 0.5) / camera.zoom
-			centers.append(world_center)
-		else:
-			# Fallback if no camera
-			centers.append(screen_center)
+		var world_center = center.get_point_position(i)
+		centers.append(world_center)
+		print("World center ", i, ": ", world_center)
 	
-	print("Loop centers for physics: ", centers)
+	print("Final loop centers for physics: ", centers)
 	return centers
 
 func get_red_line_direction() -> Vector2:
@@ -303,32 +386,45 @@ func get_red_line_direction() -> Vector2:
 	
 	return (end_point - start_point).normalized()
 
-func _draw():
-	# Draw debug circles around loop centers to show force radius
-	if center.get_point_count() > 0:
-		print("Drawing debug circles for ", center.get_point_count(), " loop centers")
+func get_loop_flow_directions() -> Array:
+	# Calculate individual flow directions for each loop pointing to the center of the next loop
+	var directions = []
+	
+	print("=== LOOP FLOW DIRECTIONS ===")
+	print("Red line point count: ", center.get_point_count())
+	
+	if center.get_point_count() < 2:
+		# If only one or no loops, use default right direction
+		print("Only one or no loops, using default directions")
 		for i in range(center.get_point_count()):
-			var loop_center_screen = center.get_point_position(i)
-			print("Loop center ", i, " at screen pos: ", loop_center_screen)
-			
-			# Since the center Line2D is in UI space, but _draw() is in world space,
-			# we need to convert screen coordinates to world coordinates
-			var camera = get_viewport().get_camera_2d()
-			if camera:
-				# Convert from UI screen coordinates to world coordinates
-				var world_center = camera.global_position + (loop_center_screen - get_viewport_rect().size * 0.5) / camera.zoom
-				print("Converting to world pos: ", world_center)
-				
-				# Draw the suction radius (larger circle) - yellow
-				draw_arc(world_center, 150.0, 0, TAU, 64, Color.YELLOW, 3.0)
-				
-				# Draw the wind influence radius (smaller circle) - orange  
-				draw_arc(world_center, 100.0, 0, TAU, 32, Color.ORANGE, 2.0)
+			directions.append(Vector2.RIGHT)
+			print("Direction ", i, ": ", Vector2.RIGHT, " (default)")
+		return directions
+	
+	# For each loop, calculate direction from its center to the next loop's center
+	for i in range(center.get_point_count()):
+		if i < center.get_point_count() - 1:
+			# Point from current loop center to next loop center
+			var current_loop_center = center.get_point_position(i)
+			var next_loop_center = center.get_point_position(i + 1)
+			var direction = (next_loop_center - current_loop_center).normalized()
+			directions.append(direction)
+			print("Direction ", i, ": from ", current_loop_center, " to ", next_loop_center, " = ", direction)
+		else:
+			# For the last loop, use the overall direction or continue in same direction as previous
+			if directions.size() > 0:
+				directions.append(directions[directions.size() - 1])  # Same direction as previous loop
+				print("Direction ", i, ": ", directions[directions.size() - 1], " (same as previous)")
 			else:
-				print("No camera found!")
-				# Fallback - draw at screen coordinates directly
-				draw_arc(loop_center_screen, 150.0, 0, TAU, 64, Color.YELLOW, 3.0)
-				draw_arc(loop_center_screen, 100.0, 0, TAU, 32, Color.ORANGE, 2.0)
+				directions.append(Vector2.RIGHT)  # Fallback
+				print("Direction ", i, ": ", Vector2.RIGHT, " (fallback)")
+	
+	print("Final flow directions: ", directions)
+	return directions
+
+func _draw():
+	# Only draw the red line connecting loop centers - no debug circles or arrows
+	pass
 
 func _process(delta):
 	update_stamina(delta)      
@@ -381,3 +477,13 @@ func _on_close_settings_pressed():
 func _on_restart_pressed():
 	# Just reload the whole scene, easiest way to reset everything
 	get_tree().reload_current_scene()
+
+func _on_cleanup_old_drawings():
+	# Remove all old drawings except the most recent one
+	# Keep the last drawing visible, remove all others
+	while finished_lines.size() > 1:
+		var old_line = finished_lines[0]  # Get the oldest line
+		if old_line and old_line.get_parent():
+			old_line.get_parent().remove_child(old_line)
+			old_line.queue_free()
+		finished_lines.remove_at(0)  # Remove from array

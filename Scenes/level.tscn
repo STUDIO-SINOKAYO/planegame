@@ -31,8 +31,8 @@ texture = ExtResource("2_81xng")
 [node name="Plane" type="CharacterBody2D" parent="."]
 position = Vector2(72, 407)
 script = ExtResource("2_6phgx")
-wind_influence_radius = 1500.0
-wind_force_strength = 100.0
+gravity = 9.8
+loop_acceleration = 500.0
 
 [node name="PlaneVisual" type="Polygon2D" parent="Plane"]
 color = Color(0, 0, 1, 1)

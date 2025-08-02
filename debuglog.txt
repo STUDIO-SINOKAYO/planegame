@@ -1,0 +1,713 @@
+Godot Engine v4.4.1.stable.official.49a5bc7b6 - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 552.44 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce GTX 1060
+
+=== LOOP DETECTION DEBUG ===
+Drawing size: 94
+UP detected at index: 9
+LEFT detected at index: 15
+DOWN detected at index: 21 | up=true left=true
+CREATING LOOP CENTER!
+UP coords: (683.0, 273.0)
+LEFT coords: (639.0, 253.0)
+DOWN coords: (607.0, 314.0)
+AREA: 5553.3943895417
+Calculated loop center: (645.0, 293.5)
+UP detected at index: 34
+LEFT detected at index: 35
+DOWN detected at index: 41 | up=true left=true
+CREATING LOOP CENTER!
+UP coords: (789.0, 218.0)
+LEFT coords: (762.0, 219.0)
+DOWN coords: (727.0, 286.0)
+AREA: 10358.230883384
+Calculated loop center: (758.0, 252.0)
+UP detected at index: 56
+LEFT detected at index: 57
+DOWN detected at index: 65 | up=true left=true
+CREATING LOOP CENTER!
+UP coords: (959.0, 189.0)
+LEFT coords: (942.0, 190.0)
+DOWN coords: (897.0, 263.0)
+AREA: 16215.5572612496
+Calculated loop center: (928.0, 226.0)
+UP detected at index: 79
+LEFT detected at index: 79
+DOWN detected at index: 87 | up=true left=true
+CREATING LOOP CENTER!
+UP coords: (1091.0, 184.0)
+LEFT coords: (1091.0, 184.0)
+DOWN coords: (1033.0, 271.0)
+AREA: 24802.0625290156
+Calculated loop center: (1062.0, 227.5)
+Final counts - up:4 left:4 down:4
+LOOPS: 4
+Sorted loop centers by X coordinate: [(645.0, 293.5), (758.0, 252.0), (928.0, 226.0), (1062.0, 227.5)]
+Loop centers found for red line: 4
+=== CREATING RED LINE AFTER REPARENT ===
+Screen center 0: (645.0, 293.5)
+World center 0: (141.0, 376.5)
+Screen center 1: (758.0, 252.0)
+World center 1: (254.0, 335.0)
+Screen center 2: (928.0, 226.0)
+World center 2: (424.0, 309.0)
+Screen center 3: (1062.0, 227.5)
+World center 3: (558.0, 310.5)
+Red line created with 4 world coordinate points
+=== LOOP CENTERS (already in world coords) ===
+World center 0: (141.0, 376.5)
+World center 1: (254.0, 335.0)
+World center 2: (424.0, 309.0)
+World center 3: (558.0, 310.5)
+Final loop centers for physics: [(141.0, 376.5), (254.0, 335.0), (424.0, 309.0), (558.0, 310.5)]
+=== LOOP FLOW DIRECTIONS ===
+Red line point count: 4
+Direction 0: from (141.0, 376.5) to (254.0, 335.0) = (0.938697, -0.344743)
+Direction 1: from (254.0, 335.0) to (424.0, 309.0) = (0.988506, -0.151183)
+Direction 2: from (424.0, 309.0) to (558.0, 310.5) = (0.999937, 0.011193)
+Direction 3: (0.999937, 0.011193) (same as previous)
+Final flow directions: [(0.938697, -0.344743), (0.988506, -0.151183), (0.999937, 0.011193), (0.999937, 0.011193)]
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (11.32398, -4.158805)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (12.04042, -4.421923)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (12.77718, -4.692504)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (13.53407, -4.970475)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (14.31096, -5.255796)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (15.1077, -5.548403)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (15.92415, -5.848249)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (16.76013, -6.155269)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (17.61551, -6.469411)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (18.49014, -6.790625)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (19.38389, -7.118861)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (20.29659, -7.454058)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (21.22813, -7.796173)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (22.17836, -8.145151)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (23.14715, -8.500946)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (24.13438, -8.863512)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (25.13994, -9.232811)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (26.1637, -9.608793)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (27.20554, -9.991416)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (28.26536, -10.38064)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (29.34308, -10.77644)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (30.43859, -11.17877)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (31.55183, -11.58762)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (32.68272, -12.00295)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (33.83121, -12.42474)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (34.99725, -12.85297)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (36.18078, -13.28763)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (37.38179, -13.72871)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (38.60027, -14.1762)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (39.83622, -14.63011)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (41.08965, -15.09045)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (42.36058, -15.5572)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (43.64907, -16.03041)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (44.95519, -16.51009)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (46.27901, -16.99627)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (47.62066, -17.489)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (48.98021, -17.98831)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (50.35785, -18.49426)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (51.75374, -19.0069)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (53.16807, -19.52633)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (54.60104, -20.0526)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (56.05288, -20.58579)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (57.52385, -21.12602)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (59.01431, -21.6734)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (60.52451, -22.22803)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (62.05483, -22.79005)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (63.60568, -23.35961)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (65.17741, -23.93683)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (66.77049, -24.52191)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (68.3854, -25.11499)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (70.02261, -25.71626)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (71.68266, -26.32593)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (73.36609, -26.94418)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (75.07352, -27.57125)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (76.8056, -28.20737)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (78.56289, -28.85274)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (80.34608, -29.50763)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (82.15588, -30.17229)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (83.99297, -30.84698)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (85.85809, -31.53195)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (87.7519, -32.22747)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (89.67513, -32.93378)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (91.62843, -33.65115)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (93.61249, -34.37981)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (95.62793, -35.11999)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (97.67523, -35.87188)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (99.75486, -36.63564)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (101.8671, -37.41138)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (104.0123, -38.19919)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (106.1901, -38.99903)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (108.4004, -39.81078)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (110.6425, -40.63418)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (112.9151, -41.46881)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (115.2166, -42.31407)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (117.5446, -43.16905)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (119.8958, -44.03254)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (122.2658, -44.90294)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (124.6487, -45.77806)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (127.0368, -46.65511)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (129.4204, -47.53049)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (131.7867, -48.39952)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (134.1195, -49.25628)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (136.3986, -50.09329)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (138.5984, -50.9012)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (140.6876, -51.66846)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (142.6278, -52.38102)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (144.374, -53.02231)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (145.8746, -53.57341)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (147.0736, -54.01374)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (147.9142, -54.32246)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (148.3445, -54.48052)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (148.3243, -54.4731)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (147.8309, -54.2919)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (146.8628, -53.93633)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (145.4392, -53.41353)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (143.5966, -52.73682)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (141.3824, -51.92361)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (138.8486, -50.99306)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (136.0476, -49.96439)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (133.0284, -48.85557)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (129.8349, -47.68275)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (126.5056, -46.46001)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (123.073, -45.19939)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (119.5651, -43.91108)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (116.0051, -42.60363)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (112.4125, -41.28424)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (108.8037, -39.95889)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (105.1924, -38.63259)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (101.5899, -37.30956)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (98.00608, -35.99338)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (94.44904, -34.68704)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (90.92567, -33.39305)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (87.4419, -32.11362)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (84.00271, -30.85055)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (80.61244, -29.60545)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (77.27474, -28.37966)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (73.99281, -27.17435)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (70.76934, -25.99051)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (67.60674, -24.82903)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (64.50702, -23.69063)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (61.47195, -22.57598)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (58.50307, -21.48564)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (55.60176, -20.42011)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (52.76912, -19.37981)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (50.00617, -18.3651)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (47.31383, -17.37632)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (44.69289, -16.41376)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (42.144, -15.47766)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (39.6677, -14.56823)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (37.26458, -13.68566)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (34.93505, -12.83013)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (32.67953, -12.00178)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (30.49833, -11.20071)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (28.39175, -10.42706)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (26.36007, -9.68091)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (24.40348, -8.962338)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (22.52214, -8.271406)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (20.71626, -7.608183)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (18.98593, -6.972709)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (17.33127, -6.365025)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (15.75235, -5.785154)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (14.24925, -5.233132)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (12.82198, -4.708956)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (11.47055, -4.212635)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (10.19496, -3.744166)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (8.995179, -3.303539)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (7.871168, -2.890739)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (6.822853, -2.505738)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (5.85014, -2.148503)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (4.952934, -1.818998)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (4.131084, -1.517168)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (3.384453, -1.242963)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (2.712858, -0.996315)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (2.116113, -0.777157)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (1.593992, -0.585404)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (1.146251, -0.420968)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (0.772632, -0.283754)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (0.472844, -0.173655)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (0.246587, -0.090561)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (0.093526, -0.034348)
+FIRST LOOP DEBUG:
+  - Loop center: (141.0, 376.5)
+  - Path direction: (0.938697, -0.344743)
+  - Follow force: (0.013314, -0.00489)
+Set loop_acceleration
