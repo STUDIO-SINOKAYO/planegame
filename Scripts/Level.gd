@@ -26,6 +26,7 @@ var is_drawing = false
 var min_point_distance = 8.0     # Don't add points too close together
 var game_over = false            
 var center = Line2D.new() 		# FOR DEBUG (detect loops 2)
+var loop_centers: Array = []
 
 # Old drawing cleanup system
 var cleanup_timer: Timer         # Timer for removing old drawings
@@ -213,14 +214,17 @@ func detect_loops_2() -> int:
 	
 	# Array to collect all loop centers before creating the red debug line
 	var loop_centers_found = []
+	loop_centers = []
 	
 	# Variables for calculating loop area and tracking directional changes
 	var area = 0
 	var up = false
 	var left = false
 	var up_coords = Vector2(0, 0)
+	var up_coords_global = Vector2(0, 0)
 	var left_coords = Vector2(0, 0)
 	var down_coords = Vector2(0, 0)
+	var down_coords_global = Vector2(0, 0)
 	var up_index = 0
 	var left_index = 0
 	var down_index = 0
@@ -243,6 +247,7 @@ func detect_loops_2() -> int:
 				up_count += 1
 				up = true
 				up_coords = current_screen[i]
+				up_coords_global = current_drawing[i]
 				up_index = i
 				print("UP detected at index: ", i)
 			# Detect leftward movement (negative change in y direction while moving left)
@@ -256,6 +261,7 @@ func detect_loops_2() -> int:
 			if(prev_x != 0 && current_direction.x >= 0 && (current_direction.x / prev_x) < 0): #DOWN
 				down_count += 1
 				down_index = i
+				down_coords_global = current_drawing[i]
 				print("DOWN detected at index: ", i, " | up=", up, " left=", left)
 				# When we have UP→LEFT→DOWN sequence, create a loop center and calculate area
 				if up && left:
@@ -275,6 +281,7 @@ func detect_loops_2() -> int:
 					var loop_center_pos = (up_coords + down_coords) / 2
 					print("Calculated loop center: ", loop_center_pos)
 					loop_centers_found.append(loop_center_pos)
+					loop_centers.append((up_coords_global + down_coords_global) / 2)
 					
 					# Extract the path segment from this loop for wind physics
 					var loop_path = []
@@ -319,7 +326,14 @@ func detect_loops_2() -> int:
 		for loop_center_pos in loop_centers_found:
 			center.add_point(loop_center_pos)
 	
-	print("Loop centers found for red line: ", loop_centers_found.size())
+	print("Loop centers found for red line: ", loop_centers.size())
+	var close = false
+	for i in range(0, current_drawing.size()):
+		if plane.position.distance_to(current_drawing[i]) < 100:
+			close = true
+	if close:
+		for i in range(0, loop_centers.size()):
+			plane.create_waypoint_at_position(loop_centers[i])
 	
 	return loops
 

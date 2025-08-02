@@ -116,15 +116,14 @@ func start_game() -> void:
 	game_started = true
 	# Give the plane a small initial speed so it's not completely stationary
 	current_speed = max(base_speed, 10.0)  # Minimum 10 speed to get started
-
+	
 #-------------------------------------------------------------------------------
 func _create_waypoint() -> void:
-	"""Create a waypoint at the cursor position"""
+	"""Create a waypoint at waypoint_position"""
 	if not game_started:
 		return
-	
-	# Set waypoint position to cursor location
 	waypoint_position = get_global_mouse_position()
+	# Set waypoint position to parameter location
 	has_active_waypoint = true
 	
 	# Debug print to verify waypoint creation
