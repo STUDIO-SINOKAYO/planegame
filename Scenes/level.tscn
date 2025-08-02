@@ -28,6 +28,17 @@ position = Vector2(792, 148)
 scale = Vector2(2.0625, 1.125)
 texture = ExtResource("2_81xng")
 
+[node name="Parallax2D2" type="Parallax2D" parent="."]
+repeat_size = Vector2(400, 0)
+autoscroll = Vector2(1, 1)
+repeat_times = 4
+
+[node name="Sprite2D3" type="Sprite2D" parent="Parallax2D2"]
+modulate = Color(0.0827665, 0.632311, 0.315415, 1)
+position = Vector2(493.5, 592)
+scale = Vector2(3.92969, 1.125)
+texture = ExtResource("2_81xng")
+
 [node name="Plane" type="CharacterBody2D" parent="."]
 position = Vector2(72, 407)
 script = ExtResource("2_6phgx")
@@ -195,19 +206,6 @@ layout_mode = 0
 offset_top = 39.0
 offset_right = 40.0
 offset_bottom = 62.0
-
-[node name="Ground" type="ColorRect" parent="."]
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = 565.0
-offset_right = 1152.0
-offset_bottom = 645.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 8
-color = Color(0.6, 0.3, 0.1, 1)
 
 [connection signal="game_over" from="Plane" to="." method="_on_game_over"]
 [connection signal="pressed" from="UI/SettingsButton" to="." method="_on_settings_pressed"]
