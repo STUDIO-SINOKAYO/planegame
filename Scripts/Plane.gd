@@ -9,6 +9,7 @@ class_name PlayerPlane
 @export var speed_deceleration: float = 2.0 ## How quickly the plane slows down when pointing upward
 @export var boost_speed: float = 600.0 ## Speed applied when using right-click boost
 @export var rotation_speed: float = 0.5 ## How slowly the plane rotates toward its velocity
+@export var velocity_rotation_multiplier: float = 1.0 ## Multiplier for rotation speed based on velocity magnitude
 
 @export_group("Physics")
 @export var gravity_strength: float = 300.0 ## How strong gravity affects the plane when pointing upward
@@ -28,6 +29,11 @@ class_name PlayerPlane
 @export var velocity_line_color: Color = Color.RED ## Color of the velocity direction line
 @export var velocity_line_width: float = 3.0 ## Width of the velocity direction line in pixels
 
+@export_group("Waypoint System")
+@export var show_waypoint_visual: bool = true ## Whether to display the waypoint visual indicator
+@export var enable_debug_waypoint_click: bool = false ## Enable right-click to create waypoints for debugging
+@export var waypoint_reach_threshold: float = 50.0 ## Distance threshold to consider waypoint reached
+
 @export_group("Game Settings")
 @export var ground_level: float = 600.0 ## Y position where the ground is located (game over point)
 
@@ -39,16 +45,23 @@ var game_started: bool = false
 var debug_wind_info: String = ""
 var velocity_line: Line2D
 var gravity_velocity: Vector2 = Vector2.ZERO
+var waypoint_position: Vector2 = Vector2.ZERO
+var has_active_waypoint: bool = false
+var waypoint_visual: Node2D
 
 # Signals
 signal game_over
 signal speed_changed(new_speed: float)
 signal loop_detected(loop_count: int)
+signal waypoint_created(position: Vector2)
+signal waypoint_reached(position: Vector2)
+signal waypoint_cleared()
 
 #-------------------------------------------------------------------------------
 func _ready() -> void:
 	_initialize_plane()
 	_setup_velocity_visualization()
+	_setup_waypoint_visualization()
 
 #-------------------------------------------------------------------------------
 func _initialize_plane() -> void:
@@ -70,40 +83,59 @@ func _setup_velocity_visualization() -> void:
 	add_child(velocity_line)
 
 #-------------------------------------------------------------------------------
-func _input(event: InputEvent) -> void:
+func _setup_waypoint_visualization() -> void:
+	"""Create and configure the waypoint visualization"""
+	# We'll use the plane's own _draw method instead of creating separate nodes
+	pass
+
+#-------------------------------------------------------------------------------
+func _draw() -> void:
+	"""Custom drawing for waypoint visualization"""
+	if has_active_waypoint and show_waypoint_visual:
+		# Convert world position to local coordinates
+		var local_waypoint_pos = to_local(waypoint_position)
+		
+		# Draw cross lines
+		draw_line(local_waypoint_pos + Vector2(-20, 0), local_waypoint_pos + Vector2(20, 0), Color.RED, 4.0)
+		draw_line(local_waypoint_pos + Vector2(0, -20), local_waypoint_pos + Vector2(0, 20), Color.RED, 4.0)
+		
+		# Draw circle
+		draw_arc(local_waypoint_pos, 15.0, 0, TAU, 16, Color.RED, 3.0)
+
+#-------------------------------------------------------------------------------
+func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_accept"):
 		start_game()
 	
-	if Input.is_action_just_pressed("right_click"):
-		apply_boost()
+	if Input.is_action_just_pressed("right_click") and enable_debug_waypoint_click:
+		_create_waypoint()
 
 #-------------------------------------------------------------------------------
 func start_game() -> void:
 	"""Start the game and enable movement"""
 	game_started = true
+	# Give the plane a small initial speed so it's not completely stationary
+	current_speed = max(base_speed, 10.0)  # Minimum 10 speed to get started
 
 #-------------------------------------------------------------------------------
-func apply_boost() -> void:
-	"""Apply speed boost to the plane"""
+func _create_waypoint() -> void:
+	"""Create a waypoint at the cursor position"""
 	if not game_started:
 		return
 	
-	# Get cursor position and calculate direction
-	var cursor_position: Vector2 = get_global_mouse_position()
-	var boost_direction: Vector2 = (cursor_position - global_position).normalized()
+	# Set waypoint position to cursor location
+	waypoint_position = get_global_mouse_position()
+	has_active_waypoint = true
 	
-	# Set velocity directly toward cursor with full boost speed
-	velocity = boost_direction * boost_speed
+	# Debug print to verify waypoint creation
+	print("Waypoint created at: ", waypoint_position)
+	print("Plane position: ", global_position)
 	
-	# Set current speed to boost speed for consistent behavior
-	current_speed = boost_speed
-	speed_changed.emit(current_speed)
+	# Emit signal for external listeners
+	waypoint_created.emit(waypoint_position)
 	
-	# Clear gravity velocity since we're overriding it
-	gravity_velocity = Vector2.ZERO
-	
-	# Immediately orient the plane toward the cursor for boost
-	rotation = boost_direction.angle()
+	# Create visual representation
+	_update_waypoint_visual()
 
 #-------------------------------------------------------------------------------
 func _physics_process(delta: float) -> void:
@@ -116,6 +148,11 @@ func _physics_process(delta: float) -> void:
 	_update_velocity_visualization()
 	_update_rotation()
 	_check_boundaries()
+	
+	# Redraw if we have an active waypoint to keep it visible
+	if has_active_waypoint:
+		queue_redraw()
+	
 	move_and_slide()
 
 #-------------------------------------------------------------------------------
@@ -141,20 +178,30 @@ func _update_rotation() -> void:
 		while angle_diff < -PI:
 			angle_diff += 2 * PI
 		
+		# Calculate velocity-based rotation speed
+		var velocity_factor: float = (velocity.length() / max_speed) * velocity_rotation_multiplier
+		var final_rotation_speed: float = rotation_speed * (1.0 + velocity_factor)
+		
 		# Gradually rotate toward the velocity direction
-		rotation += angle_diff * rotation_speed * get_physics_process_delta_time()
+		rotation += angle_diff * final_rotation_speed * get_physics_process_delta_time()
 
 #-------------------------------------------------------------------------------
 func _update_movement(delta: float) -> void:
 	"""Update plane movement including thrust and gravity"""
 	var forward_direction: Vector2 = Vector2.RIGHT.rotated(rotation)
 	
-	_apply_thrust(forward_direction, delta)
+	# Check if we have an active waypoint
+	if has_active_waypoint:
+		_apply_waypoint_thrust(delta)
+		_check_waypoint_reached()
+	else:
+		_apply_thrust(forward_direction, delta)
+	
 	_apply_gravity(forward_direction, delta)
 	_update_final_velocity(forward_direction)
 
 #-------------------------------------------------------------------------------
-func _apply_thrust(forward_direction: Vector2, delta: float) -> void:
+func _apply_thrust(forward_direction: Vector2, _delta: float) -> void:
 	"""Apply thrust based on plane's forward direction"""
 	var speed_multiplier: float = max(forward_direction.y, 0.0)
 	
@@ -165,8 +212,63 @@ func _apply_thrust(forward_direction: Vector2, delta: float) -> void:
 		# Decelerate when pointing upward
 		current_speed -= speed_deceleration
 	
-	current_speed = clamp(current_speed, 0.0, max_speed)
+	# Allow for minimum movement so gravity can take effect
+	var minimum_speed = max(base_speed, 10.0)
+	current_speed = clamp(current_speed, minimum_speed, max_speed)
 	speed_changed.emit(current_speed)
+
+#-------------------------------------------------------------------------------
+func _apply_waypoint_thrust(delta: float) -> void:
+	"""Apply thrust towards the active waypoint"""
+	if not game_started or not has_active_waypoint:
+		return
+	
+	# Calculate direction towards waypoint
+	var waypoint_direction: Vector2 = (waypoint_position - global_position).normalized()
+	
+	# Apply constant thrust force towards waypoint
+	var thrust_force: Vector2 = waypoint_direction * boost_speed
+	
+	# Lerp current velocity towards the target velocity
+	var lerp_factor: float = 5.0 * delta  # Adjust this value to control lerp speed
+	velocity = velocity.lerp(thrust_force, lerp_factor)
+	
+	# Update current speed to match the velocity magnitude
+	current_speed = velocity.length()
+	speed_changed.emit(current_speed)
+
+#-------------------------------------------------------------------------------
+func _check_waypoint_reached() -> void:
+	"""Check if the plane has reached the waypoint"""
+	if not has_active_waypoint:
+		return
+	
+	var distance_to_waypoint: float = global_position.distance_to(waypoint_position)
+	
+	if distance_to_waypoint <= waypoint_reach_threshold:
+		var reached_position = waypoint_position  # Store before clearing
+		_clear_waypoint()
+		waypoint_reached.emit(reached_position)
+
+#-------------------------------------------------------------------------------
+func _clear_waypoint() -> void:
+	"""Clear the active waypoint"""
+	has_active_waypoint = false
+	waypoint_position = Vector2.ZERO
+	_update_waypoint_visual()
+	waypoint_cleared.emit()
+
+#-------------------------------------------------------------------------------
+func _update_waypoint_visual() -> void:
+	"""Update the visual representation of the waypoint"""
+	# Simply trigger a redraw since we're using _draw() method now
+	queue_redraw()
+	
+	if has_active_waypoint:
+		print("Creating waypoint visual at: ", waypoint_position)
+		print("Waypoint visual updated")
+	else:
+		print("Clearing waypoint visual")
 
 #-------------------------------------------------------------------------------
 func _apply_gravity(forward_direction: Vector2, delta: float) -> void:
@@ -184,8 +286,13 @@ func _apply_gravity(forward_direction: Vector2, delta: float) -> void:
 #-------------------------------------------------------------------------------
 func _update_final_velocity(forward_direction: Vector2) -> void:
 	"""Combine thrust and gravity to create final velocity"""
-	var forward_velocity: Vector2 = forward_direction * current_speed
-	velocity = forward_velocity + gravity_velocity
+	# Only apply normal thrust velocity if waypoint isn't active
+	if not has_active_waypoint:
+		# Preserve momentum by keeping existing velocity and only adding thrust influence
+		var forward_velocity: Vector2 = forward_direction * current_speed
+		# Gradually blend the current velocity with the desired forward velocity to preserve momentum
+		var momentum_factor: float = 0.95  # How much of the existing velocity to keep (0.0-1.0)
+		velocity = velocity * momentum_factor + (forward_velocity + gravity_velocity) * (1.0 - momentum_factor)
 
 #-------------------------------------------------------------------------------
 func _update_velocity_visualization() -> void:
@@ -265,12 +372,74 @@ func reset_plane() -> void:
 	current_speed = base_speed
 	gravity_velocity = Vector2.ZERO
 	game_started = false
+	_clear_waypoint()
 	
 	if velocity_line:
 		velocity_line.clear_points()
 	
 	# Reset position if needed
 	velocity = Vector2.ZERO
+
+#-------------------------------------------------------------------------------
+# PUBLIC WAYPOINT INTERFACE
+#-------------------------------------------------------------------------------
+func create_waypoint_at_position(world_position: Vector2) -> bool:
+	"""Create a waypoint at a specific world position. Returns true if successful."""
+	if not game_started:
+		return false
+	
+	waypoint_position = world_position
+	has_active_waypoint = true
+	_update_waypoint_visual()
+	
+	waypoint_created.emit(world_position)
+	print("Waypoint created programmatically at: ", world_position)
+	
+	return true
+
+#-------------------------------------------------------------------------------
+func get_waypoint_position() -> Vector2:
+	"""Get the current waypoint position. Returns Vector2.ZERO if no active waypoint."""
+	return waypoint_position if has_active_waypoint else Vector2.ZERO
+
+#-------------------------------------------------------------------------------
+func get_distance_to_waypoint() -> float:
+	"""Get distance to current waypoint. Returns -1 if no active waypoint."""
+	if not has_active_waypoint:
+		return -1.0
+	return global_position.distance_to(waypoint_position)
+
+#-------------------------------------------------------------------------------
+func has_waypoint() -> bool:
+	"""Check if there's currently an active waypoint."""
+	return has_active_waypoint
+
+#-------------------------------------------------------------------------------
+func clear_waypoint_public() -> bool:
+	"""Public method to clear the current waypoint. Returns true if waypoint was cleared."""
+	if not has_active_waypoint:
+		return false
+	
+	_clear_waypoint()
+	return true
+
+#-------------------------------------------------------------------------------
+func set_waypoint_reach_threshold(new_threshold: float) -> void:
+	"""Set the distance threshold for considering a waypoint reached."""
+	waypoint_reach_threshold = new_threshold
+
+#-------------------------------------------------------------------------------
+func set_waypoint_visibility(show_visual: bool) -> void:
+	"""Toggle waypoint visual visibility."""
+	show_waypoint_visual = show_visual
+	queue_redraw()
+
+#-------------------------------------------------------------------------------
+func set_velocity_line_visibility(show_line: bool) -> void:
+	"""Toggle velocity line visibility."""
+	show_velocity_line = show_line
+	if velocity_line:
+		velocity_line.visible = show_line
 
 #-------------------------------------------------------------------------------
 func _get_debug_info() -> String:

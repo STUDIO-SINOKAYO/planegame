@@ -14,7 +14,7 @@ scale = Vector2(0.8125, 2.82031)
 texture = ExtResource("2_81xng")
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
-position = Vector2(1986, 615)
+position = Vector2(1911, 786)
 scale = Vector2(20.5313, 2.71875)
 texture = ExtResource("2_81xng")
 
@@ -22,11 +22,12 @@ texture = ExtResource("2_81xng")
 position = Vector2(72, 407)
 script = ExtResource("2_6phgx")
 max_speed = 300.0
-speed_deceleration = 1.0
-gravity_strength = 150.0
+speed_deceleration = 0.5
+boost_speed = 300.0
+max_upward_angle = 0.1
+enable_debug_waypoint_click = true
 
 [node name="PlaneVisual" type="Polygon2D" parent="Plane"]
-visible = false
 color = Color(0, 0, 1, 1)
 polygon = PackedVector2Array(15, 0, -8, 8, -5, 0, -8, -8)
 
@@ -204,6 +205,21 @@ position = Vector2(1201, 347.5)
 scale = Vector2(1, 1.92969)
 texture = ExtResource("2_81xng")
 
+[node name="Icon2" type="Sprite2D" parent="Icon2"]
+position = Vector2(1034, -145.878)
+scale = Vector2(1, 1.92969)
+texture = ExtResource("2_81xng")
+
+[node name="Icon2" type="Sprite2D" parent="Icon2/Icon2"]
+position = Vector2(352, 170.529)
+scale = Vector2(1, 1.10541)
+texture = ExtResource("2_81xng")
+
+[node name="Icon2" type="Sprite2D" parent="Icon2/Icon2/Icon2"]
+position = Vector2(595, -114.911)
+scale = Vector2(1, 1.10541)
+texture = ExtResource("2_81xng")
+
 [node name="Icon3" type="Sprite2D" parent="."]
 position = Vector2(1260, 58)
 texture = ExtResource("2_81xng")
@@ -215,6 +231,16 @@ texture = ExtResource("2_81xng")
 
 [node name="Icon5" type="Sprite2D" parent="."]
 position = Vector2(1670, 42)
+texture = ExtResource("2_81xng")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+position = Vector2(4589, 779)
+scale = Vector2(20.5313, 2.71875)
+texture = ExtResource("2_81xng")
+
+[node name="Sprite2D4" type="Sprite2D" parent="."]
+position = Vector2(7212, 795)
+scale = Vector2(20.5313, 2.71875)
 texture = ExtResource("2_81xng")
 
 [connection signal="game_over" from="Plane" to="." method="_on_game_over"]
