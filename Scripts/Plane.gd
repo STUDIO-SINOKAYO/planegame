@@ -49,6 +49,7 @@ var waypoint_position: Vector2 = Vector2.ZERO
 var has_active_waypoint: bool = false
 var waypoint_visual: Node2D
 var dead = false
+var drawing_enabled: bool = true  # Controls whether the player can draw lines
 
 # Signals
 signal game_over
@@ -453,3 +454,18 @@ func _get_debug_info() -> String:
 		str(gravity_velocity), 
 		str(game_started)
 	]
+
+#-------------------------------------------------------------------------------
+func disable_drawing() -> void:
+	"""Disable the ability to draw lines"""
+	drawing_enabled = false
+
+#-------------------------------------------------------------------------------
+func enable_drawing() -> void:
+	"""Enable the ability to draw lines"""
+	drawing_enabled = true
+
+#-------------------------------------------------------------------------------
+func is_drawing_enabled() -> bool:
+	"""Check if drawing is currently enabled"""
+	return drawing_enabled

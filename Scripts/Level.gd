@@ -130,7 +130,7 @@ func _input(event):
 
 func _handle_mouse_button(event: InputEventMouseButton):
 	if event.button_index == MOUSE_BUTTON_LEFT:
-		if event.pressed and current_stamina > 0:
+		if event.pressed and current_stamina > 0 and plane.is_drawing_enabled():
 			# Use event position for consistency instead of get_mouse_position
 			var screen_pos = event.position
 			var world_pos = get_global_mouse_position()
@@ -139,7 +139,7 @@ func _handle_mouse_button(event: InputEventMouseButton):
 			finish_drawing()
 
 func _handle_mouse_motion(event: InputEventMouseMotion):
-	if is_drawing and current_stamina > 0:
+	if is_drawing and current_stamina > 0 and plane.is_drawing_enabled():
 		# Use event position for consistency instead of get_mouse_position  
 		var screen_pos = event.position
 		var world_pos = get_global_mouse_position()
@@ -148,7 +148,7 @@ func _handle_mouse_motion(event: InputEventMouseMotion):
 # === DRAWING FUNCTIONS ===
 
 func start_drawing(screen_pos: Vector2, world_pos: Vector2):
-	if current_stamina <= 0 or not Global.MouseEnteredRadius:
+	if current_stamina <= 0 or not Global.MouseEnteredRadius or not plane.is_drawing_enabled():
 		return
 		
 	is_drawing = true
@@ -169,9 +169,9 @@ func start_drawing(screen_pos: Vector2, world_pos: Vector2):
 	current_screen.append(screen_pos)		# Store screen coords for debug
 
 func continue_drawing(screen_pos: Vector2, world_pos: Vector2):
-	if current_drawing.size() == 0 or current_stamina <= 0:
-		if current_stamina <= 0:
-			finish_drawing()  # Auto-stop when stamina runs out
+	if current_drawing.size() == 0 or current_stamina <= 0 or not plane.is_drawing_enabled():
+		if current_stamina <= 0 or not plane.is_drawing_enabled():
+			finish_drawing()  # Auto-stop when stamina runs out or drawing is disabled
 		return
 	
 	var last_point = current_drawing[current_drawing.size() - 1]
