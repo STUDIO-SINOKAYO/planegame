@@ -10,8 +10,7 @@ var rotation_speed: float = 5.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	# Hide the default cursor when the mouse is over the window
-	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	
 	# Set initial rotation to 90 degrees (default state)
 	rotation = deg_to_rad(90)
 	target_rotation = deg_to_rad(90)
