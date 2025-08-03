@@ -11,14 +11,3 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	# Make the node follow the mouse cursor position
 	global_position = get_global_mouse_position()
-
-
-
-func _on_cursor_detection_area_entered(area: Area2D) -> void:
-	pass # Replace with function body.
-
-
-
-
-func _on_cursor_detection_area_exited(area: Area2D) -> void:
-	pass # Replace with function body.
