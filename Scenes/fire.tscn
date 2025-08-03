@@ -19,3 +19,6 @@ wait_time = 0.055
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Kill"]
 shape = SubResource("CircleShape2D_yr3ur")
+
+[connection signal="body_entered" from="Kill" to="Kill" method="_on_body_entered"]
+[connection signal="timeout" from="Kill/Timer" to="Kill" method="_on_timer_timeout"]

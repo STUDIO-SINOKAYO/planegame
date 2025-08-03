@@ -38,6 +38,7 @@ position = Vector2(300, 0)
 position_smoothing_enabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Plane"]
+z_index = 1
 position = Vector2(-7, -12)
 rotation = -0.232129
 scale = Vector2(0.1, 0.1)
