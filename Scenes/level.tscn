@@ -1,8 +1,10 @@
-[gd_scene load_steps=159 format=3 uid="uid://ig7nbplla4pc"]
+[gd_scene load_steps=161 format=3 uid="uid://ig7nbplla4pc"]
 
 [ext_resource type="Script" uid="uid://cqn84wdm076k5" path="res://Scripts/Level.gd" id="1_k5f4k"]
 [ext_resource type="Script" uid="uid://pakfejb3s2jx" path="res://Scripts/Plane.gd" id="2_6phgx"]
 [ext_resource type="Texture2D" uid="uid://bqds3ltgssnrq" path="res://Assets/Sprites/COLUMN.png" id="2_dx6so"]
+[ext_resource type="Texture2D" uid="uid://c1x2p2vfhf4ra" path="res://Assets/Sprites/WALLPAPER.png" id="2_v15qs"]
+[ext_resource type="Texture2D" uid="uid://d4lth6ssom1o0" path="res://Assets/Sprites/WALLPAPERCURTAIN.png" id="3_5oihu"]
 [ext_resource type="Texture2D" uid="uid://cfof2t4pe4mmt" path="res://Assets/Sprites/PLANE.png" id="4_8c0lf"]
 [ext_resource type="Script" uid="uid://cgrkp52cjio52" path="res://Scripts/cursor_detection.gd" id="5_jmchl"]
 [ext_resource type="Texture2D" uid="uid://doxgbjthq1fb8" path="res://Assets/Sprites/cloud1.png" id="5_luodc"]
@@ -56,7 +58,7 @@
 [ext_resource type="Texture2D" uid="uid://w8eem3on3jpi" path="res://Assets/Sprites/LANDSNOW3.png" id="43_m4bds"]
 [ext_resource type="Script" uid="uid://lk8u8eonnnov" path="res://Scripts/Cursor.gd" id="44_gx30c"]
 [ext_resource type="Texture2D" uid="uid://cb2w4n1deig2t" path="res://Assets/Sprites/CURSOR.png" id="45_jmchl"]
-[ext_resource type="Script" path="res://Scenes/ui.gd" id="50_54tli"]
+[ext_resource type="Script" uid="uid://bfd76f72v2pyy" path="res://Scenes/ui.gd" id="50_54tli"]
 [ext_resource type="Texture2D" uid="uid://c4xxhlnltlhph" path="res://Assets/Sprites/BIRD.png" id="51_icsqr"]
 [ext_resource type="Texture2D" uid="uid://dfd0wjf6t6fh8" path="res://Assets/Sprites/PLAY.png" id="51_m4bds"]
 [ext_resource type="Texture2D" uid="uid://r2shy6eq8447" path="res://Assets/Sprites/SIGN.png" id="52_5oihu"]
@@ -884,7 +886,25 @@ plane_proximity_distance = 300.0
 show_debug_prints = false
 show_red_line = false
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="BG" type="Node2D" parent="."]
+
+[node name="Parallax2D" type="Parallax2D" parent="BG"]
+
+[node name="Wallpaper" type="Sprite2D" parent="BG/Parallax2D"]
+position = Vector2(693, 335)
+scale = Vector2(0.555, 0.555)
+texture = ExtResource("2_v15qs")
+offset = Vector2(-753, 0)
+
+[node name="Parallax2D2" type="Parallax2D" parent="BG"]
+scroll_offset = Vector2(2911, 0)
+autoscroll = Vector2(3, 0)
+
+[node name="Wallpapercurtain" type="Sprite2D" parent="BG/Parallax2D2"]
+position = Vector2(19, 814)
+texture = ExtResource("3_5oihu")
+
+[node name="Column" type="Sprite2D" parent="."]
 position = Vector2(56, 997)
 scale = Vector2(0.368, 1.276)
 texture = ExtResource("2_dx6so")
