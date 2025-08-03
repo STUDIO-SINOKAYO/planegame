@@ -1,10 +1,16 @@
+<<<<<<< Updated upstream
 [gd_scene load_steps=193 format=3 uid="uid://ig7nbplla4pc"]
+=======
+[gd_scene load_steps=194 format=3 uid="uid://ig7nbplla4pc"]
+>>>>>>> Stashed changes
 
 [ext_resource type="Script" uid="uid://cqn84wdm076k5" path="res://Scripts/Level.gd" id="1_k5f4k"]
 [ext_resource type="Script" uid="uid://pakfejb3s2jx" path="res://Scripts/Plane.gd" id="2_6phgx"]
 [ext_resource type="Texture2D" uid="uid://bqds3ltgssnrq" path="res://Assets/Sprites/COLUMN.png" id="2_dx6so"]
 [ext_resource type="Texture2D" uid="uid://c1x2p2vfhf4ra" path="res://Assets/Sprites/WALLPAPER.png" id="2_v15qs"]
 [ext_resource type="Texture2D" uid="uid://d4lth6ssom1o0" path="res://Assets/Sprites/WALLPAPERCURTAIN.png" id="3_5oihu"]
+[ext_resource type="Texture2D" uid="uid://oawrmomayls6" path="res://Assets/Sprites/INTRO.png" id="3_6dbqg"]
+[ext_resource type="Texture2D" uid="uid://bo7ulmywcyvot" path="res://Assets/Sprites/WALLPAPERWINDOWCONNECT.png" id="3_r74g4"]
 [ext_resource type="Texture2D" uid="uid://cfof2t4pe4mmt" path="res://Assets/Sprites/PLANE.png" id="4_8c0lf"]
 [ext_resource type="Script" uid="uid://cgrkp52cjio52" path="res://Scripts/cursor_detection.gd" id="5_jmchl"]
 [ext_resource type="Texture2D" uid="uid://doxgbjthq1fb8" path="res://Assets/Sprites/cloud1.png" id="5_luodc"]
@@ -27,8 +33,13 @@
 [ext_resource type="Texture2D" uid="uid://c6rxxv78xvprj" path="res://Assets/Sprites/CLOUD4NIMBUS.png" id="12_23rfw"]
 [ext_resource type="Texture2D" uid="uid://cn88atdxeptr1" path="res://Assets/Sprites/Tree1.png" id="12_c7le1"]
 [ext_resource type="PackedScene" uid="uid://blnnng7cwudpl" path="res://Scenes/solid_obstacle.tscn" id="13_2klc5"]
+<<<<<<< Updated upstream
 [ext_resource type="Script" path="res://Scenes/sun_trigger.gd" id="13_6g3im"]
 [ext_resource type="Script" path="res://Scenes/final_area.gd" id="14_ujtm6"]
+=======
+[ext_resource type="Script" uid="uid://c83lgi8sglcif" path="res://Scenes/sun_trigger.gd" id="13_6g3im"]
+[ext_resource type="Script" uid="uid://dsgfgijoxi35c" path="res://Scenes/final_area.gd" id="14_ujtm6"]
+>>>>>>> Stashed changes
 [ext_resource type="Texture2D" uid="uid://bt6hi8nvwtlpt" path="res://Assets/Sprites/tree3.png" id="15_00k4y"]
 [ext_resource type="Texture2D" uid="uid://c74d6k087ivsr" path="res://Assets/Sprites/house.png" id="15_vofx3"]
 [ext_resource type="Texture2D" uid="uid://cseuwuhyyle6a" path="res://Assets/Sprites/tree4.png" id="16_3a44l"]
@@ -74,7 +85,11 @@
 [ext_resource type="Texture2D" uid="uid://dk3ujljw3x52i" path="res://Assets/Sprites/PLAY2.png" id="52_t4ggf"]
 [ext_resource type="Texture2D" uid="uid://cen16b5c1bdaq" path="res://Assets/Sprites/ICEBERG.png" id="53_16bfe"]
 [ext_resource type="Texture2D" uid="uid://bsksucne12fqt" path="res://Assets/Sprites/LOGO.png" id="53_uoc0b"]
+<<<<<<< Updated upstream
 [ext_resource type="Script" path="res://Scenes/FireTrigger.gd" id="54_1wnhp"]
+=======
+[ext_resource type="Script" uid="uid://dlppu7gbxq70b" path="res://Scenes/FireTrigger.gd" id="54_1wnhp"]
+>>>>>>> Stashed changes
 [ext_resource type="Script" uid="uid://3tv75vtt4vbf" path="res://Scripts/tutorial.gd" id="54_ubg6v"]
 [ext_resource type="Texture2D" uid="uid://dcf1i3a40uifo" path="res://Assets/Sprites/TUTORIAL1.png" id="54_v15qs"]
 [ext_resource type="Texture2D" uid="uid://7uoiuw6h3rva" path="res://Assets/Sprites/MEGALODONWATERSPLASH.png" id="55_23rfw"]
@@ -541,8 +556,8 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e6a55"]
 size = Vector2(151, 2080)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_uty0w"]
-size = Vector2(212, 423)
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_ujtm6"]
+points = PackedVector2Array(-44, -125, 77, -294, 43, 200, -174, 194, -134, -212)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8rl1s"]
 radius = 77.0
@@ -1010,7 +1025,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(0, 300), Vector2(0, 300)]
+"values": [Vector2(0, 807), Vector2(0, 806)]
 }
 
 [sub_resource type="Animation" id="Animation_e3hal"]
@@ -1037,10 +1052,10 @@ tracks/0/path = NodePath(".:position")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.666667),
+"times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(0, 300), Vector2(0, 300)]
+"values": [Vector2(0, 774), Vector2(0, 300)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_w8uds"]
@@ -1049,6 +1064,9 @@ _data = {
 &"STAY": SubResource("Animation_e3hal"),
 &"rise": SubResource("Animation_6g3im")
 }
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_043up"]
+size = Vector2(183, 1790)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e6a55"]
 radius = 1400.01
@@ -1091,6 +1109,12 @@ scale = Vector2(0.555, 0.555)
 texture = ExtResource("2_v15qs")
 offset = Vector2(-753, 0)
 
+[node name="Wallpaper2" type="Sprite2D" parent="BG/Parallax2D"]
+position = Vector2(321, 132)
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("3_6dbqg")
+offset = Vector2(-753, 0)
+
 [node name="Parallax2D2" type="Parallax2D" parent="BG"]
 scroll_offset = Vector2(2911, 0)
 autoscroll = Vector2(3, 0)
@@ -1099,13 +1123,30 @@ autoscroll = Vector2(3, 0)
 position = Vector2(19, 814)
 texture = ExtResource("3_5oihu")
 
+[node name="Wallpapercurtain2" type="Sprite2D" parent="BG/Parallax2D2"]
+position = Vector2(2824, 807)
+texture = ExtResource("3_5oihu")
+
+[node name="Wallpapercurtain3" type="Sprite2D" parent="BG/Parallax2D2"]
+position = Vector2(5632, 813)
+texture = ExtResource("3_5oihu")
+
+[node name="Wallpapercurtain5" type="Sprite2D" parent="BG/Parallax2D2"]
+position = Vector2(9460, 513)
+scale = Vector2(0.725, 0.732407)
+texture = ExtResource("3_r74g4")
+
+[node name="Wallpapercurtain4" type="Sprite2D" parent="BG/Parallax2D2"]
+position = Vector2(8434, 807)
+texture = ExtResource("3_5oihu")
+
 [node name="Column" type="Sprite2D" parent="."]
 position = Vector2(56, 997)
 scale = Vector2(0.368, 1.276)
 texture = ExtResource("2_dx6so")
 
 [node name="Plane" type="CharacterBody2D" parent="."]
-position = Vector2(50, 363.005)
+position = Vector2(57, 337)
 script = ExtResource("2_6phgx")
 max_speed = 300.0
 speed_deceleration = 0.5
@@ -1558,7 +1599,6 @@ scale = Vector2(0.7, 0.7)
 texture = ExtResource("12_23rfw")
 
 [node name="Lightning" type="Node2D" parent="Obstacles"]
-visible = false
 position = Vector2(220, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Obstacles/Lightning"]
@@ -1665,7 +1705,7 @@ libraries = {
 script = ExtResource("36_py0mn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Whale/trigger"]
-position = Vector2(6969, -746)
+position = Vector2(7290, -571)
 shape = SubResource("RectangleShape2D_e6a55")
 
 [node name="Megalo" type="Node2D" parent="Obstacles"]
@@ -1679,8 +1719,8 @@ texture = ExtResource("36_s14gf")
 [node name="Solid Obstacle" parent="Obstacles/Megalo" instance=ExtResource("13_2klc5")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Megalo/Solid Obstacle"]
-position = Vector2(8425, 477)
-shape = SubResource("RectangleShape2D_uty0w")
+position = Vector2(8447, 461)
+shape = SubResource("ConvexPolygonShape2D_ujtm6")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Obstacles/Megalo/Solid Obstacle"]
 position = Vector2(8582, 537)
@@ -2115,7 +2155,7 @@ position = Vector2(10091.3, 521)
 shape = SubResource("RectangleShape2D_jcoft")
 
 [node name="HouseSnow3" type="Node2D" parent="Obstacles"]
-position = Vector2(0, 300)
+position = Vector2(0, 807)
 
 [node name="Sprite2D" type="Sprite2D" parent="Obstacles/HouseSnow3"]
 position = Vector2(11844, 42)
@@ -2143,6 +2183,10 @@ libraries = {
 
 [node name="Trigger" type="Area2D" parent="Obstacles/HouseSnow3"]
 script = ExtResource("62_tcm81")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/HouseSnow3/Trigger"]
+position = Vector2(11440, -485)
+shape = SubResource("RectangleShape2D_043up")
 
 [node name="GroundSnow4" type="Node2D" parent="Obstacles"]
 
