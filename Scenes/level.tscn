@@ -1,8 +1,4 @@
-<<<<<<< Updated upstream
 [gd_scene load_steps=192 format=3 uid="uid://ig7nbplla4pc"]
-=======
-[gd_scene load_steps=179 format=3 uid="uid://ig7nbplla4pc"]
->>>>>>> Stashed changes
 
 [ext_resource type="Script" uid="uid://cqn84wdm076k5" path="res://Scripts/Level.gd" id="1_k5f4k"]
 [ext_resource type="Script" uid="uid://pakfejb3s2jx" path="res://Scripts/Plane.gd" id="2_6phgx"]
@@ -54,10 +50,7 @@
 [ext_resource type="Texture2D" uid="uid://b3chqkk6e56y2" path="res://Assets/Sprites/fire5.png" id="26_bp4cd"]
 [ext_resource type="Script" path="res://Scenes/TreeTrigger.gd" id="28_8rl1s"]
 [ext_resource type="Texture2D" uid="uid://dpk7f15mvh0y8" path="res://Assets/Sprites/WAVES2BACK.png" id="30_ht0u2"]
-<<<<<<< Updated upstream
 [ext_resource type="Script" path="res://Scenes/LightningTrigger.gd" id="31_y6tmo"]
-=======
->>>>>>> Stashed changes
 [ext_resource type="Texture2D" uid="uid://dpdt7g872b4mo" path="res://Assets/Sprites/MILL.png" id="32_ogdfn"]
 [ext_resource type="Texture2D" uid="uid://l2nx1ilpxvtt" path="res://Assets/Sprites/MILLWHEEL.png" id="33_l1uqm"]
 [ext_resource type="Texture2D" uid="uid://by4wxuk76rpin" path="res://Assets/Sprites/WAVES1FRONT.png" id="34_gx30c"]
@@ -338,8 +331,8 @@ size = Vector2(39, 132)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_re0q2"]
 size = Vector2(7.25, 133)
 
-[sub_resource type="Animation" id="Animation_vl2iv"]
-resource_name = "leave"
+[sub_resource type="Animation" id="Animation_5o4ln"]
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -347,10 +340,10 @@ tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.566667),
+"times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(220, 0), Vector2(220, -210)]
+"values": [Vector2(220, 0), Vector2(220, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -359,21 +352,14 @@ tracks/1/path = NodePath(".:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-<<<<<<< Updated upstream
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(1, 1)]
-=======
-"times": PackedFloat32Array(0, 0.566667),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1, 0.7)]
->>>>>>> Stashed changes
 }
 
 [sub_resource type="Animation" id="Animation_o16m1"]
-length = 0.001
+resource_name = "STAY"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -399,7 +385,6 @@ tracks/1/keys = {
 "values": [Vector2(1, 1)]
 }
 
-<<<<<<< Updated upstream
 [sub_resource type="Animation" id="Animation_csjfj"]
 resource_name = "strike"
 tracks/0/type = "value"
@@ -428,13 +413,14 @@ tracks/1/keys = {
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ag4x3"]
-=======
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_e3hal"]
->>>>>>> Stashed changes
 _data = {
-&"RESET": SubResource("Animation_o16m1"),
-&"leave": SubResource("Animation_vl2iv")
+&"RESET": SubResource("Animation_5o4ln"),
+&"STAY": SubResource("Animation_o16m1"),
+&"strike": SubResource("Animation_csjfj")
 }
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bavf1"]
+size = Vector2(156, 1621)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_y6tmo"]
 radius = 23.0
@@ -799,16 +785,16 @@ size = Vector2(34.5, 104)
 radius = 92.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_53r2q"]
-size = Vector2(210, 170)
+size = Vector2(210, 130)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1cgv8"]
-radius = 29.0172
+radius = 50.9608
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hcs0j"]
-size = Vector2(8.5, 158.5)
+size = Vector2(8.5, 61)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_luodc"]
-size = Vector2(126, 246.75)
+size = Vector2(78, 183.5)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_luodc"]
 radius = 38.0
@@ -1004,13 +990,12 @@ radius = 83.1505
 size = Vector2(29.5, 112)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o2uvi"]
-size = Vector2(527, 333.25)
+size = Vector2(347, 266.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x3r1c"]
-size = Vector2(410.5, 224)
+size = Vector2(271, 98)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r07lu"]
-<<<<<<< Updated upstream
 size = Vector2(39, 235)
 
 [sub_resource type="Animation" id="Animation_w8uds"]
@@ -1066,9 +1051,6 @@ _data = {
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_043up"]
 size = Vector2(179.5, 2318.5)
-=======
-size = Vector2(62.5, 254.5)
->>>>>>> Stashed changes
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e6a55"]
 radius = 1400.01
@@ -1575,7 +1557,6 @@ scale = Vector2(0.7, 0.7)
 texture = ExtResource("12_23rfw")
 
 [node name="Lightning" type="Node2D" parent="Obstacles"]
-visible = false
 position = Vector2(220, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Obstacles/Lightning"]
@@ -1599,8 +1580,15 @@ shape = SubResource("RectangleShape2D_re0q2")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Obstacles/Lightning"]
 libraries = {
-&"": SubResource("AnimationLibrary_e3hal")
+&"": SubResource("AnimationLibrary_ag4x3")
 }
+
+[node name="trigger" type="Area2D" parent="Obstacles/Lightning"]
+script = ExtResource("31_y6tmo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Lightning/trigger"]
+position = Vector2(4987, -68)
+shape = SubResource("RectangleShape2D_bavf1")
 
 [node name="Cloud10" type="Sprite2D" parent="Obstacles"]
 position = Vector2(5562, -212)
@@ -1675,7 +1663,7 @@ libraries = {
 script = ExtResource("36_py0mn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Whale/trigger"]
-position = Vector2(7324, -763)
+position = Vector2(6969, -746)
 shape = SubResource("RectangleShape2D_e6a55")
 
 [node name="Megalo" type="Node2D" parent="Obstacles"]
@@ -1948,26 +1936,26 @@ shape = SubResource("CircleShape2D_dw52x")
 position = Vector2(5707, 454)
 
 [node name="Sprite2D" type="Sprite2D" parent="Obstacles/HouseFire"]
-position = Vector2(-190, 19)
-scale = Vector2(0.4, 0.4)
+position = Vector2(-179, 71)
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("18_0cmrb")
 
 [node name="burning_obstacle" parent="Obstacles/HouseFire" instance=ExtResource("20_pnhnk")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/HouseFire/burning_obstacle"]
-position = Vector2(-133, 122)
+position = Vector2(-162, 148)
 shape = SubResource("RectangleShape2D_53r2q")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Obstacles/HouseFire/burning_obstacle"]
-position = Vector2(-276, -61)
+position = Vector2(-259, 133)
 shape = SubResource("CircleShape2D_1cgv8")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Obstacles/HouseFire/burning_obstacle"]
-position = Vector2(-259, -60.25)
+position = Vector2(-229.25, -23.5)
 shape = SubResource("RectangleShape2D_hcs0j")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Obstacles/HouseFire/burning_obstacle"]
-position = Vector2(-247, 83.625)
+position = Vector2(-221, 84.25)
 shape = SubResource("RectangleShape2D_luodc")
 
 [node name="Fire2" type="Node2D" parent="Obstacles"]
@@ -2125,28 +2113,38 @@ position = Vector2(10091.3, 521)
 shape = SubResource("RectangleShape2D_jcoft")
 
 [node name="HouseSnow3" type="Node2D" parent="Obstacles"]
+position = Vector2(0, 300)
 
 [node name="Sprite2D" type="Sprite2D" parent="Obstacles/HouseSnow3"]
-position = Vector2(11859, 377)
-scale = Vector2(0.45, 0.45)
+position = Vector2(11871, 429)
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("40_54tli")
 
 [node name="Solid Obstacle" parent="Obstacles/HouseSnow3" instance=ExtResource("13_2klc5")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/HouseSnow3/Solid Obstacle"]
-position = Vector2(11856.5, 449.375)
+position = Vector2(11866.5, 496.25)
 shape = SubResource("RectangleShape2D_o2uvi")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Obstacles/HouseSnow3/Solid Obstacle"]
-position = Vector2(11851, 318)
+position = Vector2(11864.5, 364)
 shape = SubResource("RectangleShape2D_x3r1c")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Obstacles/HouseSnow3/Solid Obstacle"]
-position = Vector2(11642.8, 291.75)
+position = Vector2(11726.5, 403.5)
 shape = SubResource("RectangleShape2D_r07lu")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Obstacles/HouseSnow3"]
+libraries = {
+&"": SubResource("AnimationLibrary_w8uds")
+}
 
 [node name="Trigger" type="Area2D" parent="Obstacles/HouseSnow3"]
 script = ExtResource("62_tcm81")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/HouseSnow3/Trigger"]
+position = Vector2(11402.3, -705.75)
+shape = SubResource("RectangleShape2D_043up")
 
 [node name="GroundSnow4" type="Node2D" parent="Obstacles"]
 
@@ -2548,6 +2546,7 @@ shape = SubResource("RectangleShape2D_tk00g")
 [connection signal="timeout" from="Obstacles/Sun/Area2D/Timer" to="Obstacles/Sun/Area2D" method="_on_timer_timeout"]
 [connection signal="body_entered" from="Obstacles/Water/Area2D" to="Obstacles/Water/Area2D" method="_on_body_entered"]
 [connection signal="body_entered" from="Obstacles/Water/trigger" to="Obstacles/Water/trigger" method="_on_body_entered"]
+[connection signal="body_entered" from="Obstacles/Lightning/trigger" to="Obstacles/Lightning/trigger" method="_on_body_entered"]
 [connection signal="body_entered" from="Obstacles/Whale/trigger" to="Obstacles/Whale/trigger" method="_on_body_entered"]
 [connection signal="body_entered" from="Obstacles/Megalo/trigger" to="Obstacles/Megalo/trigger" method="_on_body_entered"]
 [connection signal="body_entered" from="Obstacles/Fire2/trigger" to="Obstacles/Fire2/trigger" method="_on_body_entered"]
