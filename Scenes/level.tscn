@@ -27,7 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://c6rxxv78xvprj" path="res://Assets/Sprites/CLOUD4NIMBUS.png" id="12_23rfw"]
 [ext_resource type="Texture2D" uid="uid://cn88atdxeptr1" path="res://Assets/Sprites/Tree1.png" id="12_c7le1"]
 [ext_resource type="PackedScene" uid="uid://blnnng7cwudpl" path="res://Scenes/solid_obstacle.tscn" id="13_2klc5"]
-[ext_resource type="Script" uid="uid://c83lgi8sglcif" path="res://Scenes/sun_trigger.gd" id="13_6g3im"]
+[ext_resource type="Script" path="res://Scenes/sun_trigger.gd" id="13_6g3im"]
 [ext_resource type="Script" path="res://Scenes/final_area.gd" id="14_ujtm6"]
 [ext_resource type="Texture2D" uid="uid://bt6hi8nvwtlpt" path="res://Assets/Sprites/tree3.png" id="15_00k4y"]
 [ext_resource type="Texture2D" uid="uid://c74d6k087ivsr" path="res://Assets/Sprites/house.png" id="15_vofx3"]
@@ -48,17 +48,17 @@
 [ext_resource type="AudioStream" uid="uid://h7c10w6jlwnl" path="res://Assets/Sounds/plane_boost.ogg" id="25_u0did"]
 [ext_resource type="Texture2D" uid="uid://ducpqa3tltecg" path="res://Assets/Sprites/lightning.png" id="26_1cgv8"]
 [ext_resource type="Texture2D" uid="uid://b3chqkk6e56y2" path="res://Assets/Sprites/fire5.png" id="26_bp4cd"]
-[ext_resource type="Script" uid="uid://xnkrkyewbhc3" path="res://Scenes/TreeTrigger.gd" id="28_8rl1s"]
+[ext_resource type="Script" path="res://Scenes/TreeTrigger.gd" id="28_8rl1s"]
 [ext_resource type="Texture2D" uid="uid://dpk7f15mvh0y8" path="res://Assets/Sprites/WAVES2BACK.png" id="30_ht0u2"]
-[ext_resource type="Script" uid="uid://b8bsk6cpxxc24" path="res://Scenes/LightningTrigger.gd" id="31_y6tmo"]
+[ext_resource type="Script" path="res://Scenes/LightningTrigger.gd" id="31_y6tmo"]
 [ext_resource type="Texture2D" uid="uid://dpdt7g872b4mo" path="res://Assets/Sprites/MILL.png" id="32_ogdfn"]
 [ext_resource type="Texture2D" uid="uid://l2nx1ilpxvtt" path="res://Assets/Sprites/MILLWHEEL.png" id="33_l1uqm"]
 [ext_resource type="Texture2D" uid="uid://by4wxuk76rpin" path="res://Assets/Sprites/WAVES1FRONT.png" id="34_gx30c"]
 [ext_resource type="Texture2D" uid="uid://byqcb07uk6egf" path="res://Assets/Sprites/WHALE.png" id="35_jmchl"]
-[ext_resource type="Script" uid="uid://2ossii387hb4" path="res://Scenes/WhaleTr.gd" id="36_py0mn"]
+[ext_resource type="Script" path="res://Scenes/WhaleTr.gd" id="36_py0mn"]
 [ext_resource type="Texture2D" uid="uid://dbmueoa6lp7et" path="res://Assets/Sprites/MEGALODON.png" id="36_s14gf"]
 [ext_resource type="Texture2D" uid="uid://dm8hibwg4jjsw" path="res://Assets/Sprites/TREES4SNOW.png" id="37_cpxpw"]
-[ext_resource type="Script" uid="uid://cgmoswixn2b1t" path="res://Scenes/MegaloTr.gd" id="38_fwhgd"]
+[ext_resource type="Script" path="res://Scenes/MegaloTr.gd" id="38_fwhgd"]
 [ext_resource type="Texture2D" uid="uid://dq5srxi32mnoj" path="res://Assets/Sprites/HOUSESNOW1.png" id="38_wbq00"]
 [ext_resource type="Texture2D" uid="uid://bvw0rnejlt445" path="res://Assets/Sprites/HOUSESNOW2.png" id="39_dx6so"]
 [ext_resource type="Texture2D" uid="uid://d4iged6xrnjts" path="res://Assets/Sprites/HOUSESNOW3.png" id="40_54tli"]
@@ -74,15 +74,15 @@
 [ext_resource type="Texture2D" uid="uid://dk3ujljw3x52i" path="res://Assets/Sprites/PLAY2.png" id="52_t4ggf"]
 [ext_resource type="Texture2D" uid="uid://cen16b5c1bdaq" path="res://Assets/Sprites/ICEBERG.png" id="53_16bfe"]
 [ext_resource type="Texture2D" uid="uid://bsksucne12fqt" path="res://Assets/Sprites/LOGO.png" id="53_uoc0b"]
-[ext_resource type="Script" uid="uid://dlppu7gbxq70b" path="res://Scenes/FireTrigger.gd" id="54_1wnhp"]
-[ext_resource type="Script" path="res://Scripts/tutorial.gd" id="54_ubg6v"]
+[ext_resource type="Script" path="res://Scenes/FireTrigger.gd" id="54_1wnhp"]
+[ext_resource type="Script" uid="uid://3tv75vtt4vbf" path="res://Scripts/tutorial.gd" id="54_ubg6v"]
 [ext_resource type="Texture2D" uid="uid://dcf1i3a40uifo" path="res://Assets/Sprites/TUTORIAL1.png" id="54_v15qs"]
 [ext_resource type="Texture2D" uid="uid://7uoiuw6h3rva" path="res://Assets/Sprites/MEGALODONWATERSPLASH.png" id="55_23rfw"]
 [ext_resource type="Texture2D" uid="uid://cx4rva20k3cp2" path="res://Assets/Sprites/WATERSPLASH1.png" id="56_16bfe"]
 [ext_resource type="Texture2D" uid="uid://fqprwqyq7o3v" path="res://Assets/Sprites/WATERSPLASH2.png" id="57_6g3im"]
 [ext_resource type="Texture2D" uid="uid://bpewowwsvo0uw" path="res://Assets/Sprites/WATERSPLASH3.png" id="58_w8uds"]
-[ext_resource type="Script" uid="uid://bq3h2jiel2mo3" path="res://Scenes/HouseTrigger.gd" id="62_tcm81"]
-[ext_resource type="Script" uid="uid://c82x1rm4jp3st" path="res://Scenes/ResetTrigger.gd" id="79_o16m1"]
+[ext_resource type="Script" path="res://Scenes/HouseTrigger.gd" id="62_tcm81"]
+[ext_resource type="Script" path="res://Scenes/ResetTrigger.gd" id="79_o16m1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_754fn"]
 radius = 12.0416
@@ -2438,30 +2438,6 @@ layout_mode = 0
 offset_top = 39.0
 offset_right = 40.0
 offset_bottom = 62.0
-
-[node name="Tutorial" type="Control" parent="UI"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-
-[node name="DrawPrompt" type="RichTextLabel" parent="UI/Tutorial"]
-visible = false
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -378.0
-offset_top = -80.0
-offset_right = -109.0
-grow_horizontal = 0
-grow_vertical = 2
-text = "Start Drawing a Loop-The-Loop near the plane to keep urself afloat"
 
 [node name="StartScreen" type="Control" parent="UI"]
 layout_mode = 3
