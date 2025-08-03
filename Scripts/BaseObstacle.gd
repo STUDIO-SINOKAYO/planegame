@@ -68,18 +68,15 @@ func handle_plane_death(plane: PlayerPlane) -> void:
 
 func _on_timer_timeout() -> void:
 	"""Restart the game intelligently"""
-	# Get the level controller to use smart restart
-	var level = get_tree().get_first_node_in_group("level")
-	if not level:
-		level = get_node("/root/Level")  # Fallback path
-	
-	if level and level.has_method("restart_game_directly"):
-		# Use smart restart if available
-		var ui_script = level.get_node("UI")
-		if ui_script and ui_script.game_has_started_once:
+	# Simple check: if game has been played before, try smart restart
+	if Global.should_skip_tutorial():
+		# Try smart restart
+		var level = get_tree().get_first_node_in_group("level")
+		if level and level.has_method("restart_game_directly"):
 			level.restart_game_directly()
 		else:
+			# Fallback to scene reload
 			get_tree().reload_current_scene()
 	else:
-		# Fallback to scene reload
+		# First time playing, use scene reload
 		get_tree().reload_current_scene()

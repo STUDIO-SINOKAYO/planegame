@@ -623,8 +623,8 @@ func _on_close_settings_pressed():
 	settings_panel.visible = false
 
 func _on_restart_pressed():
-	# Smart restart: check if game has started before
-	if ui_script.game_has_started_once:
+	# Simple check using global state
+	if Global.should_skip_tutorial():
 		# Quick restart without tutorial/start screen
 		restart_game_directly()
 	else:
@@ -641,12 +641,18 @@ func restart_game_directly():
 	clear_all_drawings()
 	
 	# Reset plane
-	plane.reset_plane()
+	if plane and plane.has_method("reset_plane"):
+		plane.reset_plane()
 	
 	# Reset UI
-	ui_script.start_game_directly()
-	game_over_screen.hide()
-	stamina_bar.value = max_stamina
+	if ui_script and ui_script.has_method("start_game_directly"):
+		ui_script.start_game_directly()
+	
+	# Reset UI elements
+	if game_over_screen:
+		game_over_screen.hide()
+	if stamina_bar:
+		stamina_bar.value = max_stamina
 	
 	# Reset any other game state as needed
 	setup_drawing()
