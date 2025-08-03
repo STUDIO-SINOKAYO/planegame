@@ -1,9 +1,10 @@
-[gd_scene load_steps=105 format=3 uid="uid://ig7nbplla4pc"]
+[gd_scene load_steps=106 format=3 uid="uid://ig7nbplla4pc"]
 
 [ext_resource type="Script" uid="uid://cqn84wdm076k5" path="res://Scripts/Level.gd" id="1_k5f4k"]
 [ext_resource type="Script" uid="uid://pakfejb3s2jx" path="res://Scripts/Plane.gd" id="2_6phgx"]
 [ext_resource type="Texture2D" uid="uid://d02dwmif63q64" path="res://icon.svg" id="2_81xng"]
 [ext_resource type="Texture2D" uid="uid://cfof2t4pe4mmt" path="res://Assets/Sprites/PLANE.png" id="4_8c0lf"]
+[ext_resource type="Script" uid="uid://cgrkp52cjio52" path="res://Scripts/cursor_detection.gd" id="5_jmchl"]
 [ext_resource type="Texture2D" uid="uid://doxgbjthq1fb8" path="res://Assets/Sprites/cloud1.png" id="5_luodc"]
 [ext_resource type="Texture2D" uid="uid://c2ma8uiowqrt3" path="res://Assets/Sprites/cloud2.png" id="6_1cgv8"]
 [ext_resource type="Texture2D" uid="uid://bcqnc3csg7q4e" path="res://Assets/Sprites/land2.png" id="7_ais7f"]
@@ -656,6 +657,7 @@ position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_754fn")
 
 [node name="Cursor detection" type="Area2D" parent="Plane"]
+script = ExtResource("5_jmchl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Plane/Cursor detection"]
 shape = SubResource("CircleShape2D_ogdfn")
@@ -1452,8 +1454,6 @@ color = Color(0.176471, 0.258824, 0.294118, 1)
 
 [connection signal="game_over" from="Plane" to="." method="_on_game_over"]
 [connection signal="waypoint_reached" from="Plane" to="." method="_on_plane_waypoint_reached"]
-[connection signal="area_entered" from="Plane/Cursor detection" to="." method="_on_cursor_detection_area_entered"]
-[connection signal="area_exited" from="Plane/Cursor detection" to="." method="_on_cursor_detection_area_exited"]
 [connection signal="body_entered" from="Obstacles/Sun/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="Obstacles/Sun/Area2D" to="Obstacles/Sun/Area2D" method="_on_body_entered"]
 [connection signal="timeout" from="Obstacles/Sun/Area2D/Timer" to="Obstacles/Sun/Area2D" method="_on_timer_timeout"]
