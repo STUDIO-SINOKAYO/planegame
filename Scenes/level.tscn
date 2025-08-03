@@ -2454,14 +2454,15 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 113.0
-offset_top = 117.0
-offset_right = 427.0
-offset_bottom = 219.0
+offset_left = -129.0
+offset_top = 188.0
+offset_right = 185.0
+offset_bottom = 290.0
 grow_horizontal = 2
 grow_vertical = 2
 texture_normal = ExtResource("51_m4bds")
 texture_pressed = ExtResource("52_t4ggf")
+texture_hover = ExtResource("52_t4ggf")
 
 [node name="TextureRect" type="TextureRect" parent="UI/StartScreen"]
 layout_mode = 1
