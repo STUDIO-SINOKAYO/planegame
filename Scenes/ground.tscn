@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://d2exe1tvrgqsv"]
+
+[ext_resource type="Texture2D" uid="uid://d02dwmif63q64" path="res://icon.svg" id="1_oltiy"]
+[ext_resource type="PackedScene" uid="uid://blnnng7cwudpl" path="res://Scenes/solid_obstacle.tscn" id="2_02qk3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s6h8e"]
+size = Vector2(1938, 92)
+
+[node name="Ground" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1.5, 0)
+scale = Vector2(15.5078, 1)
+texture = ExtResource("1_oltiy")
+
+[node name="Solid Obstacle" parent="." instance=ExtResource("2_02qk3")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Solid Obstacle"]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_s6h8e")

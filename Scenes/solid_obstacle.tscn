@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://blnnng7cwudpl"]
+
+[ext_resource type="Script" uid="uid://qed5lpv1hctg" path="res://Scripts/solid_obstacle.gd" id="1_e0s87"]
+
+[node name="Solid Obstacle" type="Area2D"]
+script = ExtResource("1_e0s87")
+
+[node name="Timer" type="Timer" parent="."]

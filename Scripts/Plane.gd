@@ -48,6 +48,7 @@ var gravity_velocity: Vector2 = Vector2.ZERO
 var waypoint_position: Vector2 = Vector2.ZERO
 var has_active_waypoint: bool = false
 var waypoint_visual: Node2D
+var dead = false
 
 # Signals
 signal game_over
@@ -142,17 +143,17 @@ func _physics_process(delta: float) -> void:
 		_handle_stationary_state()
 		return
 	
+	if not dead:
+		_update_movement(delta)
+		_update_velocity_visualization()
+		_update_rotation()
+		_check_boundaries()
+
+		# Redraw if we have an active waypoint to keep it visible
+		if has_active_waypoint:
+			queue_redraw()
 	
-	_update_movement(delta)
-	_update_velocity_visualization()
-	_update_rotation()
-	_check_boundaries()
-	
-	# Redraw if we have an active waypoint to keep it visible
-	if has_active_waypoint:
-		queue_redraw()
-	
-	move_and_slide()
+		move_and_slide()
 
 #-------------------------------------------------------------------------------
 func _handle_stationary_state() -> void:

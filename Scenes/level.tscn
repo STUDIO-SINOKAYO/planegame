@@ -1,15 +1,16 @@
-[gd_scene load_steps=9 format=3 uid="uid://ig7nbplla4pc"]
+[gd_scene load_steps=10 format=3 uid="uid://ig7nbplla4pc"]
 
 [ext_resource type="Script" uid="uid://cqn84wdm076k5" path="res://Scripts/Level.gd" id="1_k5f4k"]
 [ext_resource type="Script" uid="uid://pakfejb3s2jx" path="res://Scripts/Plane.gd" id="2_6phgx"]
 [ext_resource type="Texture2D" uid="uid://d02dwmif63q64" path="res://icon.svg" id="2_81xng"]
-[ext_resource type="Texture2D" uid="uid://3ljseolo2rts" path="res://Assets/Spite.png" id="4_81xng"]
+[ext_resource type="Texture2D" uid="uid://cfof2t4pe4mmt" path="res://Assets/PLANE.png" id="4_8c0lf"]
 [ext_resource type="PackedScene" uid="uid://ba0tj3luxxix5" path="res://Scenes/fire.tscn" id="5_wqkje"]
 [ext_resource type="PackedScene" uid="uid://csjtfwpgo02uf" path="res://Scenes/water.tscn" id="6_0f350"]
 [ext_resource type="PackedScene" uid="uid://dx16h0mn7uvo5" path="res://Scenes/clouds.tscn" id="7_8c0lf"]
+[ext_resource type="PackedScene" uid="uid://d2exe1tvrgqsv" path="res://Scenes/ground.tscn" id="8_754fn"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0f350"]
-size = Vector2(41, 7)
+[sub_resource type="CircleShape2D" id="CircleShape2D_754fn"]
+radius = 12.0416
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_k5f4k")
@@ -37,13 +38,16 @@ position = Vector2(300, 0)
 position_smoothing_enabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Plane"]
-position = Vector2(0.9, 1.06)
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("4_81xng")
+position = Vector2(-7, -12)
+rotation = -0.232129
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("4_8c0lf")
+region_enabled = true
+region_rect = Rect2(0, 0, 1170, 980)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Plane"]
-position = Vector2(-3.5, -0.5)
-shape = SubResource("RectangleShape2D_0f350")
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_754fn")
 
 [node name="Obstacles" type="Node2D" parent="."]
 
@@ -55,6 +59,9 @@ position = Vector2(795, 416)
 
 [node name="Clouds" parent="Obstacles" instance=ExtResource("7_8c0lf")]
 position = Vector2(374, 44)
+
+[node name="Ground" parent="Obstacles" instance=ExtResource("8_754fn")]
+position = Vector2(690, 750)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
