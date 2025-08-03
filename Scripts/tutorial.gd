@@ -85,3 +85,12 @@ func _on_play_button_pressed() -> void:
 	"""Called when the play button is pressed to start the tutorial"""
 	fade_in_dotted_line()
 	fade_in_tutorial_text()
+
+
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	# Check if the area that entered is the plane
+	if area.name == "Plane" or area.get_parent().name == "Plane":
+		tutorial_part_2()
+
+func tutorial_part_2():
+	print("DEBUG: Plane passed through tutorial Area2D trigger")

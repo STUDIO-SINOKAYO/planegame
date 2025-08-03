@@ -1,4 +1,4 @@
-[gd_scene load_steps=192 format=3 uid="uid://ig7nbplla4pc"]
+[gd_scene load_steps=193 format=3 uid="uid://ig7nbplla4pc"]
 
 [ext_resource type="Script" uid="uid://cqn84wdm076k5" path="res://Scripts/Level.gd" id="1_k5f4k"]
 [ext_resource type="Script" uid="uid://pakfejb3s2jx" path="res://Scripts/Plane.gd" id="2_6phgx"]
@@ -1064,6 +1064,9 @@ size = Vector2(54, 148)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s14gf"]
 radius = 2.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_043up"]
+size = Vector2(49, 884)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tk00g"]
 size = Vector2(304, 5742)
@@ -2281,6 +2284,13 @@ position = Vector2(564, 309)
 scale = Vector2(0.298, 0.298)
 texture = ExtResource("76_r74g4")
 
+[node name="Area2D" type="Area2D" parent="Tutorial"]
+position = Vector2(741, 320)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tutorial/Area2D"]
+position = Vector2(14.5, -44)
+shape = SubResource("RectangleShape2D_043up")
+
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource("50_54tli")
 
@@ -2525,6 +2535,7 @@ shape = SubResource("RectangleShape2D_tk00g")
 [connection signal="body_entered" from="Obstacles/Megalo/trigger" to="Obstacles/Megalo/trigger" method="_on_body_entered"]
 [connection signal="body_entered" from="Obstacles/Fire2/trigger" to="Obstacles/Fire2/trigger" method="_on_body_entered"]
 [connection signal="body_entered" from="Obstacles/HouseSnow3/Trigger" to="Obstacles/HouseSnow3/Trigger" method="_on_body_entered"]
+[connection signal="area_entered" from="Tutorial/Area2D" to="Tutorial" method="_on_area_2d_area_entered"]
 [connection signal="pressed" from="UI/SettingsButton" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="UI/GameOverScreen/RestartButton" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="UI/SettingsPanel/Panel/CloseButton" to="." method="_on_close_settings_pressed"]
