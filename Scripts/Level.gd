@@ -221,6 +221,10 @@ func _convert_screen_to_world_coordinates() -> Array:
 func _process_completed_drawing():
 	# Send the drawn path to the plane if it's long enough
 	if current_drawing.size() > 3 and plane:
+		# Start the game on the first line drawn, regardless of loops
+		if not plane.game_started:
+			plane.start_game()
+		
 		var loops = detect_loops_2()                 # Check for loops = wind physics
 		if loops > 0:
 			_handle_detected_loops(loops)
@@ -240,9 +244,9 @@ func _handle_detected_loops(loops: int):
 	# plane.set_loop_directions(loop_directions)  # Individual flow directions for each loop
 
 func _handle_no_loops():
-	# No loops detected - just start the game if needed
-	if not plane.game_started:
-		plane.game_started = true
+	# No loops detected - game has already been started in _process_completed_drawing()
+	# This function can be used for other non-loop specific logic if needed
+	pass
 
 # === LOOP DETECTION FUNCTIONS ===
 
@@ -703,3 +707,11 @@ func _on_cleanup_old_drawings():
 func _on_plane_waypoint_reached(_pos: Vector2) -> void:
 	if waypoints.size() > 0:
 		plane.create_waypoint_at_position(waypoints.pop_front())
+
+
+func _on_cursor_detection_area_entered(area: Area2D) -> void:
+	pass # Replace with function body.
+
+
+func _on_cursor_detection_area_exited(area: Area2D) -> void:
+	pass # Replace with function body.
