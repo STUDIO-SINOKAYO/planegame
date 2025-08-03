@@ -35,11 +35,14 @@ extends Node2D
 @export_group("Loop Detection")
 @export var min_drawing_size_for_loops: int = 10  ## Minimum number of points needed before loop detection starts. Lower = more sensitive
 @export var loop_direction_threshold: float = 0.3  ## Sensitivity for detecting direction changes (0.0-1.0). Lower = more sensitive to small turns
+@export var require_loop_to_start: bool = true  ## Whether the game requires at least one loop to be drawn before the plane starts moving
 
 # Cleanup system settings
 @export_group("Drawing Cleanup")
 @export var old_drawing_fade_time: float = 1.0  ## How long (seconds) before old drawings are removed automatically
 @export var max_concurrent_drawings: int = 1  ## Maximum number of drawings visible at once. Higher = more visual clutter but shows drawing history
+@export var max_drawable_lines: int = 3  ## Maximum total lines that can exist. When exceeded, oldest line is automatically deleted (0 = unlimited)
+@export var non_loop_fade_time: float = 0.8  ## How long (seconds) before non-loop lines fade away automatically
 
 # Stamina system settings
 @export_group("Stamina System")
@@ -68,6 +71,7 @@ extends Node2D
 # Drawing system variables (non-exported runtime state)
 var drawn_path_line: Line2D      # The cyan line you see when drawing
 var finished_lines: Array = []   # Array of completed lines in world space
+var line_has_loops: Array = []   # Array tracking which finished lines have loops (same index as finished_lines)
 var current_drawing: Array = []  # Points of what you're currently drawing
 var current_screen: Array = []	# Points of current drawing based on SCREEN POS
 var detected_loop_paths: Array = []  # Store the paths of detected loops
@@ -193,24 +197,48 @@ func finish_drawing():
 	Global.IsDrawing = false
 	
 	if drawn_path_line:
-		_process_completed_drawing()
+		var loops = detect_loops_2()  # Check for loops first
+		var has_loops = loops > 0
+		
+		_process_completed_drawing_with_loops(loops)
 		
 		# Add this line to the finished lines array
 		finished_lines.append(drawn_path_line)
+		line_has_loops.append(has_loops)  # Track if this line has loops
+		
+		# If this line has no loops, start immediate fade
+		if not has_loops:
+			_start_immediate_fade(drawn_path_line)
+		
 		drawn_path_line = null  # Clear reference so new line can be created
 		
+		# Enforce maximum drawable lines limit
+		_enforce_max_drawable_lines()
+		
 		# Start cleanup timer to remove old drawings after specified time
-		if cleanup_timer and finished_lines.size() > max_concurrent_drawings:
+		# Use the smaller of max_concurrent_drawings and max_drawable_lines (if max_drawable_lines > 0)
+		var effective_max = max_concurrent_drawings
+		if max_drawable_lines > 0:
+			effective_max = min(max_concurrent_drawings, max_drawable_lines)
+		
+		if cleanup_timer and finished_lines.size() > effective_max:
 			cleanup_timer.start()
 
-func _process_completed_drawing():
+func _process_completed_drawing_with_loops(loops: int):
 	# Send the drawn path to the plane if it's long enough
 	if current_drawing.size() > 3 and plane:
-		# Start the game on the first line drawn, regardless of loops
-		if not plane.game_started:
+		# Check if we should start the game based on configuration
+		var should_start_game = false
+		if require_loop_to_start:
+			# Only start if at least one loop has been detected
+			should_start_game = loops > 0
+		else:
+			# Start on any line (original behavior)
+			should_start_game = true
+		
+		if should_start_game and not plane.game_started:
 			plane.start_game()
 		
-		var loops = detect_loops_2()                 # Check for loops = wind physics
 		if loops > 0:
 			_handle_detected_loops(loops)
 		else:
@@ -226,9 +254,72 @@ func _handle_detected_loops(loops: int):
 	# plane.set_loop_directions(loop_directions)  # Individual flow directions for each loop
 
 func _handle_no_loops():
-	# No loops detected - game has already been started in _process_completed_drawing()
-	# This function can be used for other non-loop specific logic if needed
-	pass
+	# No loops detected - provide feedback to player if loop is required
+	if require_loop_to_start and show_debug_prints:
+		print("No loops detected - game will not start until a loop is drawn")
+	
+	# Show the draw prompt again if the game hasn't started yet and loops are required
+	if require_loop_to_start and not plane.game_started:
+		var draw_prompt = ui.get_node_or_null("Tutorial/DrawPrompt")
+		if draw_prompt and not draw_prompt.visible:
+			draw_prompt.visible = true
+
+func _enforce_max_drawable_lines():
+	"""Remove oldest lines when max_drawable_lines limit is exceeded"""
+	# If max_drawable_lines is 0, allow unlimited lines
+	if max_drawable_lines <= 0:
+		return
+		
+	while finished_lines.size() > max_drawable_lines:
+		_safely_remove_line_at_index(0)  # Remove oldest line (index 0)
+		
+		if show_debug_prints:
+			print("Removed oldest line. Remaining lines: ", finished_lines.size())
+
+func _start_immediate_fade(line: Line2D):
+	"""Start immediate fade effect for a non-loop line"""
+	if not line:
+		return
+		
+	# Start fade effect immediately using a tween
+	var tween = create_tween()
+	if tween:
+		tween.tween_property(line, "modulate:a", 0.0, non_loop_fade_time)  # Fade to transparent over non_loop_fade_time seconds
+		tween.finished.connect(_on_line_fade_complete.bind(line))
+		
+		if show_debug_prints:
+			print("Starting immediate fade effect for non-loop line over ", non_loop_fade_time, " seconds")
+
+func _on_line_fade_complete(line: Line2D):
+	"""Called when the fade effect is complete - remove the line"""
+	if not line or not is_instance_valid(line):
+		return
+		
+	# Find and remove from finished_lines array
+	var index = finished_lines.find(line)
+	if index >= 0:
+		_safely_remove_line_at_index(index)
+	
+	if show_debug_prints:
+		print("Non-loop line fade complete - line removed")
+
+func _safely_remove_line_at_index(index: int):
+	"""Safely remove a line and maintain array synchronization"""
+	if index < 0 or index >= finished_lines.size():
+		return
+		
+	var line = finished_lines[index]
+	
+	# Remove from scene
+	if line and is_instance_valid(line):
+		if line.get_parent():
+			line.get_parent().remove_child(line)
+		line.queue_free()
+	
+	# Remove from arrays
+	finished_lines.remove_at(index)
+	if index < line_has_loops.size():
+		line_has_loops.remove_at(index)
 
 # === LOOP DETECTION FUNCTIONS ===
 
@@ -668,6 +759,7 @@ func clear_all_drawings():
 		if is_instance_valid(line):
 			line.queue_free()
 	finished_lines.clear()
+	line_has_loops.clear()  # Clear loop tracking array
 	
 	# Clear current drawn line if it exists
 	if drawn_path_line:
@@ -680,12 +772,13 @@ func clear_all_drawings():
 func _on_cleanup_old_drawings():
 	# Remove old drawings to stay within max_concurrent_drawings limit
 	# Keep the most recent drawings visible, remove oldest ones
-	while finished_lines.size() > max_concurrent_drawings:
-		var old_line = finished_lines[0]  # Get the oldest line
-		if old_line and old_line.get_parent():
-			old_line.get_parent().remove_child(old_line)
-			old_line.queue_free()
-		finished_lines.remove_at(0)  # Remove from array
+	# Also enforce max_drawable_lines limit if it's set (> 0)
+	var effective_max = max_concurrent_drawings
+	if max_drawable_lines > 0:
+		effective_max = min(max_concurrent_drawings, max_drawable_lines)
+	
+	while finished_lines.size() > effective_max:
+		_safely_remove_line_at_index(0)  # Remove oldest line (index 0)
 
 
 func _on_plane_waypoint_reached(_pos: Vector2) -> void:
