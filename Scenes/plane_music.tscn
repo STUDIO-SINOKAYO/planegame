@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://c5lsfdfll5801"]
+
+[ext_resource type="AudioStream" uid="uid://c10om384k8yag" path="res://Assets/Sounds/plane.ogg" id="1_8alg3"]
+
+[node name="PlaneMusic" type="AudioStreamPlayer"]
+stream = ExtResource("1_8alg3")
+autoplay = true
+bus = &"Music"

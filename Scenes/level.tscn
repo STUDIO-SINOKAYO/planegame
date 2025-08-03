@@ -1,11 +1,9 @@
-[gd_scene load_steps=22 format=3 uid="uid://ig7nbplla4pc"]
+[gd_scene load_steps=47 format=3 uid="uid://ig7nbplla4pc"]
 
 [ext_resource type="Script" uid="uid://cqn84wdm076k5" path="res://Scripts/Level.gd" id="1_k5f4k"]
 [ext_resource type="Script" uid="uid://pakfejb3s2jx" path="res://Scripts/Plane.gd" id="2_6phgx"]
 [ext_resource type="Texture2D" uid="uid://d02dwmif63q64" path="res://icon.svg" id="2_81xng"]
 [ext_resource type="Texture2D" uid="uid://cfof2t4pe4mmt" path="res://Assets/Sprites/PLANE.png" id="4_8c0lf"]
-[ext_resource type="PackedScene" uid="uid://ba0tj3luxxix5" path="res://Scenes/fire.tscn" id="5_wqkje"]
-[ext_resource type="PackedScene" uid="uid://csjtfwpgo02uf" path="res://Scenes/water.tscn" id="6_0f350"]
 [ext_resource type="PackedScene" uid="uid://dx16h0mn7uvo5" path="res://Scenes/clouds.tscn" id="7_8c0lf"]
 [ext_resource type="PackedScene" uid="uid://d2exe1tvrgqsv" path="res://Scenes/ground.tscn" id="8_754fn"]
 [ext_resource type="Texture2D" uid="uid://bdnkly22vm7fp" path="res://Assets/Sprites/THE SUN.png" id="9_oqgf2"]
@@ -14,7 +12,19 @@
 [ext_resource type="Texture2D" uid="uid://cn88atdxeptr1" path="res://Assets/Sprites/Tree1.png" id="12_c7le1"]
 [ext_resource type="PackedScene" uid="uid://blnnng7cwudpl" path="res://Scenes/solid_obstacle.tscn" id="13_2klc5"]
 [ext_resource type="Texture2D" uid="uid://bkoltqpjyngtt" path="res://Assets/Sprites/tree2.png" id="14_nngtn"]
+[ext_resource type="Texture2D" uid="uid://bt6hi8nvwtlpt" path="res://Assets/Sprites/tree3.png" id="15_00k4y"]
 [ext_resource type="Texture2D" uid="uid://c74d6k087ivsr" path="res://Assets/Sprites/house.png" id="15_vofx3"]
+[ext_resource type="Texture2D" uid="uid://cseuwuhyyle6a" path="res://Assets/Sprites/tree4.png" id="16_3a44l"]
+[ext_resource type="Texture2D" uid="uid://bt62gviyxwd7m" path="res://Assets/Sprites/housefire.png" id="18_0cmrb"]
+[ext_resource type="Texture2D" uid="uid://c50t8eraocold" path="res://Assets/Sprites/fire1.png" id="19_0cmrb"]
+[ext_resource type="Texture2D" uid="uid://dfhcf7fsn1d1s" path="res://Assets/Sprites/piss.png" id="19_3a44l"]
+[ext_resource type="Script" uid="uid://bty8p5ewvf6un" path="res://Scripts/Water.gd" id="20_0cmrb"]
+[ext_resource type="AudioStream" uid="uid://bcfvnj30rpi46" path="res://Assets/Sounds/plane_fire.ogg" id="20_3a44l"]
+[ext_resource type="AudioStream" uid="uid://83074sx4wfi0" path="res://Assets/Sounds/water.ogg" id="20_24uko"]
+[ext_resource type="PackedScene" uid="uid://crh7eg66g3enr" path="res://Scenes/burning_obstacle.tscn" id="20_pnhnk"]
+[ext_resource type="Texture2D" uid="uid://ui1cqaqr8ukm" path="res://Assets/Sprites/fire2.png" id="22_24uko"]
+[ext_resource type="AudioStream" uid="uid://bmg0wvkw6oktq" path="res://Assets/Sounds/crash.ogg" id="24_gf56v"]
+[ext_resource type="AudioStream" uid="uid://h7c10w6jlwnl" path="res://Assets/Sounds/plane_boost.ogg" id="25_u0did"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_754fn"]
 radius = 12.0416
@@ -26,12 +36,58 @@ radius = 77.2787
 size = Vector2(65.25, 94.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3a44l"]
-size = Vector2(42, 55)
+size = Vector2(24, 68.25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c7le1"]
+size = Vector2(67, 91)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2klc5"]
+size = Vector2(13, 71)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pnhnk"]
+radius = 53.0848
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_24uko"]
+radius = 25.1794
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gf56v"]
+radius = 29.1548
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6y3s5"]
+size = Vector2(185, 89)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u0did"]
+radius = 55.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0cmrb"]
 size = Vector2(127, 215)
 
-[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_pnhnk"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_nngtn"]
+radius = 46.0109
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_53r2q"]
+size = Vector2(210, 130)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1cgv8"]
+radius = 50.9608
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hcs0j"]
+size = Vector2(8.5, 61)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_luodc"]
+size = Vector2(78, 183.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6y3s5"]
+radius = 81.0062
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_53r2q"]
+radius = 44.0114
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_luodc"]
+radius = 38.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1cgv8"]
+size = Vector2(13, 64)
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_k5f4k")
@@ -73,12 +129,6 @@ shape = SubResource("CircleShape2D_754fn")
 
 [node name="Obstacles" type="Node2D" parent="."]
 
-[node name="Fire" parent="Obstacles" instance=ExtResource("5_wqkje")]
-position = Vector2(356, 293)
-
-[node name="water" parent="Obstacles" instance=ExtResource("6_0f350")]
-position = Vector2(795, 416)
-
 [node name="Clouds" parent="Obstacles" instance=ExtResource("7_8c0lf")]
 position = Vector2(347, -41)
 
@@ -104,12 +154,12 @@ shape = SubResource("CircleShape2D_ha31o")
 [node name="Timer" type="Timer" parent="Obstacles/Sun/Area2D"]
 wait_time = 1.404
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Obstacles/Sun"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Obstacles/Sun/Area2D"]
 stream = ExtResource("11_qxfql")
 bus = &"SFX"
 
 [node name="Tree1" type="Node2D" parent="Obstacles"]
-position = Vector2(569, 511)
+position = Vector2(613, 542)
 
 [node name="Sprite2D" type="Sprite2D" parent="Obstacles/Tree1"]
 position = Vector2(0, 2)
@@ -124,11 +174,11 @@ position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_00k4y")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Obstacles/Tree1/Solid Obstacle"]
-position = Vector2(10, -57)
+position = Vector2(7, -64.875)
 shape = SubResource("RectangleShape2D_3a44l")
 
 [node name="Tree2" type="Node2D" parent="Obstacles"]
-position = Vector2(333, 545)
+position = Vector2(333, 570)
 
 [node name="Sprite2D" type="Sprite2D" parent="Obstacles/Tree2"]
 position = Vector2(1, 1)
@@ -136,29 +186,56 @@ scale = Vector2(0.3, 0.3)
 texture = ExtResource("14_nngtn")
 
 [node name="Solid Obstacle" parent="Obstacles/Tree2" instance=ExtResource("13_2klc5")]
-position = Vector2(6, 0)
+position = Vector2(1, 3)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Tree2/Solid Obstacle"]
+position = Vector2(-0.5, 30.5)
+shape = SubResource("RectangleShape2D_c7le1")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Obstacles/Tree2/Solid Obstacle"]
+position = Vector2(0.5, -46.5)
+shape = SubResource("RectangleShape2D_2klc5")
 
 [node name="Tree3" type="Node2D" parent="Obstacles"]
-position = Vector2(1166, 551)
+position = Vector2(1248, 551)
 
 [node name="Sprite2D" type="Sprite2D" parent="Obstacles/Tree3"]
+position = Vector2(-2, 39)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("15_00k4y")
 
 [node name="Solid Obstacle" parent="Obstacles/Tree3" instance=ExtResource("13_2klc5")]
-position = Vector2(2, -1)
+position = Vector2(-1, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Tree3/Solid Obstacle"]
+position = Vector2(-4, -8)
+shape = SubResource("CircleShape2D_pnhnk")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Obstacles/Tree3/Solid Obstacle"]
+position = Vector2(58, 13)
+shape = SubResource("CircleShape2D_24uko")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Obstacles/Tree3/Solid Obstacle"]
+position = Vector2(-63, 15)
+shape = SubResource("CircleShape2D_gf56v")
 
 [node name="Tree4" type="Node2D" parent="Obstacles"]
-position = Vector2(962, 550)
+position = Vector2(991, 550)
 
 [node name="Sprite2D" type="Sprite2D" parent="Obstacles/Tree4"]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("16_3a44l")
 
 [node name="Solid Obstacle" parent="Obstacles/Tree4" instance=ExtResource("13_2klc5")]
 position = Vector2(-3, -1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Tree4/Solid Obstacle"]
+position = Vector2(-3.5, -48.5)
+shape = SubResource("RectangleShape2D_6y3s5")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Obstacles/Tree4/Solid Obstacle"]
+position = Vector2(-13, -80)
+shape = SubResource("CircleShape2D_u0did")
 
 [node name="House" type="Node2D" parent="Obstacles"]
 position = Vector2(1419, 535)
@@ -169,14 +246,95 @@ scale = Vector2(0.3, 0.3)
 texture = ExtResource("15_vofx3")
 
 [node name="Solid Obstacle" parent="Obstacles/House" instance=ExtResource("13_2klc5")]
-position = Vector2(161, 141)
+position = Vector2(5, 22)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/House/Solid Obstacle"]
-position = Vector2(-152, -89)
+position = Vector2(3, 31)
 shape = SubResource("RectangleShape2D_0cmrb")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Obstacles/House/Solid Obstacle"]
-shape = SubResource("ConvexPolygonShape2D_pnhnk")
+position = Vector2(5, -101)
+shape = SubResource("CircleShape2D_nngtn")
+
+[node name="HouseFire" type="Node2D" parent="Obstacles"]
+position = Vector2(1882, 486)
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacles/HouseFire"]
+position = Vector2(-179, 71)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("18_0cmrb")
+
+[node name="burning_obstacle" parent="Obstacles/HouseFire" instance=ExtResource("20_pnhnk")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/HouseFire/burning_obstacle"]
+position = Vector2(-162, 148)
+shape = SubResource("RectangleShape2D_53r2q")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Obstacles/HouseFire/burning_obstacle"]
+position = Vector2(-259, 133)
+shape = SubResource("CircleShape2D_1cgv8")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Obstacles/HouseFire/burning_obstacle"]
+position = Vector2(-229.25, -23.5)
+shape = SubResource("RectangleShape2D_hcs0j")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Obstacles/HouseFire/burning_obstacle"]
+position = Vector2(-221, 84.25)
+shape = SubResource("RectangleShape2D_luodc")
+
+[node name="Water" type="Node2D" parent="Obstacles"]
+position = Vector2(250, 360)
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacles/Water"]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("19_3a44l")
+
+[node name="Area2D" type="Area2D" parent="Obstacles/Water"]
+position = Vector2(0, -2)
+script = ExtResource("20_0cmrb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Water/Area2D"]
+position = Vector2(2, 2)
+shape = SubResource("CircleShape2D_6y3s5")
+
+[node name="Water" type="AudioStreamPlayer" parent="Obstacles/Water"]
+stream = ExtResource("20_24uko")
+volume_db = -5.298
+bus = &"SFX"
+
+[node name="Fire1" type="Node2D" parent="Obstacles"]
+position = Vector2(482, 231)
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacles/Fire1"]
+position = Vector2(1, 0)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("19_0cmrb")
+
+[node name="burning_obstacle" parent="Obstacles/Fire1" instance=ExtResource("20_pnhnk")]
+position = Vector2(-1, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Fire1/burning_obstacle"]
+position = Vector2(2, 32)
+shape = SubResource("CircleShape2D_53r2q")
+
+[node name="Fire2" type="Node2D" parent="Obstacles"]
+position = Vector2(765, 392)
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacles/Fire2"]
+position = Vector2(-1, -3)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("22_24uko")
+
+[node name="burning_obstacle" parent="Obstacles/Fire2" instance=ExtResource("20_pnhnk")]
+position = Vector2(-1, -3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Fire2/burning_obstacle"]
+position = Vector2(1, 40)
+shape = SubResource("CircleShape2D_luodc")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Obstacles/Fire2/burning_obstacle"]
+position = Vector2(-3.5, -22)
+shape = SubResource("RectangleShape2D_1cgv8")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -334,11 +492,28 @@ offset_top = 39.0
 offset_right = 40.0
 offset_bottom = 62.0
 
+[node name="Burn" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("20_3a44l")
+bus = &"SFX"
+
+[node name="Crash" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("24_gf56v")
+bus = &"SFX"
+
+[node name="PlaneBoost" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("25_u0did")
+volume_db = -6.749
+bus = &"SFX"
+
 [connection signal="game_over" from="Plane" to="." method="_on_game_over"]
 [connection signal="waypoint_reached" from="Plane" to="." method="_on_plane_waypoint_reached"]
 [connection signal="body_entered" from="Obstacles/Sun/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="Obstacles/Sun/Area2D" to="Obstacles/Sun/Area2D" method="_on_body_entered"]
 [connection signal="timeout" from="Obstacles/Sun/Area2D/Timer" to="Obstacles/Sun/Area2D" method="_on_timer_timeout"]
+[connection signal="body_entered" from="Obstacles/Water/Area2D" to="Obstacles/Water/Area2D" method="_on_body_entered"]
 [connection signal="pressed" from="UI/SettingsButton" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="UI/GameOverScreen/RestartButton" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="UI/SettingsPanel/Panel/CloseButton" to="." method="_on_close_settings_pressed"]
