@@ -1169,7 +1169,7 @@ scale = Vector2(0.368, 1.276)
 texture = ExtResource("2_dx6so")
 
 [node name="Plane" type="CharacterBody2D" parent="."]
-position = Vector2(12832, 258)
+position = Vector2(53, 338)
 script = ExtResource("2_6phgx")
 max_speed = 300.0
 speed_deceleration = 0.5
