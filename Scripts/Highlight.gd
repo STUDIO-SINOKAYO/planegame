@@ -16,15 +16,18 @@ func _process(_delta: float) -> void:
 	update_highlight_state()
 
 func update_highlight_state():
-	# Check if mouse is not in radius or plane is dead
+	# Check if plane is dead first - this takes absolute priority
 	var is_plane_dead = plane and plane.dead if plane else false
 	
 	if is_plane_dead:
-		# Plane is dead - immediately go invisible
+		# Plane is dead - immediately go invisible regardless of any other conditions
 		visible = false
 		scale = hidden_scale
 		is_scaling_down = false
-	elif not Global.MouseEnteredRadius and not Global.IsDrawing:
+		return  # Exit early to prevent any other logic from running
+	
+	# Only continue with normal highlight logic if plane is alive
+	if not Global.MouseEnteredRadius and not Global.IsDrawing:
 		# Mouse not in radius AND not drawing - scale down first, then go invisible
 		if not is_scaling_down:
 			# Start scaling down

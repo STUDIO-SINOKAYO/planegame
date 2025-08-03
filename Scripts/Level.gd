@@ -21,6 +21,8 @@ extends Node2D
 @onready var speed_label: Label = $UI/Statistics/SpeedLabel
 @onready var altitude_label: Label = $UI/Statistics/AltitudeLabel
 
+
+
 # === EXPORTED CONFIGURATION VARIABLES ===
 # Drawing system settings
 @export_group("Drawing Settings")
@@ -41,7 +43,7 @@ extends Node2D
 # Stamina system settings
 @export_group("Stamina System")
 @export var max_stamina: float = 100.0        ## Maximum stamina available for drawing. Higher = longer drawing sessions
-@export var stamina_drain_rate: float = 30.0  ## How fast stamina drains while drawing (per second). Higher = shorter drawing time
+@export var stamina_drain_per_pixel: float = 0.1  ## How much stamina drains per pixel of line drawn. Higher = shorter drawing distance
 @export var stamina_regen_rate: float = 20.0  ## How fast stamina regenerates when not drawing (per second). Higher = faster recovery
 @export var low_stamina_threshold: float = 30.0  ## When stamina bar turns red as warning. Should be lower than max_stamina
 
@@ -57,6 +59,7 @@ extends Node2D
 # Debug settings
 @export_group("Debug")
 @export var show_debug_prints: bool = true  ## Enable/disable debug console output. Turn off for release builds
+@export var show_red_line: bool = true  ## Enable/disable the red debug line connecting loop centers. Visual debug aid only
 @export var red_line_width: float = 7.0  ## Width of the red debug line connecting loop centers. Visual debug aid only
 @export var red_line_color: Color = Color.RED  ## Color of the red debug line. Visual debug aid only
 
@@ -136,7 +139,7 @@ func _handle_mouse_motion(event: InputEventMouseMotion):
 
 # === DRAWING FUNCTIONS ===
 
-func start_drawing(screen_pos: Vector2, _world_pos: Vector2):
+func start_drawing(screen_pos: Vector2, world_pos: Vector2):
 	if current_stamina <= 0 or not Global.MouseEnteredRadius:
 		return
 		
@@ -151,74 +154,50 @@ func start_drawing(screen_pos: Vector2, _world_pos: Vector2):
 	drawn_path_line.default_color = drawing_line_color
 	drawn_path_line.joint_mode = Line2D.LINE_JOINT_ROUND
 	drawn_path_line.end_cap_mode = Line2D.LINE_CAP_ROUND
-	ui.add_child(drawn_path_line)  # Add to UI layer for drawing
+	add_child(drawn_path_line)  # Add directly to world space
 	
-	current_drawing.append(screen_pos)         # Store screen coords during drawing
-	drawn_path_line.add_point(screen_pos)      # Draw at screen coords for UI
+	current_drawing.append(world_pos)         # Store world coords during drawing
+	drawn_path_line.add_point(world_pos)      # Draw at world coords
 	current_screen.append(screen_pos)		# Store screen coords for debug
 
-func continue_drawing(screen_pos: Vector2, _world_pos: Vector2):
+func continue_drawing(screen_pos: Vector2, world_pos: Vector2):
 	if current_drawing.size() == 0 or current_stamina <= 0:
 		if current_stamina <= 0:
 			finish_drawing()  # Auto-stop when stamina runs out
 		return
 	
 	var last_point = current_drawing[current_drawing.size() - 1]
-	var distance = screen_pos.distance_to(last_point)  # Check distance in screen space
+	var distance = world_pos.distance_to(last_point)  # Check distance in world space
 	
 	# Only add points that are far enough apart (keeps line smooth)
 	if distance >= min_point_distance:
-		current_drawing.append(screen_pos)         # Store screen coords during drawing
-		drawn_path_line.add_point(screen_pos)      # Draw at screen coords for UI  
+		# Drain stamina based on the distance of the line segment being drawn
+		current_stamina -= distance * stamina_drain_per_pixel
+		current_stamina = max(0, current_stamina)
+		
+		current_drawing.append(world_pos)         # Store world coords during drawing
+		drawn_path_line.add_point(world_pos)      # Draw at world coords
 		current_screen.append(screen_pos)
+		
+		# Stop drawing if stamina runs out
+		if current_stamina <= 0:
+			finish_drawing()
 
 func finish_drawing():
 	loop_centers = []
 	is_drawing = false
 	Global.IsDrawing = false
 	
-	if drawn_path_line and drawn_path_line.get_parent() == ui:
-		_move_line_to_world_space()
+	if drawn_path_line:
 		_process_completed_drawing()
-
-func _move_line_to_world_space():
-	# Move the drawn line from UI layer back to world space for physics
-	ui.remove_child(drawn_path_line)
-	add_child(drawn_path_line)  # Add to Level (world space)
-	
-	# Convert screen coordinates to world coordinates for proper positioning
-	drawn_path_line.clear_points()
-	var world_coordinates = _convert_screen_to_world_coordinates()
-	
-	for world_point in world_coordinates:
-		drawn_path_line.add_point(world_point)
-	
-	# Update current_drawing to world coordinates for physics calculations
-	current_drawing = world_coordinates
-	
-	# Add this line to the finished lines array
-	finished_lines.append(drawn_path_line)
-	drawn_path_line = null  # Clear reference so new line can be created
-	
-	# Start cleanup timer to remove old drawings after specified time
-	if cleanup_timer and finished_lines.size() > max_concurrent_drawings:
-		cleanup_timer.start()
-
-func _convert_screen_to_world_coordinates() -> Array:
-	var world_coordinates = []
-	for screen_point in current_drawing:
-		# Convert screen coordinates to world coordinates using proper Godot methods
-		var camera = get_viewport().get_camera_2d()
-		if camera:
-			# Use the canvas transform to convert screen coordinates to world coordinates
-			# This accounts for camera position, zoom, and any other transformations
-			var canvas_transform = get_canvas_transform()
-			var world_point_accurate = canvas_transform.affine_inverse() * screen_point
-			world_coordinates.append(world_point_accurate)
-		else:
-			# Fallback if no camera - assume no transformation needed
-			world_coordinates.append(screen_point)
-	return world_coordinates
+		
+		# Add this line to the finished lines array
+		finished_lines.append(drawn_path_line)
+		drawn_path_line = null  # Clear reference so new line can be created
+		
+		# Start cleanup timer to remove old drawings after specified time
+		if cleanup_timer and finished_lines.size() > max_concurrent_drawings:
+			cleanup_timer.start()
 
 func _process_completed_drawing():
 	# Send the drawn path to the plane if it's long enough
@@ -234,9 +213,6 @@ func _process_completed_drawing():
 			_handle_no_loops()
 
 func _handle_detected_loops(loops: int):
-	# Create the red line connecting loop centers AFTER reparenting
-	#create_red_line_after_reparent()
-	
 	# Send loop data to the plane for wind physics (no speed changes)
 	var _loop_centers = get_loop_centers()  # Get the red dot positions
 	var _loop_directions = get_loop_flow_directions()  # Direction each loop points
@@ -402,19 +378,19 @@ func _create_loop_from_sequence(i: int, directional_state: Dictionary, loop_data
 		print("LEFT coords: ", directional_state.left_coords)
 		print("DOWN coords: ", directional_state.down_coords)
 	
-	# Calculate elliptical area approximation for the detected loop
-	var a = directional_state.up_coords.distance_to(directional_state.down_coords) / 2
-	var b = ((directional_state.up_coords + directional_state.down_coords) / 2).distance_to(directional_state.left_coords)
+	# Calculate elliptical area approximation for the detected loop using world coordinates
+	var a = directional_state.up_coords_global.distance_to(directional_state.down_coords_global) / 2
+	var b = ((directional_state.up_coords_global + directional_state.down_coords_global) / 2).distance_to(current_drawing[directional_state.left_index])
 	loop_data.area += 3.1415 * a * b
 	if show_debug_prints:
 		print("AREA: ", loop_data.area)
 	
-	# Calculate the center point between up and down coordinates
-	var loop_center_pos = (directional_state.up_coords + directional_state.down_coords) / 2
+	# Calculate the center point between up and down coordinates in world space
+	var loop_center_pos = (directional_state.up_coords_global + directional_state.down_coords_global) / 2
 	if show_debug_prints:
 		print("Calculated loop center: ", loop_center_pos)
 	loop_data.loop_centers_found.append(loop_center_pos)
-	loop_centers.append((directional_state.up_coords_global + directional_state.down_coords_global) / 2)
+	loop_centers.append(loop_center_pos)
 	
 	# Extract the path segment from this loop for wind physics
 	_extract_loop_path(directional_state)
@@ -458,83 +434,37 @@ func _finalize_loop_detection(loop_data: Dictionary) -> int:
 func _create_red_line_centers(loop_centers_found: Array):
 	# Create the red debug line connecting all detected loop centers
 	# This shows the overall flow direction for the wind vortex system
-	if loop_centers_found.size() > 0:
-		# Don't create the red line here - it will be created after reparenting
-		pass
-	
-	# Store loop centers for later red line creation (after reparenting)
-	center.clear_points()  # Clear any previous points
-	if loop_centers_found.size() > 0:
+	if loop_centers_found.size() > 0 and show_red_line:
+		# Clear any previous points
+		center.clear_points()
+		center.default_color = red_line_color
+		center.width = red_line_width
+		add_child(center)  # Add to Level (world space)
+		
 		# Sort loop centers by X coordinate (left to right) for consistent flow direction
 		loop_centers_found.sort_custom(func(a, b): return a.x < b.x)
 		if show_debug_prints:
 			print("Sorted loop centers by X coordinate: ", loop_centers_found)
 		
+		# Add world coordinate points directly to the red line
 		for loop_center_pos in loop_centers_found:
 			center.add_point(loop_center_pos)
-
-# === RED LINE FUNCTIONS ===
-
-func create_red_line_after_reparent():
-	# Create the red debug line connecting loop centers after drawing is reparented to world space
-	# This ensures the red line coordinates match the world coordinate system
-	if center.get_point_count() > 0:
-		_remove_existing_red_line()
-		var world_centers = _convert_red_line_to_world_coordinates()
-		_create_world_space_red_line(world_centers)
-
-func _remove_existing_red_line():
-	# Remove existing red line if any
-	if center.get_parent():
-		center.get_parent().remove_child(center)
-
-func _convert_red_line_to_world_coordinates() -> Array:
-	# Convert screen coordinates to world coordinates for the red line
-	var world_centers = []
-	var camera = get_viewport().get_camera_2d()
-	
-	if show_debug_prints:
-		print("=== CREATING RED LINE AFTER REPARENT ===")
-	for i in range(center.get_point_count()):
-		var screen_center = center.get_point_position(i)
-		if show_debug_prints:
-			print("Screen center ", i, ": ", screen_center)
 		
-		if camera:
-			# Use the same coordinate conversion method as the main drawing
-			var canvas_transform = get_canvas_transform()
-			var world_center = canvas_transform.affine_inverse() * screen_center
-			world_centers.append(world_center)
-			if show_debug_prints:
-				print("World center ", i, ": ", world_center)
-		else:
-			world_centers.append(screen_center)
-			if show_debug_prints:
-				print("World center ", i, " (no camera): ", screen_center)
-	
-	return world_centers
-
-func _create_world_space_red_line(world_centers: Array):
-	# Clear and recreate the red line with world coordinates
-	center.clear_points()
-	center.default_color = red_line_color
-	center.width = red_line_width
-	add_child(center)  # Add to Level (world space) instead of UI
-	
-	# Add world coordinate points to the red line
-	for world_center in world_centers:
-		center.add_point(world_center)
-	
-	if show_debug_prints:
-		print("Red line created with ", center.get_point_count(), " world coordinate points")
+		if show_debug_prints:
+			print("Red line created with ", center.get_point_count(), " world coordinate points")
+	elif not show_red_line:
+		# If red line is disabled, clear any existing points but still store loop centers
+		center.clear_points()
+		if show_debug_prints:
+			print("Red line disabled - not creating visual line")
 
 func get_loop_centers() -> Array:
 	# Extract the center points from the red line for loop suction physics
-	# Red line is now already in world coordinates after reparenting
+	# Red line is already in world coordinates
 	var centers = []
 	
 	if show_debug_prints:
-		print("=== LOOP CENTERS (already in world coords) ===")
+		print("=== LOOP CENTERS (world coords) ===")
 	
 	for i in range(center.get_point_count()):
 		var world_center = center.get_point_position(i)
@@ -618,11 +548,8 @@ func _process(delta):
 # === UI UPDATE FUNCTIONS ===
 
 func update_stamina(delta):
-	# Drain stamina while drawing, regen when not
-	if is_drawing and current_stamina > 0:
-		current_stamina -= stamina_drain_rate * delta
-		current_stamina = max(0, current_stamina)
-	elif not is_drawing and current_stamina < max_stamina:
+	# Only regenerate stamina when not drawing - draining is now handled in continue_drawing()
+	if not is_drawing and current_stamina < max_stamina:
 		current_stamina += stamina_regen_rate * delta
 		current_stamina = min(max_stamina, current_stamina)
 

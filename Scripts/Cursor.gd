@@ -1,5 +1,8 @@
 extends Node2D
 
+
+
+
 # Target rotation for the cursor sprite
 var target_rotation: float = 0.0
 # Rotation speed for lerping
