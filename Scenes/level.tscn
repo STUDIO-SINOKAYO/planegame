@@ -1,4 +1,4 @@
-[gd_scene load_steps=191 format=3 uid="uid://ig7nbplla4pc"]
+[gd_scene load_steps=192 format=3 uid="uid://ig7nbplla4pc"]
 
 [ext_resource type="Script" uid="uid://cqn84wdm076k5" path="res://Scripts/Level.gd" id="1_k5f4k"]
 [ext_resource type="Script" uid="uid://pakfejb3s2jx" path="res://Scripts/Plane.gd" id="2_6phgx"]
@@ -82,6 +82,7 @@
 [ext_resource type="Texture2D" uid="uid://fqprwqyq7o3v" path="res://Assets/Sprites/WATERSPLASH2.png" id="57_6g3im"]
 [ext_resource type="Texture2D" uid="uid://bpewowwsvo0uw" path="res://Assets/Sprites/WATERSPLASH3.png" id="58_w8uds"]
 [ext_resource type="Script" path="res://Scenes/HouseTrigger.gd" id="62_tcm81"]
+[ext_resource type="Texture2D" uid="uid://j86r0qvbehno" path="res://Assets/Sprites/TUTORIAL3.png" id="76_r74g4"]
 [ext_resource type="Script" path="res://Scenes/ResetTrigger.gd" id="79_o16m1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_754fn"]
@@ -2276,7 +2277,9 @@ scale = Vector2(0.385, 0.385)
 texture = ExtResource("54_v15qs")
 
 [node name="Tutorial Text" type="Sprite2D" parent="Tutorial"]
-position = Vector2(497, 199)
+position = Vector2(564, 309)
+scale = Vector2(0.298, 0.298)
+texture = ExtResource("76_r74g4")
 
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource("50_54tli")
