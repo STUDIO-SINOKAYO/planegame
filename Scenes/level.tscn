@@ -1,4 +1,4 @@
-[gd_scene load_steps=181 format=3 uid="uid://ig7nbplla4pc"]
+[gd_scene load_steps=183 format=3 uid="uid://ig7nbplla4pc"]
 
 [ext_resource type="Script" uid="uid://cqn84wdm076k5" path="res://Scripts/Level.gd" id="1_k5f4k"]
 [ext_resource type="Script" uid="uid://pakfejb3s2jx" path="res://Scripts/Plane.gd" id="2_6phgx"]
@@ -19,10 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://bt5gu5c2drbbh" path="res://Assets/Sprites/land3.png" id="10_bp4cd"]
 [ext_resource type="Texture2D" uid="uid://beyrwjtxgddlx" path="res://Assets/Sprites/CLOUD5NIMBUSifeveryoulluse.png" id="10_ht0u2"]
 [ext_resource type="Script" uid="uid://dnpn0f20ri5rw" path="res://Scripts/sun.gd" id="10_qxfql"]
-[ext_resource type="Texture2D" uid="uid://bqvrducuijw22" path="res://Assets/Sprites/WINDOW2.png" id="10_t4ggf"]
-[ext_resource type="Script" path="res://Scripts/FinalArea.gd" id="10_uoc0b"]
-[ext_resource type="Script" path="res://Scripts/obstacles.gd" id="10_wbq00"]
-[ext_resource type="Texture2D" uid="uid://b3f7ku2kcyv48" path="res://Assets/Sprites/WALLPAPERENDING.png" id="11_2lp24"]
+[ext_resource type="Script" uid="uid://crbbxtm1ff3gi" path="res://Scripts/obstacles.gd" id="10_wbq00"]
 [ext_resource type="AudioStream" uid="uid://bof2sa7cb31ir" path="res://Assets/Sounds/explosion.ogg" id="11_qxfql"]
 [ext_resource type="Texture2D" uid="uid://c6rxxv78xvprj" path="res://Assets/Sprites/CLOUD4NIMBUS.png" id="12_23rfw"]
 [ext_resource type="Texture2D" uid="uid://cn88atdxeptr1" path="res://Assets/Sprites/Tree1.png" id="12_c7le1"]
@@ -66,7 +63,7 @@
 [ext_resource type="Texture2D" uid="uid://w8eem3on3jpi" path="res://Assets/Sprites/LANDSNOW3.png" id="43_m4bds"]
 [ext_resource type="Script" uid="uid://lk8u8eonnnov" path="res://Scripts/Cursor.gd" id="44_gx30c"]
 [ext_resource type="Texture2D" uid="uid://cb2w4n1deig2t" path="res://Assets/Sprites/CURSOR.png" id="45_jmchl"]
-[ext_resource type="Script" path="res://Scenes/ui.gd" id="50_54tli"]
+[ext_resource type="Script" uid="uid://bfd76f72v2pyy" path="res://Scenes/ui.gd" id="50_54tli"]
 [ext_resource type="Texture2D" uid="uid://c4xxhlnltlhph" path="res://Assets/Sprites/BIRD.png" id="51_icsqr"]
 [ext_resource type="Texture2D" uid="uid://dfd0wjf6t6fh8" path="res://Assets/Sprites/PLAY.png" id="51_m4bds"]
 [ext_resource type="Texture2D" uid="uid://r2shy6eq8447" path="res://Assets/Sprites/SIGN.png" id="52_5oihu"]
@@ -74,7 +71,7 @@
 [ext_resource type="Texture2D" uid="uid://cen16b5c1bdaq" path="res://Assets/Sprites/ICEBERG.png" id="53_16bfe"]
 [ext_resource type="Texture2D" uid="uid://bsksucne12fqt" path="res://Assets/Sprites/LOGO.png" id="53_uoc0b"]
 [ext_resource type="Script" uid="uid://dlppu7gbxq70b" path="res://Scenes/FireTrigger.gd" id="54_1wnhp"]
-[ext_resource type="Script" uid="uid://3tv75vtt4vbf" path="res://Scripts/tutorial.gd" id="54_ubg6v"]
+[ext_resource type="Script" path="res://Scripts/tutorial.gd" id="54_ubg6v"]
 [ext_resource type="Texture2D" uid="uid://dcf1i3a40uifo" path="res://Assets/Sprites/TUTORIAL1.png" id="54_v15qs"]
 [ext_resource type="Texture2D" uid="uid://7uoiuw6h3rva" path="res://Assets/Sprites/MEGALODONWATERSPLASH.png" id="55_23rfw"]
 [ext_resource type="Texture2D" uid="uid://cx4rva20k3cp2" path="res://Assets/Sprites/WATERSPLASH1.png" id="56_16bfe"]
@@ -1464,7 +1461,6 @@ script = ExtResource("28_8rl1s")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Water/trigger"]
 position = Vector2(-244.048, -41.6667)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_e3hal")
 
 [node name="Cloud5" type="Sprite2D" parent="Obstacles"]
@@ -2134,6 +2130,45 @@ texture = ExtResource("55_23rfw")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Splash/Solid Obstacle"]
 position = Vector2(8666, 441)
 shape = SubResource("RectangleShape2D_yv4qw")
+
+[node name="Bird3" type="Node2D" parent="Obstacles"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacles/Bird3"]
+position = Vector2(12501, -115)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("51_icsqr")
+
+[node name="Solid Obstacle" parent="Obstacles/Bird3" instance=ExtResource("13_2klc5")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Bird3/Solid Obstacle"]
+position = Vector2(12500, 65)
+shape = SubResource("CircleShape2D_uty0w")
+
+[node name="Bird4" type="Node2D" parent="Obstacles"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacles/Bird4"]
+position = Vector2(12917, -46)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("51_icsqr")
+
+[node name="Solid Obstacle" parent="Obstacles/Bird4" instance=ExtResource("13_2klc5")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Bird4/Solid Obstacle"]
+position = Vector2(12919, 134)
+shape = SubResource("CircleShape2D_uty0w")
+
+[node name="Bird5" type="Node2D" parent="Obstacles"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacles/Bird5"]
+position = Vector2(12700, -172)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("51_icsqr")
+
+[node name="Solid Obstacle" parent="Obstacles/Bird5" instance=ExtResource("13_2klc5")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Bird5/Solid Obstacle"]
+position = Vector2(12697, 6)
+shape = SubResource("CircleShape2D_uty0w")
 
 [node name="Cursor" type="Node2D" parent="."]
 visible = false
