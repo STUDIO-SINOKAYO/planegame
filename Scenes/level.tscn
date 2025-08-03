@@ -54,10 +54,10 @@ radius = 25.1794
 radius = 29.1548
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6y3s5"]
-size = Vector2(185, 89)
+size = Vector2(265.5, 101.5)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_u0did"]
-radius = 55.0
+radius = 78.0064
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0cmrb"]
 size = Vector2(127, 215)
@@ -111,7 +111,7 @@ color = Color(0, 0, 1, 1)
 polygon = PackedVector2Array(15, 0, -8, 8, -5, 0, -8, -8)
 
 [node name="Camera2D" type="Camera2D" parent="Plane"]
-position = Vector2(300, 0)
+position = Vector2(264, -54)
 position_smoothing_enabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Plane"]
@@ -130,16 +130,28 @@ shape = SubResource("CircleShape2D_754fn")
 [node name="Obstacles" type="Node2D" parent="."]
 
 [node name="Clouds" parent="Obstacles" instance=ExtResource("7_8c0lf")]
-position = Vector2(347, -41)
+position = Vector2(1955, -190)
+
+[node name="Clouds" parent="Obstacles/Clouds" instance=ExtResource("7_8c0lf")]
+position = Vector2(1462, -6)
+
+[node name="Clouds" parent="Obstacles/Clouds/Clouds" instance=ExtResource("7_8c0lf")]
+position = Vector2(1496, 12)
 
 [node name="Ground" parent="Obstacles" instance=ExtResource("8_754fn")]
-position = Vector2(690, 750)
+position = Vector2(2578, 716)
+
+[node name="Ground2" parent="Obstacles/Ground" instance=ExtResource("8_754fn")]
+position = Vector2(1844, -18)
+
+[node name="Ground2" parent="Obstacles/Ground/Ground2" instance=ExtResource("8_754fn")]
+position = Vector2(1868, -2)
 
 [node name="Sun" type="Node2D" parent="Obstacles"]
-position = Vector2(1090, 257)
+position = Vector2(2351, 177)
 
 [node name="Sprite2D" type="Sprite2D" parent="Obstacles/Sun"]
-position = Vector2(0.00012207, -1.99997)
+position = Vector2(7.27596e-12, -137)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("9_oqgf2")
 
@@ -159,7 +171,7 @@ stream = ExtResource("11_qxfql")
 bus = &"SFX"
 
 [node name="Tree1" type="Node2D" parent="Obstacles"]
-position = Vector2(613, 542)
+position = Vector2(3069, 534)
 
 [node name="Sprite2D" type="Sprite2D" parent="Obstacles/Tree1"]
 position = Vector2(0, 2)
@@ -178,7 +190,7 @@ position = Vector2(7, -64.875)
 shape = SubResource("RectangleShape2D_3a44l")
 
 [node name="Tree2" type="Node2D" parent="Obstacles"]
-position = Vector2(333, 570)
+position = Vector2(796, -381)
 
 [node name="Sprite2D" type="Sprite2D" parent="Obstacles/Tree2"]
 position = Vector2(1, 1)
@@ -197,10 +209,10 @@ position = Vector2(0.5, -46.5)
 shape = SubResource("RectangleShape2D_2klc5")
 
 [node name="Tree3" type="Node2D" parent="Obstacles"]
-position = Vector2(1248, 551)
+position = Vector2(2291, 518)
 
 [node name="Sprite2D" type="Sprite2D" parent="Obstacles/Tree3"]
-position = Vector2(-2, 39)
+position = Vector2(4, 31)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("15_00k4y")
 
@@ -220,25 +232,91 @@ position = Vector2(-63, 15)
 shape = SubResource("CircleShape2D_gf56v")
 
 [node name="Tree4" type="Node2D" parent="Obstacles"]
-position = Vector2(991, 550)
+position = Vector2(3520, 528)
 
 [node name="Sprite2D" type="Sprite2D" parent="Obstacles/Tree4"]
-scale = Vector2(0.3, 0.3)
+position = Vector2(-8, -47)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("16_3a44l")
 
 [node name="Solid Obstacle" parent="Obstacles/Tree4" instance=ExtResource("13_2klc5")]
 position = Vector2(-3, -1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Tree4/Solid Obstacle"]
-position = Vector2(-3.5, -48.5)
+position = Vector2(-10.75, -105.25)
 shape = SubResource("RectangleShape2D_6y3s5")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Obstacles/Tree4/Solid Obstacle"]
-position = Vector2(-13, -80)
+position = Vector2(-31, -139)
 shape = SubResource("CircleShape2D_u0did")
 
+[node name="Tree5" type="Node2D" parent="Obstacles"]
+position = Vector2(1896, 485)
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacles/Tree5"]
+position = Vector2(10.15, 30.05)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("15_00k4y")
+
+[node name="Solid Obstacle" parent="Obstacles/Tree5" instance=ExtResource("13_2klc5")]
+position = Vector2(3.15002, -2.95001)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Tree5/Solid Obstacle"]
+position = Vector2(-15.15, -43.05)
+shape = SubResource("CircleShape2D_pnhnk")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Obstacles/Tree5/Solid Obstacle"]
+position = Vector2(49.85, -50.05)
+shape = SubResource("CircleShape2D_24uko")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Obstacles/Tree5/Solid Obstacle"]
+position = Vector2(-89.15, 1.95001)
+shape = SubResource("CircleShape2D_gf56v")
+
+[node name="Tree6" type="Node2D" parent="Obstacles"]
+position = Vector2(2617, 492)
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacles/Tree6"]
+position = Vector2(10.15, 30.05)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("15_00k4y")
+
+[node name="Solid Obstacle" parent="Obstacles/Tree6" instance=ExtResource("13_2klc5")]
+position = Vector2(3.15002, -2.95001)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Tree6/Solid Obstacle"]
+position = Vector2(-15.15, -43.05)
+shape = SubResource("CircleShape2D_pnhnk")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Obstacles/Tree6/Solid Obstacle"]
+position = Vector2(49.85, -50.05)
+shape = SubResource("CircleShape2D_24uko")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Obstacles/Tree6/Solid Obstacle"]
+position = Vector2(-89.15, 1.95001)
+shape = SubResource("CircleShape2D_gf56v")
+
+[node name="Tree7" type="Node2D" parent="Obstacles"]
+position = Vector2(3887, 527)
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacles/Tree7"]
+position = Vector2(0, 2)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("12_c7le1")
+
+[node name="Solid Obstacle" parent="Obstacles/Tree7" instance=ExtResource("13_2klc5")]
+position = Vector2(0, -7)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Tree7/Solid Obstacle"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_00k4y")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Obstacles/Tree7/Solid Obstacle"]
+position = Vector2(7, -64.875)
+shape = SubResource("RectangleShape2D_3a44l")
+
 [node name="House" type="Node2D" parent="Obstacles"]
-position = Vector2(1419, 535)
+position = Vector2(4633, 402)
 
 [node name="Sprite2D" type="Sprite2D" parent="Obstacles/House"]
 position = Vector2(6, 2)
@@ -257,7 +335,7 @@ position = Vector2(5, -101)
 shape = SubResource("CircleShape2D_nngtn")
 
 [node name="HouseFire" type="Node2D" parent="Obstacles"]
-position = Vector2(1882, 486)
+position = Vector2(5856, 384)
 
 [node name="Sprite2D" type="Sprite2D" parent="Obstacles/HouseFire"]
 position = Vector2(-179, 71)
@@ -283,7 +361,7 @@ position = Vector2(-221, 84.25)
 shape = SubResource("RectangleShape2D_luodc")
 
 [node name="Water" type="Node2D" parent="Obstacles"]
-position = Vector2(250, 360)
+position = Vector2(3506, 141)
 
 [node name="Sprite2D" type="Sprite2D" parent="Obstacles/Water"]
 scale = Vector2(0.3, 0.3)
@@ -303,7 +381,7 @@ volume_db = -5.298
 bus = &"SFX"
 
 [node name="Fire1" type="Node2D" parent="Obstacles"]
-position = Vector2(482, 231)
+position = Vector2(6309, 230)
 
 [node name="Sprite2D" type="Sprite2D" parent="Obstacles/Fire1"]
 position = Vector2(1, 0)
@@ -318,7 +396,7 @@ position = Vector2(2, 32)
 shape = SubResource("CircleShape2D_53r2q")
 
 [node name="Fire2" type="Node2D" parent="Obstacles"]
-position = Vector2(765, 392)
+position = Vector2(6592, 391)
 
 [node name="Sprite2D" type="Sprite2D" parent="Obstacles/Fire2"]
 position = Vector2(-1, -3)
@@ -507,6 +585,14 @@ unique_name_in_owner = true
 stream = ExtResource("25_u0did")
 volume_db = -6.749
 bus = &"SFX"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -50
+offset_left = -3547.0
+offset_top = -963.0
+offset_right = 12028.0
+offset_bottom = 1554.0
+color = Color(0.176471, 0.258824, 0.294118, 1)
 
 [connection signal="game_over" from="Plane" to="." method="_on_game_over"]
 [connection signal="waypoint_reached" from="Plane" to="." method="_on_plane_waypoint_reached"]
