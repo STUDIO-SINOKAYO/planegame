@@ -19,12 +19,6 @@ func _ready() -> void:
 	if Global.should_skip_tutorial():
 		start_game_directly()
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		if draw_prompt.visible:
-			# Hide the draw prompt when the player clicks
-			draw_prompt.hide()
-
 func _on_play_button_pressed() -> void:
 	start_screen.hide()
 	cursor.show()
@@ -44,8 +38,6 @@ func _on_play_button_pressed() -> void:
 	camera_tween.finished.connect(_on_camera_tween_completed)
 
 func _on_camera_tween_completed() -> void:
-	draw_prompt.show()
-	
 	# Fade in the dotted line after camera transition
 	if tutorial_node:
 		tutorial_node.fade_in_dotted_line()
@@ -55,10 +47,6 @@ func start_game_directly() -> void:
 	# Ensure start screen is hidden
 	if start_screen:
 		start_screen.hide()
-	
-	# Ensure draw prompt is hidden
-	if draw_prompt:
-		draw_prompt.hide()
 	
 	# Show cursor
 	if cursor:

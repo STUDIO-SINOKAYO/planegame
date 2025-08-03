@@ -1,4 +1,4 @@
-[gd_scene load_steps=121 format=3 uid="uid://ig7nbplla4pc"]
+[gd_scene load_steps=122 format=3 uid="uid://ig7nbplla4pc"]
 
 [ext_resource type="Script" uid="uid://cqn84wdm076k5" path="res://Scripts/Level.gd" id="1_k5f4k"]
 [ext_resource type="Script" uid="uid://pakfejb3s2jx" path="res://Scripts/Plane.gd" id="2_6phgx"]
@@ -62,6 +62,7 @@
 [ext_resource type="Texture2D" uid="uid://bsksucne12fqt" path="res://Assets/Sprites/LOGO.png" id="53_uoc0b"]
 [ext_resource type="Script" uid="uid://3tv75vtt4vbf" path="res://Scripts/tutorial.gd" id="54_ubg6v"]
 [ext_resource type="Texture2D" uid="uid://dcf1i3a40uifo" path="res://Assets/Sprites/TUTORIAL1.png" id="54_v15qs"]
+[ext_resource type="Texture2D" uid="uid://d0ikifgxbyd2v" path="res://Assets/Sprites/TUTORIAL3.png" id="56_ht0u2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_754fn"]
 radius = 12.0416
@@ -1367,7 +1368,9 @@ scale = Vector2(0.385, 0.385)
 texture = ExtResource("54_v15qs")
 
 [node name="Tutorial Text" type="Sprite2D" parent="Tutorial"]
-position = Vector2(497, 199)
+position = Vector2(576.56, 303.055)
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("56_ht0u2")
 
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource("50_54tli")
@@ -1530,30 +1533,6 @@ layout_mode = 0
 offset_top = 39.0
 offset_right = 40.0
 offset_bottom = 62.0
-
-[node name="Tutorial" type="Control" parent="UI"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-
-[node name="DrawPrompt" type="RichTextLabel" parent="UI/Tutorial"]
-visible = false
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -378.0
-offset_top = -80.0
-offset_right = -109.0
-grow_horizontal = 0
-grow_vertical = 2
-text = "Start Drawing a Loop-The-Loop near the plane to keep urself afloat"
 
 [node name="StartScreen" type="Control" parent="UI"]
 layout_mode = 3
