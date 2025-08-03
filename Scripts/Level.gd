@@ -236,8 +236,10 @@ func _process_completed_drawing_with_loops(loops: int):
 			# Start on any line (original behavior)
 			should_start_game = true
 		
-		if should_start_game and not plane.game_started:
+		if should_start_game and not Global.game_started:
 			plane.start_game()
+			# Mark that the game has been played when the first valid line is drawn
+			Global.mark_game_as_played()
 		
 		if loops > 0:
 			_handle_detected_loops(loops)
@@ -259,7 +261,7 @@ func _handle_no_loops():
 		print("No loops detected - game will not start until a loop is drawn")
 	
 	# Show the draw prompt again if the game hasn't started yet and loops are required
-	if require_loop_to_start and not plane.game_started:
+	if require_loop_to_start and not Global.game_started:
 		var draw_prompt = ui.get_node_or_null("Tutorial/DrawPrompt")
 		if draw_prompt and not draw_prompt.visible:
 			draw_prompt.visible = true

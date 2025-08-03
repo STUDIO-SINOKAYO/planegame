@@ -41,7 +41,6 @@ class_name PlayerPlane
 var wind_points: Array = []
 var current_speed: float = 0.0
 var loop_count: int = 0
-var game_started: bool = false
 var debug_wind_info: String = ""
 var velocity_line: Line2D
 var gravity_velocity: Vector2 = Vector2.ZERO
@@ -72,7 +71,7 @@ func _initialize_plane() -> void:
 	"""Initialize plane state and properties"""
 	current_speed = base_speed
 	gravity_velocity = Vector2.ZERO
-	game_started = false
+	Global.game_started = false
 
 #-------------------------------------------------------------------------------
 func _setup_velocity_visualization() -> void:
@@ -108,23 +107,20 @@ func _draw() -> void:
 
 #-------------------------------------------------------------------------------
 func _input(_event: InputEvent) -> void:
-	if Input.is_action_just_pressed("ui_accept"):
-		start_game()
-	
 	if Input.is_action_just_pressed("right_click") and enable_debug_waypoint_click:
 		_create_waypoint()
 
 #-------------------------------------------------------------------------------
 func start_game() -> void:
 	"""Start the game and enable movement"""
-	game_started = true
+	Global.game_started = true
 	# Give the plane a small initial speed so it's not completely stationary
 	current_speed = max(base_speed, 200.0)  # Minimum 10 speed to get started
 	
 #-------------------------------------------------------------------------------
 func _create_waypoint() -> void:
 	"""Create a waypoint at waypoint_position"""
-	if not game_started:
+	if not Global.game_started:
 		return
 	waypoint_position = get_global_mouse_position()
 	# Set waypoint position to parameter location
@@ -142,7 +138,7 @@ func _create_waypoint() -> void:
 
 #-------------------------------------------------------------------------------
 func _physics_process(delta: float) -> void:
-	if not game_started:
+	if not Global.game_started:
 		_handle_stationary_state()
 		return
 	
@@ -223,7 +219,7 @@ func _apply_thrust(forward_direction: Vector2, _delta: float) -> void:
 #-------------------------------------------------------------------------------
 func _apply_waypoint_thrust(delta: float) -> void:
 	"""Apply thrust towards the active waypoint"""
-	if not game_started or not has_active_waypoint:
+	if not Global.game_started or not has_active_waypoint:
 		return
 	
 	# Calculate direction towards waypoint
@@ -367,7 +363,7 @@ func get_loop_count() -> int:
 #-------------------------------------------------------------------------------
 func is_game_active() -> bool:
 	"""Check if the game is currently active"""
-	return game_started
+	return Global.game_started
 
 #-------------------------------------------------------------------------------
 func reset_plane() -> void:
@@ -376,7 +372,7 @@ func reset_plane() -> void:
 	loop_count = 0
 	current_speed = base_speed
 	gravity_velocity = Vector2.ZERO
-	game_started = false
+	Global.game_started = false
 	dead = false  # Ensure plane is not dead after reset
 	_clear_waypoint()
 	
@@ -391,7 +387,7 @@ func reset_plane() -> void:
 #-------------------------------------------------------------------------------
 func create_waypoint_at_position(world_position: Vector2) -> bool:
 	"""Create a waypoint at a specific world position. Returns true if successful."""
-	if not game_started:
+	if not Global.game_started:
 		return false
 	
 	waypoint_position = world_position
@@ -454,7 +450,7 @@ func _get_debug_info() -> String:
 		current_speed, 
 		loop_count, 
 		str(gravity_velocity), 
-		str(game_started)
+		str(Global.game_started)
 	]
 
 #-------------------------------------------------------------------------------
