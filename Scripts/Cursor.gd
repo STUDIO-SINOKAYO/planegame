@@ -1,34 +1,32 @@
 extends Node2D
-class_name CustomCursor
 
-## Custom cursor that changes appearance based on interaction state
 
-@export var rotation_speed: float = 5.0
-@export var normal_rotation: float = 0.0
-@export var default_rotation: float = 90.0
 
+
+# Target rotation for the cursor sprite
 var target_rotation: float = 0.0
+# Rotation speed for lerping
+var rotation_speed: float = 5.0
 
+# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# Hide the default cursor when the mouse is over the window
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-	# Convert degrees to radians
-	var default_rad := deg_to_rad(default_rotation)
-	rotation = default_rad
-	target_rotation = default_rad
+	# Set initial rotation to 90 degrees (default state)
+	rotation = deg_to_rad(90)
+	target_rotation = deg_to_rad(90)
 
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	# Update position to follow mouse
+	# Make the node follow the mouse cursor position
 	global_position = get_global_mouse_position()
 	
-	# Update target rotation based on state
-	_update_target_rotation()
-	
-	# Smoothly rotate toward target
-	rotation = lerp_angle(rotation, target_rotation, rotation_speed * delta)
-
-func _update_target_rotation() -> void:
-	"""Update the target rotation based on current state"""
+	# Set target rotation based on MouseEnteredRadius
 	if Global.MouseEnteredRadius or Global.IsDrawing:
-		target_rotation = deg_to_rad(normal_rotation)
+		target_rotation = 0.0  # Normal rotation when in radius
 	else:
-		target_rotation = deg_to_rad(default_rotation)
+		target_rotation = deg_to_rad(90)  # 90 degrees clockwise (default)
+	
+	# Lerp the rotation towards the target
+	rotation = lerp_angle(rotation, target_rotation, rotation_speed * delta)
