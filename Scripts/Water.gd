@@ -3,7 +3,7 @@ class_name WaterObstacle
 
 ## Water area that slows down the plane
 
-@export var water_speed: float = 20.0
+@export var water_speed: float = 50.0
 @onready var water_audio: AudioStreamPlayer = $"../Water"
 
 func _ready() -> void:
