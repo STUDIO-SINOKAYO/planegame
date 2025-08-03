@@ -11,6 +11,7 @@ class_name BaseObstacle
 
 @onready var timer: Timer = $Timer
 var audio_player: AudioStreamPlayer
+var has_triggered_death: bool = false  # Prevent multiple death triggers
 
 # Cached references for better performance
 var collision_shape_cache: CollisionShape2D
@@ -22,7 +23,7 @@ func get_audio_player() -> AudioStreamPlayer:
 
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
-	audio_player = get_audio_player()  # Get audio player after child classes are ready
+	# Don't cache audio player here - get it when needed
 	if timer:
 		timer.timeout.connect(_on_timer_timeout)
 		timer.wait_time = death_timer_duration
@@ -35,10 +36,17 @@ func _on_body_entered(body: Node2D) -> void:
 	if not plane:
 		return
 	
+	# Prevent multiple death triggers
+	if has_triggered_death:
+		return
+	
+	has_triggered_death = true
+	
 	# Handle death logic
 	handle_plane_death(plane)
 	
-	# Play audio if available
+	# Get and play audio when actually needed
+	audio_player = get_audio_player()
 	if audio_player:
 		audio_player.play()
 	
@@ -67,16 +75,5 @@ func handle_plane_death(plane: PlayerPlane) -> void:
 		plane.dead = true
 
 func _on_timer_timeout() -> void:
-	"""Restart the game intelligently"""
-	# Simple check: if game has been played before, try smart restart
-	if Global.should_skip_tutorial():
-		# Try smart restart
-		var level = get_tree().get_first_node_in_group("level")
-		if level and level.has_method("restart_game_directly"):
-			level.restart_game_directly()
-		else:
-			# Fallback to scene reload
-			get_tree().reload_current_scene()
-	else:
-		# First time playing, use scene reload
-		get_tree().reload_current_scene()
+	"""Restart the game using scene reload (most reliable)"""
+	get_tree().reload_current_scene()

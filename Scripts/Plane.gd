@@ -270,8 +270,7 @@ func _update_waypoint_visual() -> void:
 	if has_active_waypoint:
 		print("Creating waypoint visual at: ", waypoint_position)
 		print("Waypoint visual updated")
-	else:
-		print("Clearing waypoint visual")
+	# Removed debug print for clearing waypoint to reduce console spam
 
 #-------------------------------------------------------------------------------
 func _apply_gravity(forward_direction: Vector2, delta: float) -> void:
@@ -375,6 +374,7 @@ func reset_plane() -> void:
 	current_speed = base_speed
 	gravity_velocity = Vector2.ZERO
 	game_started = false
+	dead = false  # Ensure plane is not dead after reset
 	_clear_waypoint()
 	
 	if velocity_line:
