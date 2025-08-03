@@ -120,15 +120,17 @@ func _input(event):
 func _handle_mouse_button(event: InputEventMouseButton):
 	if event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed and current_stamina > 0:
-			var screen_pos = get_viewport().get_mouse_position()
+			# Use event position for consistency instead of get_mouse_position
+			var screen_pos = event.position
 			var world_pos = get_global_mouse_position()
 			start_drawing(screen_pos, world_pos)
 		else:
 			finish_drawing()
 
-func _handle_mouse_motion(_event: InputEventMouseMotion):
+func _handle_mouse_motion(event: InputEventMouseMotion):
 	if is_drawing and current_stamina > 0:
-		var screen_pos = get_viewport().get_mouse_position()
+		# Use event position for consistency instead of get_mouse_position  
+		var screen_pos = event.position
 		var world_pos = get_global_mouse_position()
 		continue_drawing(screen_pos, world_pos)
 
@@ -203,13 +205,16 @@ func _move_line_to_world_space():
 func _convert_screen_to_world_coordinates() -> Array:
 	var world_coordinates = []
 	for screen_point in current_drawing:
-		# Convert screen coordinates to world coordinates using the camera
+		# Convert screen coordinates to world coordinates using proper Godot methods
 		var camera = get_viewport().get_camera_2d()
 		if camera:
-			var world_point = camera.global_position + (screen_point - get_viewport_rect().size * 0.5) / camera.zoom
-			world_coordinates.append(world_point)
+			# Use the canvas transform to convert screen coordinates to world coordinates
+			# This accounts for camera position, zoom, and any other transformations
+			var canvas_transform = get_canvas_transform()
+			var world_point_accurate = canvas_transform.affine_inverse() * screen_point
+			world_coordinates.append(world_point_accurate)
 		else:
-			# Fallback if no camera
+			# Fallback if no camera - assume no transformation needed
 			world_coordinates.append(screen_point)
 	return world_coordinates
 
@@ -490,7 +495,9 @@ func _convert_red_line_to_world_coordinates() -> Array:
 			print("Screen center ", i, ": ", screen_center)
 		
 		if camera:
-			var world_center = camera.global_position + (screen_center - get_viewport_rect().size * 0.5) / camera.zoom
+			# Use the same coordinate conversion method as the main drawing
+			var canvas_transform = get_canvas_transform()
+			var world_center = canvas_transform.affine_inverse() * screen_center
 			world_centers.append(world_center)
 			if show_debug_prints:
 				print("World center ", i, ": ", world_center)
