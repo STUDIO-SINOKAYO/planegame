@@ -28,12 +28,12 @@
 [ext_resource type="Texture2D" uid="uid://db272ta71xeji" path="res://Assets/Sprites/house2.png" id="16_u0did"]
 [ext_resource type="Texture2D" uid="uid://bt62gviyxwd7m" path="res://Assets/Sprites/housefire.png" id="18_0cmrb"]
 [ext_resource type="Texture2D" uid="uid://c50t8eraocold" path="res://Assets/Sprites/fire1.png" id="19_0cmrb"]
-[ext_resource type="Texture2D" uid="uid://dfhcf7fsn1d1s" path="res://Assets/Sprites/piss.png" id="19_3a44l"]
 [ext_resource type="Script" uid="uid://bty8p5ewvf6un" path="res://Scripts/Water.gd" id="20_0cmrb"]
 [ext_resource type="AudioStream" uid="uid://bcfvnj30rpi46" path="res://Assets/Sounds/plane_fire.ogg" id="20_3a44l"]
 [ext_resource type="AudioStream" uid="uid://83074sx4wfi0" path="res://Assets/Sounds/water.ogg" id="20_24uko"]
 [ext_resource type="Texture2D" uid="uid://rohq112wrgw3" path="res://Assets/Sprites/fireground.png" id="20_d3deu"]
 [ext_resource type="PackedScene" uid="uid://crh7eg66g3enr" path="res://Scenes/burning_obstacle.tscn" id="20_pnhnk"]
+[ext_resource type="Texture2D" uid="uid://brpu0ekpasmjc" path="res://Assets/Sprites/RAIN.png" id="22_23rfw"]
 [ext_resource type="Texture2D" uid="uid://ui1cqaqr8ukm" path="res://Assets/Sprites/fire2.png" id="22_24uko"]
 [ext_resource type="Texture2D" uid="uid://djayrwti0pmmc" path="res://Assets/Sprites/fire4.png" id="22_fq0f7"]
 [ext_resource type="Texture2D" uid="uid://bqiw2iu8ig5t8" path="res://Assets/Sprites/fire3.png" id="24_csjfj"]
@@ -56,7 +56,7 @@
 [ext_resource type="Texture2D" uid="uid://w8eem3on3jpi" path="res://Assets/Sprites/LANDSNOW3.png" id="43_m4bds"]
 [ext_resource type="Script" uid="uid://lk8u8eonnnov" path="res://Scripts/Cursor.gd" id="44_gx30c"]
 [ext_resource type="Texture2D" uid="uid://cb2w4n1deig2t" path="res://Assets/Sprites/CURSOR.png" id="45_jmchl"]
-[ext_resource type="Script" uid="uid://bfd76f72v2pyy" path="res://Scenes/ui.gd" id="50_54tli"]
+[ext_resource type="Script" path="res://Scenes/ui.gd" id="50_54tli"]
 [ext_resource type="Texture2D" uid="uid://c4xxhlnltlhph" path="res://Assets/Sprites/BIRD.png" id="51_icsqr"]
 [ext_resource type="Texture2D" uid="uid://dfd0wjf6t6fh8" path="res://Assets/Sprites/PLAY.png" id="51_m4bds"]
 [ext_resource type="Texture2D" uid="uid://r2shy6eq8447" path="res://Assets/Sprites/SIGN.png" id="52_5oihu"]
@@ -212,9 +212,22 @@ tracks/3/keys = {
 "points": PackedFloat32Array(539, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../../Water:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(3382, 158)]
+}
 
 [sub_resource type="Animation" id="Animation_bp4cd"]
 resource_name = "tree jumpscare"
+length = 3.0
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -257,7 +270,19 @@ tracks/3/loop_wrap = true
 tracks/3/keys = {
 "handle_modes": PackedInt32Array(0, 0),
 "points": PackedFloat32Array(1000, -0.25, 0, 0.25, 0, 539, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.53)
+"times": PackedFloat32Array(1.9, 2.7)
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../../Water:position")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.51),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(3382, 158), Vector2(3382, 430)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_csjfj"]
@@ -344,6 +369,21 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w8uds"]
 size = Vector2(254, 96)
 
+[sub_resource type="Animation" id="Animation_16bfe"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(150, 500)]
+}
+
 [sub_resource type="Animation" id="Animation_23rfw"]
 resource_name = "whal"
 length = 3.0
@@ -361,21 +401,6 @@ tracks/0/keys = {
 "values": [Vector2(150, 300), Vector2(0, 0), Vector2(-250, 300)]
 }
 
-[sub_resource type="Animation" id="Animation_16bfe"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(150, 500)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6g3im"]
 _data = {
 &"RESET": SubResource("Animation_16bfe"),
@@ -387,6 +412,33 @@ size = Vector2(212, 423)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8rl1s"]
 radius = 77.0
+
+[sub_resource type="Animation" id="Animation_5oihu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 600)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Splash:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 600)]
+}
 
 [sub_resource type="Animation" id="Animation_icsqr"]
 resource_name = "chomp"
@@ -414,33 +466,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(0, 600), Vector2(0, 0), Vector2(0, 500)]
-}
-
-[sub_resource type="Animation" id="Animation_5oihu"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 600)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../Splash:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 600)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_16bfe"]
@@ -971,11 +996,6 @@ position = Vector2(2950, -51)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("6_1cgv8")
 
-[node name="Cloud5" type="Sprite2D" parent="Decor"]
-position = Vector2(3440, -254)
-scale = Vector2(0.7, 0.7)
-texture = ExtResource("12_23rfw")
-
 [node name="Cloud2" type="Sprite2D" parent="Decor"]
 position = Vector2(1870.46, -56.66)
 scale = Vector2(0.52, 0.52)
@@ -1256,20 +1276,28 @@ position = Vector2(3382, 158)
 scale = Vector2(1.68, 1.68)
 
 [node name="Sprite2D" type="Sprite2D" parent="Obstacles/Water"]
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("19_3a44l")
+position = Vector2(50, -204.167)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("22_23rfw")
 
 [node name="Area2D" type="Area2D" parent="Obstacles/Water"]
 position = Vector2(0, -2)
 script = ExtResource("20_0cmrb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Water/Area2D"]
-position = Vector2(2, 2)
+position = Vector2(51.1904, -157.524)
 shape = SubResource("CircleShape2D_6y3s5")
 
 [node name="Water" type="AudioStreamPlayer" parent="Obstacles/Water"]
 stream = ExtResource("20_24uko")
 volume_db = -5.298
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Obstacles/Water"]
+
+[node name="Cloud5" type="Sprite2D" parent="Obstacles"]
+position = Vector2(3440, -254)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("12_23rfw")
 
 [node name="Lightning" type="Node2D" parent="Obstacles"]
 
