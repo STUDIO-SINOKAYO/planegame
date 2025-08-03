@@ -49,6 +49,7 @@ var waypoint_position: Vector2 = Vector2.ZERO
 var has_active_waypoint: bool = false
 var waypoint_visual: Node2D
 var dead = false
+var drawing_enabled: bool = true  # Controls whether the player can draw lines
 
 # Signals
 signal game_over
@@ -248,7 +249,9 @@ func _check_waypoint_reached() -> void:
 	var distance_to_waypoint: float = global_position.distance_to(waypoint_position)
 	
 	if distance_to_waypoint <= waypoint_reach_threshold:
-		plane_boost.play()
+		# Only play sound if globally enabled
+		if Global.waypoint_sound_enabled:
+			plane_boost.play()
 		var reached_position = waypoint_position  # Store before clearing
 		_clear_waypoint()
 		waypoint_reached.emit(reached_position)
@@ -453,3 +456,18 @@ func _get_debug_info() -> String:
 		str(gravity_velocity), 
 		str(game_started)
 	]
+
+#-------------------------------------------------------------------------------
+func disable_drawing() -> void:
+	"""Disable the ability to draw lines"""
+	drawing_enabled = false
+
+#-------------------------------------------------------------------------------
+func enable_drawing() -> void:
+	"""Enable the ability to draw lines"""
+	drawing_enabled = true
+
+#-------------------------------------------------------------------------------
+func is_drawing_enabled() -> bool:
+	"""Check if drawing is currently enabled"""
+	return drawing_enabled
