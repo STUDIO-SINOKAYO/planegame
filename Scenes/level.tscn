@@ -64,7 +64,7 @@ radius = 12.0416
 radius = 126.66
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cpxpw"]
-size = Vector2(20, 762)
+size = Vector2(220, 811)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ha31o"]
 radius = 77.2787
@@ -630,7 +630,7 @@ script = ExtResource("1_k5f4k")
 drawing_line_width = 4.0
 drawing_line_color = Color(0.0870516, 0.788785, 0.85756, 1)
 max_drawable_lines = 2
-stamina_drain_per_pixel = 0.04
+stamina_drain_per_pixel = 0.07
 plane_proximity_distance = 300.0
 show_debug_prints = false
 show_red_line = false
@@ -692,13 +692,13 @@ shape = SubResource("CircleShape2D_ogdfn")
 [node name="Decor" type="Node2D" parent="."]
 
 [node name="Cloud3" type="Sprite2D" parent="Decor"]
-position = Vector2(2764, 18)
+position = Vector2(2755, -48)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("5_luodc")
 
 [node name="Cloud8" type="Sprite2D" parent="Decor"]
-position = Vector2(3869.6, 25.2)
-scale = Vector2(0.4, 0.4)
+position = Vector2(3686, -98)
+scale = Vector2(0.480256, 0.477202)
 texture = ExtResource("5_luodc")
 
 [node name="Cloud9" type="Sprite2D" parent="Decor"]
@@ -707,33 +707,33 @@ scale = Vector2(0.4, 0.4)
 texture = ExtResource("5_luodc")
 
 [node name="Cloud6" type="Sprite2D" parent="Decor"]
-position = Vector2(4633, 5)
+position = Vector2(4671, -39)
 scale = Vector2(0.34, 0.34)
 texture = ExtResource("5_luodc")
 
 [node name="Cloud1" type="Sprite2D" parent="Decor"]
-position = Vector2(1902, -3)
-scale = Vector2(0.4, 0.4)
+position = Vector2(1683.46, -83.66)
+scale = Vector2(0.52, 0.52)
 texture = ExtResource("5_luodc")
 
 [node name="Cloud7" type="Sprite2D" parent="Decor"]
-position = Vector2(4078, -173)
-scale = Vector2(0.4, 0.4)
+position = Vector2(4003, -283)
+scale = Vector2(0.520869, 0.524083)
 texture = ExtResource("6_1cgv8")
 
 [node name="Cloud4" type="Sprite2D" parent="Decor"]
-position = Vector2(2963, 45)
+position = Vector2(2950, -51)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("6_1cgv8")
 
 [node name="Cloud5" type="Sprite2D" parent="Decor"]
-position = Vector2(3509, -322)
+position = Vector2(3277, -356)
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("6_1cgv8")
 
 [node name="Cloud2" type="Sprite2D" parent="Decor"]
-position = Vector2(2087, 55)
-scale = Vector2(0.4, 0.4)
+position = Vector2(1870.46, -56.66)
+scale = Vector2(0.52, 0.52)
 texture = ExtResource("6_1cgv8")
 
 [node name="Cloud10" type="Sprite2D" parent="Decor"]
@@ -745,10 +745,10 @@ texture = ExtResource("6_1cgv8")
 script = ExtResource("10_wbq00")
 
 [node name="SunTrigger" type="Area2D" parent="Obstacles"]
-position = Vector2(2369, 217)
+position = Vector2(2221, 116)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/SunTrigger"]
-position = Vector2(0, 165)
+position = Vector2(77, 140.5)
 shape = SubResource("RectangleShape2D_cpxpw")
 
 [node name="Ground2" type="Node2D" parent="Obstacles"]
@@ -756,6 +756,11 @@ shape = SubResource("RectangleShape2D_cpxpw")
 [node name="Sprite2D" type="Sprite2D" parent="Obstacles/Ground2"]
 position = Vector2(3630, 599)
 scale = Vector2(0.2, 0.2)
+texture = ExtResource("7_ais7f")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Obstacles/Ground2"]
+position = Vector2(4356, 718.8)
+scale = Vector2(0.04, 0.04)
 texture = ExtResource("7_ais7f")
 
 [node name="Ground4" type="Node2D" parent="Obstacles"]
@@ -1144,7 +1149,8 @@ position = Vector2(0, 16)
 shape = SubResource("CircleShape2D_dw52x")
 
 [node name="Water" type="Node2D" parent="Obstacles"]
-position = Vector2(3490, 163)
+position = Vector2(3382, 158)
+scale = Vector2(1.68, 1.68)
 
 [node name="Sprite2D" type="Sprite2D" parent="Obstacles/Water"]
 scale = Vector2(0.3, 0.3)
