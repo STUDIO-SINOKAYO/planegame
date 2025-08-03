@@ -6,16 +6,16 @@
 [ext_resource type="Texture2D" uid="uid://cfof2t4pe4mmt" path="res://Assets/Sprites/PLANE.png" id="4_8c0lf"]
 [ext_resource type="Texture2D" uid="uid://doxgbjthq1fb8" path="res://Assets/Sprites/cloud1.png" id="5_luodc"]
 [ext_resource type="Texture2D" uid="uid://c2ma8uiowqrt3" path="res://Assets/Sprites/cloud2.png" id="6_1cgv8"]
-[ext_resource type="PackedScene" uid="uid://dx16h0mn7uvo5" path="res://Scenes/clouds.tscn" id="7_8c0lf"]
+[ext_resource type="PackedScene" path="res://Scenes/clouds.tscn" id="7_8c0lf"]
 [ext_resource type="Texture2D" uid="uid://bcqnc3csg7q4e" path="res://Assets/Sprites/land2.png" id="7_ais7f"]
 [ext_resource type="Texture2D" uid="uid://b1mar0ene2plg" path="res://Assets/Sprites/land4.png" id="8_re0q2"]
 [ext_resource type="Texture2D" uid="uid://bo1gns3t6l0v" path="res://Assets/Sprites/land1.png" id="9_fq0f7"]
 [ext_resource type="Texture2D" uid="uid://bdnkly22vm7fp" path="res://Assets/Sprites/THE SUN.png" id="9_oqgf2"]
 [ext_resource type="Texture2D" uid="uid://bt5gu5c2drbbh" path="res://Assets/Sprites/land3.png" id="10_bp4cd"]
-[ext_resource type="Script" uid="uid://dnpn0f20ri5rw" path="res://Scripts/sun.gd" id="10_qxfql"]
+[ext_resource type="Script" path="res://Scripts/sun.gd" id="10_qxfql"]
 [ext_resource type="AudioStream" uid="uid://bof2sa7cb31ir" path="res://Assets/Sounds/explosion.ogg" id="11_qxfql"]
 [ext_resource type="Texture2D" uid="uid://cn88atdxeptr1" path="res://Assets/Sprites/Tree1.png" id="12_c7le1"]
-[ext_resource type="PackedScene" uid="uid://blnnng7cwudpl" path="res://Scenes/solid_obstacle.tscn" id="13_2klc5"]
+[ext_resource type="PackedScene" path="res://Scenes/solid_obstacle.tscn" id="13_2klc5"]
 [ext_resource type="Texture2D" uid="uid://bkoltqpjyngtt" path="res://Assets/Sprites/tree2.png" id="14_nngtn"]
 [ext_resource type="Texture2D" uid="uid://bt6hi8nvwtlpt" path="res://Assets/Sprites/tree3.png" id="15_00k4y"]
 [ext_resource type="Texture2D" uid="uid://c74d6k087ivsr" path="res://Assets/Sprites/house.png" id="15_vofx3"]
@@ -24,11 +24,11 @@
 [ext_resource type="Texture2D" uid="uid://bt62gviyxwd7m" path="res://Assets/Sprites/housefire.png" id="18_0cmrb"]
 [ext_resource type="Texture2D" uid="uid://c50t8eraocold" path="res://Assets/Sprites/fire1.png" id="19_0cmrb"]
 [ext_resource type="Texture2D" uid="uid://dfhcf7fsn1d1s" path="res://Assets/Sprites/piss.png" id="19_3a44l"]
-[ext_resource type="Script" uid="uid://bty8p5ewvf6un" path="res://Scripts/Water.gd" id="20_0cmrb"]
+[ext_resource type="Script" path="res://Scripts/Water.gd" id="20_0cmrb"]
 [ext_resource type="AudioStream" uid="uid://bcfvnj30rpi46" path="res://Assets/Sounds/plane_fire.ogg" id="20_3a44l"]
 [ext_resource type="AudioStream" uid="uid://83074sx4wfi0" path="res://Assets/Sounds/water.ogg" id="20_24uko"]
 [ext_resource type="Texture2D" uid="uid://rohq112wrgw3" path="res://Assets/Sprites/fireground.png" id="20_d3deu"]
-[ext_resource type="PackedScene" uid="uid://crh7eg66g3enr" path="res://Scenes/burning_obstacle.tscn" id="20_pnhnk"]
+[ext_resource type="PackedScene" path="res://Scenes/burning_obstacle.tscn" id="20_pnhnk"]
 [ext_resource type="Texture2D" uid="uid://ui1cqaqr8ukm" path="res://Assets/Sprites/fire2.png" id="22_24uko"]
 [ext_resource type="Texture2D" uid="uid://djayrwti0pmmc" path="res://Assets/Sprites/fire4.png" id="22_fq0f7"]
 [ext_resource type="Texture2D" uid="uid://bqiw2iu8ig5t8" path="res://Assets/Sprites/fire3.png" id="24_csjfj"]
@@ -169,9 +169,9 @@ position_smoothing_enabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Plane"]
 z_index = 1
-position = Vector2(-7, -12)
+position = Vector2(-5, -5)
 rotation = -0.232129
-scale = Vector2(0.1, 0.1)
+scale = Vector2(0.1, 0.0648427)
 texture = ExtResource("4_8c0lf")
 region_enabled = true
 region_rect = Rect2(0, 0, 1170, 980)
@@ -292,7 +292,6 @@ wait_time = 1.404
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Obstacles/Sun/Area2D"]
 stream = ExtResource("11_qxfql")
-bus = &"SFX"
 
 [node name="Trees" type="Node2D" parent="Obstacles"]
 
@@ -358,7 +357,7 @@ position = Vector2(-55, 10)
 shape = SubResource("CircleShape2D_gf56v")
 
 [node name="Tree4" type="Node2D" parent="Obstacles/Trees"]
-position = Vector2(3520, 528)
+position = Vector2(3468, 539)
 
 [node name="Sprite2D" type="Sprite2D" parent="Obstacles/Trees/Tree4"]
 position = Vector2(-8, -47)
@@ -637,7 +636,6 @@ shape = SubResource("CircleShape2D_6y3s5")
 [node name="Water" type="AudioStreamPlayer" parent="Obstacles/Water"]
 stream = ExtResource("20_24uko")
 volume_db = -5.298
-bus = &"SFX"
 
 [node name="Lightning" type="Node2D" parent="Obstacles"]
 
@@ -824,18 +822,15 @@ offset_bottom = 62.0
 [node name="Burn" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("20_3a44l")
-bus = &"SFX"
 
 [node name="Crash" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("24_gf56v")
-bus = &"SFX"
 
 [node name="PlaneBoost" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("25_u0did")
 volume_db = -6.749
-bus = &"SFX"
 
 [node name="ColorRect" type="ColorRect" parent="."]
 z_index = -50

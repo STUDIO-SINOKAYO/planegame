@@ -118,7 +118,7 @@ func start_game() -> void:
 	"""Start the game and enable movement"""
 	game_started = true
 	# Give the plane a small initial speed so it's not completely stationary
-	current_speed = max(base_speed, 10.0)  # Minimum 10 speed to get started
+	current_speed = max(base_speed, 200.0)  # Minimum 10 speed to get started
 	
 #-------------------------------------------------------------------------------
 func _create_waypoint() -> void:
