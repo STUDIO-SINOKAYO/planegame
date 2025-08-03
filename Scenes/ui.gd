@@ -6,8 +6,8 @@ extends CanvasLayer
 @onready var cursor: Node2D = $"../Cursor"
 @onready var draw_prompt: RichTextLabel = $Tutorial/DrawPrompt
 
-
 var camera_tween: Tween
+var game_has_started_once: bool = false  # Track if we've started the game before
 
 func _ready() -> void:
 	camera.position = Vector2.ZERO
@@ -28,6 +28,7 @@ func _on_play_button_pressed() -> void:
 	start_screen.hide()
 	cursor.show()
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	game_has_started_once = true  # Mark that we've started the game
 	
 	# Smooth camera transition
 	camera_tween = create_tween()
@@ -40,3 +41,11 @@ func _on_play_button_pressed() -> void:
 
 func _on_camera_tween_completed() -> void:
 	draw_prompt.show()
+
+func start_game_directly() -> void:
+	"""Start the game without tutorial or start screen (for restarts)"""
+	start_screen.hide()
+	draw_prompt.hide()
+	cursor.show()
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	camera.position = Vector2(260, -50)  # Set camera position immediately

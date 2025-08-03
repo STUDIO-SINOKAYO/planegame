@@ -12,6 +12,7 @@ extends Node2D
 # Grabbed automatically when scene loads
 @onready var plane: CharacterBody2D = $Plane
 @onready var ui: CanvasLayer = $UI  # UI layer for screen-space drawing
+@onready var ui_script = $UI  # Reference to UI script for restart control
 @onready var stamina_bar: ProgressBar = $UI/StaminaContainer/StaminaBar
 @onready var game_over_screen: Control = $UI/GameOverScreen
 @onready var settings_button: Button = $UI/SettingsButton
@@ -85,6 +86,9 @@ var current_stamina: float       # Current stamina level (initialized from max_s
 # ================================================================================================
 
 func _ready():
+	# Add to group for easy access from other scripts
+	add_to_group("level")
+	
 	# Initialize stamina from exported value
 	current_stamina = max_stamina
 	
@@ -619,8 +623,53 @@ func _on_close_settings_pressed():
 	settings_panel.visible = false
 
 func _on_restart_pressed():
-	# Just reload the whole scene, easiest way to reset everything
-	get_tree().reload_current_scene()
+	# Smart restart: check if game has started before
+	if ui_script.game_has_started_once:
+		# Quick restart without tutorial/start screen
+		restart_game_directly()
+	else:
+		# First time, do full scene reload
+		get_tree().reload_current_scene()
+
+func restart_game_directly():
+	"""Restart the game without tutorial or start screen"""
+	# Reset game state
+	game_over = false
+	current_stamina = max_stamina
+	
+	# Clear all drawings
+	clear_all_drawings()
+	
+	# Reset plane
+	plane.reset_plane()
+	
+	# Reset UI
+	ui_script.start_game_directly()
+	game_over_screen.hide()
+	stamina_bar.value = max_stamina
+	
+	# Reset any other game state as needed
+	setup_drawing()
+
+func clear_all_drawings():
+	"""Clear all existing drawings from the scene"""
+	# Clear current drawing arrays
+	current_drawing.clear()
+	current_screen.clear()
+	
+	# Remove all finished lines from scene
+	for line in finished_lines:
+		if is_instance_valid(line):
+			line.queue_free()
+	finished_lines.clear()
+	
+	# Clear current drawn line if it exists
+	if drawn_path_line:
+		drawn_path_line.queue_free()
+		drawn_path_line = null
+	
+	# Reset loop detection
+	_reset_loop_detection()
 
 func _on_cleanup_old_drawings():
 	# Remove old drawings to stay within max_concurrent_drawings limit
