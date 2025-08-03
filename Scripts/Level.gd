@@ -786,3 +786,7 @@ func _on_cleanup_old_drawings():
 func _on_plane_waypoint_reached(_pos: Vector2) -> void:
 	if waypoints.size() > 0:
 		plane.create_waypoint_at_position(waypoints.pop_front())
+
+
+func tutorial() -> void:
+	pass # Replace with function body.
