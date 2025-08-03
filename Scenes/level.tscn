@@ -1,4 +1,4 @@
-[gd_scene load_steps=92 format=3 uid="uid://ig7nbplla4pc"]
+[gd_scene load_steps=101 format=3 uid="uid://ig7nbplla4pc"]
 
 [ext_resource type="Script" uid="uid://cqn84wdm076k5" path="res://Scripts/Level.gd" id="1_k5f4k"]
 [ext_resource type="Script" uid="uid://pakfejb3s2jx" path="res://Scripts/Plane.gd" id="2_6phgx"]
@@ -6,17 +6,15 @@
 [ext_resource type="Texture2D" uid="uid://cfof2t4pe4mmt" path="res://Assets/Sprites/PLANE.png" id="4_8c0lf"]
 [ext_resource type="Texture2D" uid="uid://doxgbjthq1fb8" path="res://Assets/Sprites/cloud1.png" id="5_luodc"]
 [ext_resource type="Texture2D" uid="uid://c2ma8uiowqrt3" path="res://Assets/Sprites/cloud2.png" id="6_1cgv8"]
-[ext_resource type="PackedScene" path="res://Scenes/clouds.tscn" id="7_8c0lf"]
 [ext_resource type="Texture2D" uid="uid://bcqnc3csg7q4e" path="res://Assets/Sprites/land2.png" id="7_ais7f"]
 [ext_resource type="Texture2D" uid="uid://b1mar0ene2plg" path="res://Assets/Sprites/land4.png" id="8_re0q2"]
 [ext_resource type="Texture2D" uid="uid://bo1gns3t6l0v" path="res://Assets/Sprites/land1.png" id="9_fq0f7"]
 [ext_resource type="Texture2D" uid="uid://bdnkly22vm7fp" path="res://Assets/Sprites/THE SUN.png" id="9_oqgf2"]
 [ext_resource type="Texture2D" uid="uid://bt5gu5c2drbbh" path="res://Assets/Sprites/land3.png" id="10_bp4cd"]
-[ext_resource type="Script" path="res://Scripts/sun.gd" id="10_qxfql"]
+[ext_resource type="Script" uid="uid://dnpn0f20ri5rw" path="res://Scripts/sun.gd" id="10_qxfql"]
 [ext_resource type="AudioStream" uid="uid://bof2sa7cb31ir" path="res://Assets/Sounds/explosion.ogg" id="11_qxfql"]
 [ext_resource type="Texture2D" uid="uid://cn88atdxeptr1" path="res://Assets/Sprites/Tree1.png" id="12_c7le1"]
-[ext_resource type="PackedScene" path="res://Scenes/solid_obstacle.tscn" id="13_2klc5"]
-[ext_resource type="Texture2D" uid="uid://bkoltqpjyngtt" path="res://Assets/Sprites/tree2.png" id="14_nngtn"]
+[ext_resource type="PackedScene" uid="uid://blnnng7cwudpl" path="res://Scenes/solid_obstacle.tscn" id="13_2klc5"]
 [ext_resource type="Texture2D" uid="uid://bt6hi8nvwtlpt" path="res://Assets/Sprites/tree3.png" id="15_00k4y"]
 [ext_resource type="Texture2D" uid="uid://c74d6k087ivsr" path="res://Assets/Sprites/house.png" id="15_vofx3"]
 [ext_resource type="Texture2D" uid="uid://cseuwuhyyle6a" path="res://Assets/Sprites/tree4.png" id="16_3a44l"]
@@ -24,11 +22,11 @@
 [ext_resource type="Texture2D" uid="uid://bt62gviyxwd7m" path="res://Assets/Sprites/housefire.png" id="18_0cmrb"]
 [ext_resource type="Texture2D" uid="uid://c50t8eraocold" path="res://Assets/Sprites/fire1.png" id="19_0cmrb"]
 [ext_resource type="Texture2D" uid="uid://dfhcf7fsn1d1s" path="res://Assets/Sprites/piss.png" id="19_3a44l"]
-[ext_resource type="Script" path="res://Scripts/Water.gd" id="20_0cmrb"]
+[ext_resource type="Script" uid="uid://bty8p5ewvf6un" path="res://Scripts/Water.gd" id="20_0cmrb"]
 [ext_resource type="AudioStream" uid="uid://bcfvnj30rpi46" path="res://Assets/Sounds/plane_fire.ogg" id="20_3a44l"]
 [ext_resource type="AudioStream" uid="uid://83074sx4wfi0" path="res://Assets/Sounds/water.ogg" id="20_24uko"]
 [ext_resource type="Texture2D" uid="uid://rohq112wrgw3" path="res://Assets/Sprites/fireground.png" id="20_d3deu"]
-[ext_resource type="PackedScene" path="res://Scenes/burning_obstacle.tscn" id="20_pnhnk"]
+[ext_resource type="PackedScene" uid="uid://crh7eg66g3enr" path="res://Scenes/burning_obstacle.tscn" id="20_pnhnk"]
 [ext_resource type="Texture2D" uid="uid://ui1cqaqr8ukm" path="res://Assets/Sprites/fire2.png" id="22_24uko"]
 [ext_resource type="Texture2D" uid="uid://djayrwti0pmmc" path="res://Assets/Sprites/fire4.png" id="22_fq0f7"]
 [ext_resource type="Texture2D" uid="uid://bqiw2iu8ig5t8" path="res://Assets/Sprites/fire3.png" id="24_csjfj"]
@@ -36,37 +34,24 @@
 [ext_resource type="AudioStream" uid="uid://h7c10w6jlwnl" path="res://Assets/Sounds/plane_boost.ogg" id="25_u0did"]
 [ext_resource type="Texture2D" uid="uid://ducpqa3tltecg" path="res://Assets/Sprites/lightning.png" id="26_1cgv8"]
 [ext_resource type="Texture2D" uid="uid://b3chqkk6e56y2" path="res://Assets/Sprites/fire5.png" id="26_bp4cd"]
+[ext_resource type="Texture2D" uid="uid://dpdt7g872b4mo" path="res://Assets/Sprites/MILL.png" id="32_ogdfn"]
+[ext_resource type="Texture2D" uid="uid://l2nx1ilpxvtt" path="res://Assets/Sprites/MILLWHEEL.png" id="33_l1uqm"]
+[ext_resource type="Texture2D" uid="uid://by4wxuk76rpin" path="res://Assets/Sprites/WAVES1FRONT.png" id="34_gx30c"]
+[ext_resource type="Texture2D" uid="uid://byqcb07uk6egf" path="res://Assets/Sprites/WHALE.png" id="35_jmchl"]
+[ext_resource type="Texture2D" uid="uid://dbmueoa6lp7et" path="res://Assets/Sprites/MEGALODON.png" id="36_s14gf"]
+[ext_resource type="Texture2D" uid="uid://dm8hibwg4jjsw" path="res://Assets/Sprites/TREES4SNOW.png" id="37_cpxpw"]
+[ext_resource type="Texture2D" uid="uid://dq5srxi32mnoj" path="res://Assets/Sprites/HOUSESNOW1.png" id="38_wbq00"]
+[ext_resource type="Texture2D" uid="uid://bvw0rnejlt445" path="res://Assets/Sprites/HOUSESNOW2.png" id="39_dx6so"]
+[ext_resource type="Texture2D" uid="uid://d4iged6xrnjts" path="res://Assets/Sprites/HOUSESNOW3.png" id="40_54tli"]
+[ext_resource type="Texture2D" uid="uid://4bem8c5tm28t" path="res://Assets/Sprites/LANDSNOW1.png" id="41_8huh7"]
+[ext_resource type="Texture2D" uid="uid://cl6gv22ppqq88" path="res://Assets/Sprites/LANDSNOW2.png" id="42_2veds"]
+[ext_resource type="Texture2D" uid="uid://w8eem3on3jpi" path="res://Assets/Sprites/LANDSNOW3.png" id="43_m4bds"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_754fn"]
 radius = 12.0416
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ha31o"]
 radius = 77.2787
-
-[sub_resource type="Animation" id="Animation_re0q2"]
-resource_name = "sun jumpscare"
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(2408, -0.25, 0, 0.25, 0, 2408, -0.25, 0, 0.25, 0, 2408, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.166667, 0.8)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(-200, -0.25, 0, 0.25, 0, 210, -0.25, 0, 0.25, 0, 199, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.533333, 1)
-}
 
 [sub_resource type="Animation" id="Animation_fq0f7"]
 length = 0.001
@@ -93,6 +78,31 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0)
 }
 
+[sub_resource type="Animation" id="Animation_re0q2"]
+resource_name = "sun jumpscare"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(2408, -0.25, 0, 0.25, 0, 2408, -0.25, 0, 0.25, 0, 2408, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.166667, 0.8)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(-200, -0.25, 0, 0.25, 0, 210, -0.25, 0, 0.25, 0, 199, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.533333, 1)
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bp4cd"]
 _data = {
 &"RESET": SubResource("Animation_fq0f7"),
@@ -104,12 +114,6 @@ size = Vector2(65.25, 94.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3a44l"]
 size = Vector2(24, 68.25)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_c7le1"]
-size = Vector2(67, 91)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2klc5"]
-size = Vector2(13, 71)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pnhnk"]
 radius = 53.0848
@@ -125,53 +129,6 @@ size = Vector2(265.5, 101.5)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_u0did"]
 radius = 78.0064
-
-[sub_resource type="Animation" id="Animation_bp4cd"]
-resource_name = "tree jumpscare"
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:scale:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:position:x")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(3468, -0.25, 0, 0.25, 0, 3468, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.53)
-}
-tracks/3/type = "bezier"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".:position:y")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1000, -0.25, 0, 0.25, 0, 539, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.53)
-}
 
 [sub_resource type="Animation" id="Animation_d3deu"]
 length = 0.001
@@ -220,6 +177,53 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0)
 }
 
+[sub_resource type="Animation" id="Animation_bp4cd"]
+resource_name = "tree jumpscare"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:position:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(3468, -0.25, 0, 0.25, 0, 3468, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.53)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:position:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1000, -0.25, 0, 0.25, 0, 539, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.53)
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_csjfj"]
 _data = {
 &"RESET": SubResource("Animation_d3deu"),
@@ -244,6 +248,21 @@ size = Vector2(78, 183.5)
 [sub_resource type="CircleShape2D" id="CircleShape2D_maxl3"]
 radius = 13.4536
 
+[sub_resource type="Animation" id="Animation_fmtd1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 400)]
+}
+
 [sub_resource type="Animation" id="Animation_nkhef"]
 resource_name = "shake"
 loop_mode = 1
@@ -260,7 +279,16 @@ tracks/0/keys = {
 "values": [Vector2(0, 0), Vector2(-1, 2), Vector2(2.48485, 1.0303), Vector2(0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_fmtd1"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5o4ln"]
+_data = {
+&"RESET": SubResource("Animation_fmtd1"),
+&"shake": SubResource("Animation_nkhef")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d3deu"]
+radius = 16.1245
+
+[sub_resource type="Animation" id="Animation_maxl3"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -274,15 +302,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(0, 400)]
 }
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_5o4ln"]
-_data = {
-&"RESET": SubResource("Animation_fmtd1"),
-&"shake": SubResource("Animation_nkhef")
-}
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_d3deu"]
-radius = 16.1245
 
 [sub_resource type="Animation" id="Animation_ag4x3"]
 resource_name = "shake"
@@ -298,21 +317,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(2, 0), Vector2(-2.06061, -1), Vector2(0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_maxl3"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 400)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_md013"]
@@ -341,6 +345,81 @@ radius = 38.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1cgv8"]
 size = Vector2(13, 64)
+
+[sub_resource type="Animation" id="Animation_l1uqm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(5718, 563)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Fire1:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(6155, 645)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../FireGround1:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 300)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Fire5:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Fire4:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1.401, 350)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../Fire3:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.143, 400)]
+}
 
 [sub_resource type="Animation" id="Animation_ogdfn"]
 resource_name = "fire appear"
@@ -418,81 +497,6 @@ tracks/5/keys = {
 "values": [Vector2(2.143, 400), Vector2(2.143, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_l1uqm"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(5718, 563)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../Fire1:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(6155, 645)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../FireGround1:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 300)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("../Fire5:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("../Fire4:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-1.401, 350)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("../Fire3:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(2.143, 400)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gx30c"]
 _data = {
 &"RESET": SubResource("Animation_l1uqm"),
@@ -501,6 +505,21 @@ _data = {
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_csjfj"]
 radius = 11.0
+
+[sub_resource type="Animation" id="Animation_s14gf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.001),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 400), Vector2(0, 400)]
+}
 
 [sub_resource type="Animation" id="Animation_jmchl"]
 resource_name = "shake"
@@ -516,21 +535,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(-2, -1), Vector2(2, 0), Vector2(0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_s14gf"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.001),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 400), Vector2(0, 400)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cpxpw"]
@@ -566,21 +570,6 @@ size = Vector2(39, 132)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_re0q2"]
 size = Vector2(7.25, 133)
 
-[sub_resource type="Animation" id="Animation_csjfj"]
-resource_name = "strike"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.266667, 0.466667),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(-5, -4), Vector2(-1, -6)]
-}
-
 [sub_resource type="Animation" id="Animation_5o4ln"]
 length = 0.001
 tracks/0/type = "value"
@@ -594,6 +583,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, -900)]
+}
+
+[sub_resource type="Animation" id="Animation_csjfj"]
+resource_name = "strike"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.266667, 0.466667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-5, -4), Vector2(-1, -6)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ag4x3"]
@@ -771,25 +775,6 @@ shape = SubResource("RectangleShape2D_00k4y")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Obstacles/Trees/Tree1/Solid Obstacle"]
 position = Vector2(7, -64.875)
 shape = SubResource("RectangleShape2D_3a44l")
-
-[node name="Tree2" type="Node2D" parent="Obstacles/Trees"]
-position = Vector2(796, -381)
-
-[node name="Sprite2D" type="Sprite2D" parent="Obstacles/Trees/Tree2"]
-position = Vector2(1, 1)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("14_nngtn")
-
-[node name="Solid Obstacle" parent="Obstacles/Trees/Tree2" instance=ExtResource("13_2klc5")]
-position = Vector2(1, 3)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Trees/Tree2/Solid Obstacle"]
-position = Vector2(-0.5, 30.5)
-shape = SubResource("RectangleShape2D_c7le1")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Obstacles/Trees/Tree2/Solid Obstacle"]
-position = Vector2(0.5, -46.5)
-shape = SubResource("RectangleShape2D_2klc5")
 
 [node name="Tree3" type="Node2D" parent="Obstacles/Trees"]
 position = Vector2(2291, 518)
@@ -1153,6 +1138,109 @@ libraries = {
 &"": SubResource("AnimationLibrary_ag4x3")
 }
 
+[node name="Mill" type="Node2D" parent="Obstacles"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacles/Mill"]
+position = Vector2(6869, 518)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("32_ogdfn")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Obstacles/Mill"]
+position = Vector2(7148, 591)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("33_l1uqm")
+
+[node name="Waves" type="Node2D" parent="Obstacles"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacles/Waves"]
+position = Vector2(8266, 653)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("34_gx30c")
+
+[node name="Whale" type="Node2D" parent="Obstacles"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacles/Whale"]
+position = Vector2(7874, 556)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("35_jmchl")
+
+[node name="Megalo" type="Node2D" parent="Obstacles"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacles/Megalo"]
+position = Vector2(8604, 425)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("36_s14gf")
+
+[node name="WTree1" type="Node2D" parent="Obstacles"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacles/WTree1"]
+position = Vector2(10844, 539)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("37_cpxpw")
+
+[node name="WTree2" type="Node2D" parent="Obstacles"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacles/WTree2"]
+position = Vector2(10669, 636)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("37_cpxpw")
+
+[node name="WTree3" type="Node2D" parent="Obstacles"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacles/WTree3"]
+position = Vector2(9685, 506)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("37_cpxpw")
+
+[node name="WTree4" type="Node2D" parent="Obstacles"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacles/WTree4"]
+position = Vector2(9472, 534)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("37_cpxpw")
+
+[node name="HouseSnow1" type="Node2D" parent="Obstacles"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacles/HouseSnow1"]
+position = Vector2(9966, 511)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("38_wbq00")
+
+[node name="HouseSnow2" type="Node2D" parent="Obstacles"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacles/HouseSnow2"]
+position = Vector2(10333, 585)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("39_dx6so")
+
+[node name="HouseSnow3" type="Node2D" parent="Obstacles"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacles/HouseSnow3"]
+position = Vector2(12419, 361)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("40_54tli")
+
+[node name="GroundSnow1" type="Node2D" parent="Obstacles"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacles/GroundSnow1"]
+position = Vector2(10047, 588)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("41_8huh7")
+
+[node name="GroundSnow3" type="Node2D" parent="Obstacles"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacles/GroundSnow3"]
+position = Vector2(12203, 578)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("42_2veds")
+
+[node name="GroundSnow4" type="Node2D" parent="Obstacles"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacles/GroundSnow4"]
+position = Vector2(13451, 600)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("43_m4bds")
+
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="SettingsButton" type="Button" parent="UI"]
@@ -1177,12 +1265,12 @@ grow_horizontal = 0
 [node name="StaminaBar" type="ProgressBar" parent="UI/StaminaContainer"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = -1.49
+anchor_left = -0.99
 anchor_top = 2.167
-anchor_right = -0.49
-anchor_bottom = 3.167
-offset_left = 3.05176e-05
-offset_top = -0.0100021
+anchor_bottom = 2.867
+offset_left = 4.57764e-05
+offset_top = -9.01
+offset_right = 2.0
 offset_bottom = -0.0100021
 grow_horizontal = 2
 grow_vertical = 2
