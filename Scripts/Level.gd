@@ -21,38 +21,70 @@ extends Node2D
 @onready var speed_label: Label = $UI/Statistics/SpeedLabel
 @onready var altitude_label: Label = $UI/Statistics/AltitudeLabel
 
+# === EXPORTED CONFIGURATION VARIABLES ===
+# Drawing system settings
+@export_group("Drawing Settings")
+@export var min_point_distance: float = 8.0  ## Minimum distance between drawing points (pixels). Lower = smoother but more performance cost
+@export var drawing_line_width: float = 3.0  ## Width of the cyan drawing line (pixels). Visual preference only
+@export var drawing_line_color: Color = Color.CYAN  ## Color of the drawing line while player is drawing
+
+# Loop detection settings
+@export_group("Loop Detection")
+@export var min_drawing_size_for_loops: int = 10  ## Minimum number of points needed before loop detection starts. Lower = more sensitive
+@export var loop_direction_threshold: float = 0.3  ## Sensitivity for detecting direction changes (0.0-1.0). Lower = more sensitive to small turns
+
+# Cleanup system settings
+@export_group("Drawing Cleanup")
+@export var old_drawing_fade_time: float = 1.0  ## How long (seconds) before old drawings are removed automatically
+@export var max_concurrent_drawings: int = 1  ## Maximum number of drawings visible at once. Higher = more visual clutter but shows drawing history
+
+# Stamina system settings
+@export_group("Stamina System")
+@export var max_stamina: float = 100.0        ## Maximum stamina available for drawing. Higher = longer drawing sessions
+@export var stamina_drain_rate: float = 30.0  ## How fast stamina drains while drawing (per second). Higher = shorter drawing time
+@export var stamina_regen_rate: float = 20.0  ## How fast stamina regenerates when not drawing (per second). Higher = faster recovery
+@export var low_stamina_threshold: float = 30.0  ## When stamina bar turns red as warning. Should be lower than max_stamina
+
+# Flight display settings
+@export_group("Flight Info Display")
+@export var pixels_per_meter: float = 100.0  ## Conversion rate for realistic speed/altitude display. 100 pixels = 1 meter by default
+@export var ground_level: float = 600.0  ## Y-coordinate where plane crashes into ground. Higher = lower crash altitude
+
+# Waypoint system settings
+@export_group("Waypoint System")
+@export var plane_proximity_distance: float = 50.0  ## How close (pixels) plane needs to be to drawing to activate waypoints. Higher = easier activation
+
+# Debug settings
+@export_group("Debug")
+@export var show_debug_prints: bool = true  ## Enable/disable debug console output. Turn off for release builds
+@export var red_line_width: float = 7.0  ## Width of the red debug line connecting loop centers. Visual debug aid only
+@export var red_line_color: Color = Color.RED  ## Color of the red debug line. Visual debug aid only
+
 # === GAME STATE VARIABLES ===
-# Drawing system variables
+# Drawing system variables (non-exported runtime state)
 var drawn_path_line: Line2D      # The cyan line you see when drawing
 var finished_lines: Array = []   # Array of completed lines in world space
 var current_drawing: Array = []  # Points of what you're currently drawing
 var current_screen: Array = []	# Points of current drawing based on SCREEN POS
 var detected_loop_paths: Array = []  # Store the paths of detected loops
 var is_drawing = false           
-var min_point_distance = 8.0     # Don't add points too close together
 var game_over = false            
 var center = Line2D.new() 		# FOR DEBUG (detect loops 2)
 var loop_centers: Array = []
 var waypoints: Array = []
 
-# Cleanup system variables
+# Runtime variables
 var cleanup_timer: Timer         # Timer for removing old drawings
-var old_drawing_fade_time: float = 1.0  # How long old drawings stay visible after new one
-
-# Stamina system variables (prevents infinite drawing spam)
-var max_stamina: float = 100.0        
-var current_stamina: float = 100.0    
-var stamina_drain_rate: float = 30.0  # Drains while drawing
-var stamina_regen_rate: float = 20.0  # Comes back when not drawing
-
-# Game constants
-var ground_level: float = 600.0       # Ground level where plane crashes
+var current_stamina: float       # Current stamina level (initialized from max_stamina)
 
 # ================================================================================================
 # INITIALIZATION
 # ================================================================================================
 
 func _ready():
+	# Initialize stamina from exported value
+	current_stamina = max_stamina
+	
 	setup_drawing()
 	setup_cleanup_timer()
 	
@@ -112,8 +144,8 @@ func start_drawing(screen_pos: Vector2, _world_pos: Vector2):
 	
 	# Create a NEW line for this drawing session
 	drawn_path_line = Line2D.new()
-	drawn_path_line.width = 3.0
-	drawn_path_line.default_color = Color.CYAN
+	drawn_path_line.width = drawing_line_width
+	drawn_path_line.default_color = drawing_line_color
 	drawn_path_line.joint_mode = Line2D.LINE_JOINT_ROUND
 	drawn_path_line.end_cap_mode = Line2D.LINE_CAP_ROUND
 	ui.add_child(drawn_path_line)  # Add to UI layer for drawing
@@ -164,8 +196,8 @@ func _move_line_to_world_space():
 	finished_lines.append(drawn_path_line)
 	drawn_path_line = null  # Clear reference so new line can be created
 	
-	# Start cleanup timer to remove old drawings after 1 second
-	if cleanup_timer and finished_lines.size() > 1:
+	# Start cleanup timer to remove old drawings after specified time
+	if cleanup_timer and finished_lines.size() > max_concurrent_drawings:
 		cleanup_timer.start()
 
 func _convert_screen_to_world_coordinates() -> Array:
@@ -212,7 +244,7 @@ func _handle_no_loops():
 func detect_loops() -> int:
 	# Simple loop detection - counts direction changes to estimate loops
 	# This is the old detection method, now replaced by detect_loops_2()
-	if current_drawing.size() < 10:
+	if current_drawing.size() < min_drawing_size_for_loops:
 		return 0
 	
 	var loops = 0
@@ -224,7 +256,7 @@ func detect_loops() -> int:
 		
 		if last_direction != Vector2.ZERO:
 			var angle_change = abs(last_direction.angle_to(current_direction))
-			if angle_change > PI * 0.3:  # Big direction change (~54 degrees)
+			if angle_change > PI * loop_direction_threshold:  # Big direction change
 				direction_changes += 1
 		
 		last_direction = current_direction
@@ -238,8 +270,9 @@ func detect_loops_2() -> int:
 	_reset_loop_detection()
 	_print_loop_detection_debug()
 	
-	if current_drawing.size() < 10:
-		print("Drawing too small for loop detection")
+	if current_drawing.size() < min_drawing_size_for_loops:
+		if show_debug_prints:
+			print("Drawing too small for loop detection")
 		return 0
 	
 	var loop_data = _analyze_drawing_for_loops()
@@ -252,8 +285,9 @@ func _reset_loop_detection():
 	detected_loop_paths.clear()  # Clear previous loop paths
 
 func _print_loop_detection_debug():
-	print("=== LOOP DETECTION DEBUG ===")
-	print("Drawing size: ", current_drawing.size())
+	if show_debug_prints:
+		print("=== LOOP DETECTION DEBUG ===")
+		print("Drawing size: ", current_drawing.size())
 
 func _analyze_drawing_for_loops() -> Dictionary:
 	# Mita's loop detection algorithm - detects counterclockwise loops by finding
@@ -326,41 +360,48 @@ func _handle_upward_movement(i: int, directional_state: Dictionary, loop_data: D
 	directional_state.up_coords = current_screen[i]
 	directional_state.up_coords_global = current_drawing[i]
 	directional_state.up_index = i
-	print("UP detected at index: ", i)
+	if show_debug_prints:
+		print("UP detected at index: ", i)
 
 func _handle_leftward_movement(i: int, directional_state: Dictionary, loop_data: Dictionary):
 	loop_data.left_count += 1
 	directional_state.left = true
 	directional_state.left_coords = current_screen[i]
 	directional_state.left_index = i
-	print("LEFT detected at index: ", i)
+	if show_debug_prints:
+		print("LEFT detected at index: ", i)
 
 func _handle_downward_movement(i: int, directional_state: Dictionary, loop_data: Dictionary):
 	loop_data.down_count += 1
 	directional_state.down_index = i
 	directional_state.down_coords_global = current_drawing[i]
-	print("DOWN detected at index: ", i, " | up=", directional_state.up, " left=", directional_state.left)
+	if show_debug_prints:
+		print("DOWN detected at index: ", i, " | up=", directional_state.up, " left=", directional_state.left)
 	
 	# When we have UP→LEFT→DOWN sequence, create a loop center and calculate area
 	if directional_state.up && directional_state.left:
 		_create_loop_from_sequence(i, directional_state, loop_data)
 
 func _create_loop_from_sequence(i: int, directional_state: Dictionary, loop_data: Dictionary):
-	print("CREATING LOOP CENTER!")
+	if show_debug_prints:
+		print("CREATING LOOP CENTER!")
 	directional_state.down_coords = current_screen[i]
-	print("UP coords: ", directional_state.up_coords)
-	print("LEFT coords: ", directional_state.left_coords)
-	print("DOWN coords: ", directional_state.down_coords)
+	if show_debug_prints:
+		print("UP coords: ", directional_state.up_coords)
+		print("LEFT coords: ", directional_state.left_coords)
+		print("DOWN coords: ", directional_state.down_coords)
 	
 	# Calculate elliptical area approximation for the detected loop
 	var a = directional_state.up_coords.distance_to(directional_state.down_coords) / 2
 	var b = ((directional_state.up_coords + directional_state.down_coords) / 2).distance_to(directional_state.left_coords)
 	loop_data.area += 3.1415 * a * b
-	print("AREA: ", loop_data.area)
+	if show_debug_prints:
+		print("AREA: ", loop_data.area)
 	
 	# Calculate the center point between up and down coordinates
 	var loop_center_pos = (directional_state.up_coords + directional_state.down_coords) / 2
-	print("Calculated loop center: ", loop_center_pos)
+	if show_debug_prints:
+		print("Calculated loop center: ", loop_center_pos)
 	loop_data.loop_centers_found.append(loop_center_pos)
 	loop_centers.append((directional_state.up_coords_global + directional_state.down_coords_global) / 2)
 	
@@ -396,9 +437,10 @@ func _finalize_loop_detection(loop_data: Dictionary) -> int:
 	# Final loop count is the minimum of all three directional changes
 	# (ensures we only count complete UP→LEFT→DOWN sequences)
 	var loops = min(loop_data.up_count, loop_data.left_count, loop_data.down_count)
-	print("Final counts - up:", loop_data.up_count, " left:", loop_data.left_count, " down:", loop_data.down_count)
-	print("LOOPS: ", loops)
-	print("Loop centers found for red line: ", loop_centers.size())
+	if show_debug_prints:
+		print("Final counts - up:", loop_data.up_count, " left:", loop_data.left_count, " down:", loop_data.down_count)
+		print("LOOPS: ", loops)
+		print("Loop centers found for red line: ", loop_centers.size())
 	
 	return loops
 
@@ -414,7 +456,8 @@ func _create_red_line_centers(loop_centers_found: Array):
 	if loop_centers_found.size() > 0:
 		# Sort loop centers by X coordinate (left to right) for consistent flow direction
 		loop_centers_found.sort_custom(func(a, b): return a.x < b.x)
-		print("Sorted loop centers by X coordinate: ", loop_centers_found)
+		if show_debug_prints:
+			print("Sorted loop centers by X coordinate: ", loop_centers_found)
 		
 		for loop_center_pos in loop_centers_found:
 			center.add_point(loop_center_pos)
@@ -439,47 +482,55 @@ func _convert_red_line_to_world_coordinates() -> Array:
 	var world_centers = []
 	var camera = get_viewport().get_camera_2d()
 	
-	print("=== CREATING RED LINE AFTER REPARENT ===")
+	if show_debug_prints:
+		print("=== CREATING RED LINE AFTER REPARENT ===")
 	for i in range(center.get_point_count()):
 		var screen_center = center.get_point_position(i)
-		print("Screen center ", i, ": ", screen_center)
+		if show_debug_prints:
+			print("Screen center ", i, ": ", screen_center)
 		
 		if camera:
 			var world_center = camera.global_position + (screen_center - get_viewport_rect().size * 0.5) / camera.zoom
 			world_centers.append(world_center)
-			print("World center ", i, ": ", world_center)
+			if show_debug_prints:
+				print("World center ", i, ": ", world_center)
 		else:
 			world_centers.append(screen_center)
-			print("World center ", i, " (no camera): ", screen_center)
+			if show_debug_prints:
+				print("World center ", i, " (no camera): ", screen_center)
 	
 	return world_centers
 
 func _create_world_space_red_line(world_centers: Array):
 	# Clear and recreate the red line with world coordinates
 	center.clear_points()
-	center.default_color = Color.RED
-	center.width = 7
+	center.default_color = red_line_color
+	center.width = red_line_width
 	add_child(center)  # Add to Level (world space) instead of UI
 	
 	# Add world coordinate points to the red line
 	for world_center in world_centers:
 		center.add_point(world_center)
 	
-	print("Red line created with ", center.get_point_count(), " world coordinate points")
+	if show_debug_prints:
+		print("Red line created with ", center.get_point_count(), " world coordinate points")
 
 func get_loop_centers() -> Array:
 	# Extract the center points from the red line for loop suction physics
 	# Red line is now already in world coordinates after reparenting
 	var centers = []
 	
-	print("=== LOOP CENTERS (already in world coords) ===")
+	if show_debug_prints:
+		print("=== LOOP CENTERS (already in world coords) ===")
 	
 	for i in range(center.get_point_count()):
 		var world_center = center.get_point_position(i)
 		centers.append(world_center)
-		print("World center ", i, ": ", world_center)
+		if show_debug_prints:
+			print("World center ", i, ": ", world_center)
 	
-	print("Final loop centers for physics: ", centers)
+	if show_debug_prints:
+		print("Final loop centers for physics: ", centers)
 	return centers
 
 func get_red_line_direction() -> Vector2:
@@ -497,15 +548,18 @@ func get_loop_flow_directions() -> Array:
 	# Calculate individual flow directions for each loop pointing to the center of the next loop
 	var directions = []
 	
-	print("=== LOOP FLOW DIRECTIONS ===")
-	print("Red line point count: ", center.get_point_count())
+	if show_debug_prints:
+		print("=== LOOP FLOW DIRECTIONS ===")
+		print("Red line point count: ", center.get_point_count())
 	
 	if center.get_point_count() < 2:
 		# If only one or no loops, use default right direction
-		print("Only one or no loops, using default directions")
+		if show_debug_prints:
+			print("Only one or no loops, using default directions")
 		for i in range(center.get_point_count()):
 			directions.append(Vector2.RIGHT)
-			print("Direction ", i, ": ", Vector2.RIGHT, " (default)")
+			if show_debug_prints:
+				print("Direction ", i, ": ", Vector2.RIGHT, " (default)")
 		return directions
 	
 	# For each loop, calculate direction from its center to the next loop's center
@@ -516,17 +570,21 @@ func get_loop_flow_directions() -> Array:
 			var next_loop_center = center.get_point_position(i + 1)
 			var direction = (next_loop_center - current_loop_center).normalized()
 			directions.append(direction)
-			print("Direction ", i, ": from ", current_loop_center, " to ", next_loop_center, " = ", direction)
+			if show_debug_prints:
+				print("Direction ", i, ": from ", current_loop_center, " to ", next_loop_center, " = ", direction)
 		else:
 			# For the last loop, use the overall direction or continue in same direction as previous
 			if directions.size() > 0:
 				directions.append(directions[directions.size() - 1])  # Same direction as previous loop
-				print("Direction ", i, ": ", directions[directions.size() - 1], " (same as previous)")
+				if show_debug_prints:
+					print("Direction ", i, ": ", directions[directions.size() - 1], " (same as previous)")
 			else:
 				directions.append(Vector2.RIGHT)  # Fallback
-				print("Direction ", i, ": ", Vector2.RIGHT, " (fallback)")
+				if show_debug_prints:
+					print("Direction ", i, ": ", Vector2.RIGHT, " (fallback)")
 	
-	print("Final flow directions: ", directions)
+	if show_debug_prints:
+		print("Final flow directions: ", directions)
 	return directions
 
 # === RENDERING FUNCTION ===
@@ -560,7 +618,7 @@ func update_stamina_bar():
 	stamina_bar.value = current_stamina
 	
 	var style = StyleBoxFlat.new()
-	if current_stamina > 30:
+	if current_stamina > low_stamina_threshold:
 		style.bg_color = Color.GREEN  # Good stamina
 	else:
 		style.bg_color = Color.RED    # Low stamina warning
@@ -573,12 +631,12 @@ func update_flight_info():
 
 func _update_speed_display():
 	# Update speed display (convert from pixels/sec to m/s for readability)
-	var speed_ms = plane.velocity.length() / 100.0  # Assume 100 pixels = 1 meter cus yk
+	var speed_ms = plane.velocity.length() / pixels_per_meter  # Convert pixels to meters
 	speed_label.text = "Speed: %.1f m/s" % speed_ms
 
 func _update_altitude_display():
 	# Update altitude display (higher Y = lower altitude, so invert it)
-	var altitude_m = (ground_level - plane.global_position.y) / 100.0  # Convert to meters
+	var altitude_m = (ground_level - plane.global_position.y) / pixels_per_meter  # Convert to meters
 	altitude_label.text = "Altitude: %.1f m" % max(0, altitude_m)  # Don't show negative altitude
 
 # === PLANE WAYPOINT FUNCTIONS ===
@@ -591,7 +649,7 @@ func create_plane_waypoints():
 
 func _is_plane_near_drawing() -> bool:
 	for i in range(0, current_drawing.size()):
-		if plane.position.distance_to(current_drawing[i]) < 50:
+		if plane.position.distance_to(current_drawing[i]) < plane_proximity_distance:
 			return true
 	return false
 
@@ -625,9 +683,9 @@ func _on_restart_pressed():
 	get_tree().reload_current_scene()
 
 func _on_cleanup_old_drawings():
-	# Remove all old drawings except the most recent one
-	# Keep the last drawing visible, remove all others
-	while finished_lines.size() > 1:
+	# Remove old drawings to stay within max_concurrent_drawings limit
+	# Keep the most recent drawings visible, remove oldest ones
+	while finished_lines.size() > max_concurrent_drawings:
 		var old_line = finished_lines[0]  # Get the oldest line
 		if old_line and old_line.get_parent():
 			old_line.get_parent().remove_child(old_line)

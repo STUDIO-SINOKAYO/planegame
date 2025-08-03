@@ -165,7 +165,9 @@ polygon = PackedVector2Array(15, 0, -8, 8, -5, 0, -8, -8)
 
 [node name="Camera2D" type="Camera2D" parent="Plane"]
 position = Vector2(264, -54)
-position_smoothing_enabled = true
+zoom = Vector2(0.705, 0.705)
+limit_top = -150
+limit_bottom = -150
 
 [node name="Sprite2D" type="Sprite2D" parent="Plane"]
 z_index = 1
