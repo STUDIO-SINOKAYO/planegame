@@ -58,6 +58,8 @@ signal waypoint_created(position: Vector2)
 signal waypoint_reached(position: Vector2)
 signal waypoint_cleared()
 
+@onready var plane_boost: AudioStreamPlayer = %PlaneBoost
+
 #-------------------------------------------------------------------------------
 func _ready() -> void:
 	_initialize_plane()
@@ -116,7 +118,7 @@ func start_game() -> void:
 	"""Start the game and enable movement"""
 	game_started = true
 	# Give the plane a small initial speed so it's not completely stationary
-	current_speed = max(base_speed, 10.0)  # Minimum 10 speed to get started
+	current_speed = max(base_speed, 200.0)  # Minimum 10 speed to get started
 	
 #-------------------------------------------------------------------------------
 func _create_waypoint() -> void:
@@ -246,6 +248,7 @@ func _check_waypoint_reached() -> void:
 	var distance_to_waypoint: float = global_position.distance_to(waypoint_position)
 	
 	if distance_to_waypoint <= waypoint_reach_threshold:
+		plane_boost.play()
 		var reached_position = waypoint_position  # Store before clearing
 		_clear_waypoint()
 		waypoint_reached.emit(reached_position)

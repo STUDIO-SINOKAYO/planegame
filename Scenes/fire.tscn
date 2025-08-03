@@ -1,24 +1,27 @@
 [gd_scene load_steps=4 format=3 uid="uid://ba0tj3luxxix5"]
 
-[ext_resource type="Texture2D" uid="uid://d02dwmif63q64" path="res://icon.svg" id="1_yr3ur"]
-[ext_resource type="Script" uid="uid://dpq0064hcf4qp" path="res://Scripts/kill.gd" id="2_yr3ur"]
+[ext_resource type="Texture2D" uid="uid://c50t8eraocold" path="res://Assets/Sprites/fire1.png" id="1_yr3ur"]
+[ext_resource type="Script" uid="uid://dpq0064hcf4qp" path="res://Scripts/Burn.gd" id="2_yr3ur"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yr3ur"]
-radius = 59.0
+radius = 41.0122
 
 [node name="Fire" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1, -30)
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("1_yr3ur")
 
-[node name="Kill" type="Area2D" parent="."]
+[node name="Burn" type="Area2D" parent="."]
 script = ExtResource("2_yr3ur")
 
-[node name="Timer" type="Timer" parent="Kill"]
+[node name="Timer" type="Timer" parent="Burn"]
 wait_time = 0.055
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Kill"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Burn"]
+position = Vector2(0, 4)
 shape = SubResource("CircleShape2D_yr3ur")
 
-[connection signal="body_entered" from="Kill" to="Kill" method="_on_body_entered"]
-[connection signal="timeout" from="Kill/Timer" to="Kill" method="_on_timer_timeout"]
+[connection signal="body_entered" from="Burn" to="Burn" method="_on_body_entered"]
+[connection signal="timeout" from="Burn/Timer" to="Burn" method="_on_timer_timeout"]
