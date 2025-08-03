@@ -9,6 +9,9 @@ var IsDrawing: bool = false : set = set_is_drawing
 # Game state tracking - simple and reliable
 var game_has_been_played_before: bool = false
 
+# Audio control
+var waypoint_sound_enabled: bool = true  ## Global control for waypoint sound
+
 # Audio player for pencil sound
 var pencil_audio_player: AudioStreamPlayer
 

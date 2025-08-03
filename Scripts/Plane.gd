@@ -249,7 +249,9 @@ func _check_waypoint_reached() -> void:
 	var distance_to_waypoint: float = global_position.distance_to(waypoint_position)
 	
 	if distance_to_waypoint <= waypoint_reach_threshold:
-		plane_boost.play()
+		# Only play sound if globally enabled
+		if Global.waypoint_sound_enabled:
+			plane_boost.play()
 		var reached_position = waypoint_position  # Store before clearing
 		_clear_waypoint()
 		waypoint_reached.emit(reached_position)

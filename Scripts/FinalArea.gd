@@ -21,6 +21,9 @@ func _on_final_trigger_area_entered(area: Area2D) -> void:
 	if area.name == "Cursor detection" and area.get_parent() == plane_node:
 		print("Plane entered final area - disabling drawing and creating waypoint")
 		
+		# Disable waypoint sound globally
+		Global.waypoint_sound_enabled = false
+		
 		# Disable drawing ability
 		plane_node.disable_drawing()
 		
