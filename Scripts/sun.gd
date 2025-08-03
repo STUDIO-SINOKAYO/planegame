@@ -9,7 +9,6 @@ func _on_body_entered(body: Node2D) -> void:
 	body.get_node("Sprite2D").region_rect = Rect2(1170, 0, 1170, 980)
 	audio_stream_player.play()
 	timer.start()
-	
 
 func _on_timer_timeout() -> void:
 	get_tree().reload_current_scene()
