@@ -1,4 +1,4 @@
-[gd_scene load_steps=119 format=3 uid="uid://ig7nbplla4pc"]
+[gd_scene load_steps=159 format=3 uid="uid://ig7nbplla4pc"]
 
 [ext_resource type="Script" uid="uid://cqn84wdm076k5" path="res://Scripts/Level.gd" id="1_k5f4k"]
 [ext_resource type="Script" uid="uid://pakfejb3s2jx" path="res://Scripts/Plane.gd" id="2_6phgx"]
@@ -17,14 +17,11 @@
 [ext_resource type="Texture2D" uid="uid://bt5gu5c2drbbh" path="res://Assets/Sprites/land3.png" id="10_bp4cd"]
 [ext_resource type="Texture2D" uid="uid://beyrwjtxgddlx" path="res://Assets/Sprites/CLOUD5NIMBUSifeveryoulluse.png" id="10_ht0u2"]
 [ext_resource type="Script" uid="uid://dnpn0f20ri5rw" path="res://Scripts/sun.gd" id="10_qxfql"]
-[ext_resource type="Texture2D" uid="uid://bqvrducuijw22" path="res://Assets/Sprites/WINDOW2.png" id="10_t4ggf"]
-[ext_resource type="Script" uid="uid://cqqhj2dqc7il" path="res://Scripts/FinalArea.gd" id="10_uoc0b"]
-[ext_resource type="Script" path="res://Scripts/obstacles.gd" id="10_wbq00"]
-[ext_resource type="Texture2D" uid="uid://b3f7ku2kcyv48" path="res://Assets/Sprites/WALLPAPERENDING.png" id="11_2lp24"]
+[ext_resource type="Script" uid="uid://crbbxtm1ff3gi" path="res://Scripts/obstacles.gd" id="10_wbq00"]
 [ext_resource type="AudioStream" uid="uid://bof2sa7cb31ir" path="res://Assets/Sounds/explosion.ogg" id="11_qxfql"]
-[ext_resource type="Texture2D" uid="uid://bdgh5pb82dpvd" path="res://Assets/Sprites/WINDOW3OVERLAY.png" id="11_uoc0b"]
+[ext_resource type="Texture2D" uid="uid://c6rxxv78xvprj" path="res://Assets/Sprites/CLOUD4NIMBUS.png" id="12_23rfw"]
 [ext_resource type="Texture2D" uid="uid://cn88atdxeptr1" path="res://Assets/Sprites/Tree1.png" id="12_c7le1"]
-[ext_resource type="PackedScene" path="res://Scenes/solid_obstacle.tscn" id="13_2klc5"]
+[ext_resource type="PackedScene" uid="uid://blnnng7cwudpl" path="res://Scenes/solid_obstacle.tscn" id="13_2klc5"]
 [ext_resource type="Texture2D" uid="uid://bt6hi8nvwtlpt" path="res://Assets/Sprites/tree3.png" id="15_00k4y"]
 [ext_resource type="Texture2D" uid="uid://c74d6k087ivsr" path="res://Assets/Sprites/house.png" id="15_vofx3"]
 [ext_resource type="Texture2D" uid="uid://cseuwuhyyle6a" path="res://Assets/Sprites/tree4.png" id="16_3a44l"]
@@ -36,7 +33,7 @@
 [ext_resource type="AudioStream" uid="uid://bcfvnj30rpi46" path="res://Assets/Sounds/plane_fire.ogg" id="20_3a44l"]
 [ext_resource type="AudioStream" uid="uid://83074sx4wfi0" path="res://Assets/Sounds/water.ogg" id="20_24uko"]
 [ext_resource type="Texture2D" uid="uid://rohq112wrgw3" path="res://Assets/Sprites/fireground.png" id="20_d3deu"]
-[ext_resource type="PackedScene" path="res://Scenes/burning_obstacle.tscn" id="20_pnhnk"]
+[ext_resource type="PackedScene" uid="uid://crh7eg66g3enr" path="res://Scenes/burning_obstacle.tscn" id="20_pnhnk"]
 [ext_resource type="Texture2D" uid="uid://ui1cqaqr8ukm" path="res://Assets/Sprites/fire2.png" id="22_24uko"]
 [ext_resource type="Texture2D" uid="uid://djayrwti0pmmc" path="res://Assets/Sprites/fire4.png" id="22_fq0f7"]
 [ext_resource type="Texture2D" uid="uid://bqiw2iu8ig5t8" path="res://Assets/Sprites/fire3.png" id="24_csjfj"]
@@ -59,7 +56,8 @@
 [ext_resource type="Texture2D" uid="uid://w8eem3on3jpi" path="res://Assets/Sprites/LANDSNOW3.png" id="43_m4bds"]
 [ext_resource type="Script" uid="uid://lk8u8eonnnov" path="res://Scripts/Cursor.gd" id="44_gx30c"]
 [ext_resource type="Texture2D" uid="uid://cb2w4n1deig2t" path="res://Assets/Sprites/CURSOR.png" id="45_jmchl"]
-[ext_resource type="Script" uid="uid://bfd76f72v2pyy" path="res://Scripts/ui.gd" id="50_54tli"]
+[ext_resource type="Script" uid="uid://bfd76f72v2pyy" path="res://Scenes/ui.gd" id="50_54tli"]
+[ext_resource type="Texture2D" uid="uid://c4xxhlnltlhph" path="res://Assets/Sprites/BIRD.png" id="51_icsqr"]
 [ext_resource type="Texture2D" uid="uid://dfd0wjf6t6fh8" path="res://Assets/Sprites/PLAY.png" id="51_m4bds"]
 [ext_resource type="Texture2D" uid="uid://r2shy6eq8447" path="res://Assets/Sprites/SIGN.png" id="52_5oihu"]
 [ext_resource type="Texture2D" uid="uid://dk3ujljw3x52i" path="res://Assets/Sprites/PLAY2.png" id="52_t4ggf"]
@@ -73,8 +71,8 @@ radius = 12.0416
 [sub_resource type="CircleShape2D" id="CircleShape2D_ogdfn"]
 radius = 126.66
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2lp24"]
-size = Vector2(323.5, 826)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_23rfw"]
+size = Vector2(11776, 994)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cpxpw"]
 size = Vector2(220, 811)
@@ -867,7 +865,7 @@ scale = Vector2(0.368, 1.276)
 texture = ExtResource("2_dx6so")
 
 [node name="Plane" type="CharacterBody2D" parent="."]
-position = Vector2(53, 363)
+position = Vector2(50, 363.005)
 script = ExtResource("2_6phgx")
 max_speed = 300.0
 speed_deceleration = 0.5
@@ -883,9 +881,7 @@ polygon = PackedVector2Array(15, 0, -8, 8, -5, 0, -8, -8)
 zoom = Vector2(0.785, 0.785)
 limit_left = -1000
 limit_top = -150
-limit_right = 15440
 limit_bottom = -150
-limit_smoothed = true
 editor_draw_limits = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Plane"]
@@ -1039,40 +1035,6 @@ texture = ExtResource("6_1cgv8")
 position = Vector2(10924, -72)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("6_1cgv8")
-
-[node name="Final Area" type="Node2D" parent="."]
-position = Vector2(13943, 349)
-script = ExtResource("10_uoc0b")
-
-[node name="CityScape" type="Node2D" parent="Final Area"]
-
-[node name="City" type="Sprite2D" parent="Final Area/CityScape"]
-position = Vector2(703, -51)
-scale = Vector2(0.415, 0.415)
-texture = ExtResource("11_2lp24")
-
-[node name="Window" type="Node2D" parent="Final Area"]
-
-[node name="Backwall" type="Sprite2D" parent="Final Area/Window"]
-position = Vector2(85, -56.4)
-scale = Vector2(0.412, 0.41)
-texture = ExtResource("10_t4ggf")
-
-[node name="Frontwall" type="Sprite2D" parent="Final Area/Window"]
-z_index = 5
-position = Vector2(89, -56.9)
-scale = Vector2(0.412, 0.412)
-texture = ExtResource("11_uoc0b")
-
-[node name="Waypoint 1" type="Node2D" parent="Final Area"]
-position = Vector2(546, 28)
-scale = Vector2(1.06322, 0.927509)
-
-[node name="FinalTrigger" type="Area2D" parent="Final Area"]
-position = Vector2(-348, -85)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Final Area/FinalTrigger"]
-shape = SubResource("RectangleShape2D_2lp24")
 
 [node name="Obstacles" type="Node2D" parent="."]
 script = ExtResource("10_wbq00")
@@ -1903,7 +1865,6 @@ shape = SubResource("CircleShape2D_s14gf")
 script = ExtResource("50_54tli")
 
 [node name="SettingsButton" type="Button" parent="UI"]
-visible = false
 offset_right = 60.0
 offset_bottom = 60.0
 text = "⚙️"
@@ -2095,30 +2056,33 @@ grow_vertical = 2
 
 [node name="PlayButton" type="TextureButton" parent="UI/StartScreen"]
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = 8
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -134.0
-offset_top = -141.0
-offset_right = 134.0
-offset_bottom = -39.0
+anchor_bottom = 0.5
+offset_left = 113.0
+offset_top = 117.0
+offset_right = 427.0
+offset_bottom = 219.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
 texture_normal = ExtResource("51_m4bds")
 texture_pressed = ExtResource("52_t4ggf")
 
 [node name="TextureRect" type="TextureRect" parent="UI/StartScreen"]
 layout_mode = 1
-anchors_preset = 5
+anchors_preset = 8
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
-offset_left = -233.0
-offset_top = 17.0
-offset_right = 1062.0
-offset_bottom = 665.0
+anchor_bottom = 0.5
+offset_left = -230.0
+offset_top = -307.0
+offset_right = 1065.0
+offset_bottom = 341.0
 grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(0.36, 0.36)
 texture = ExtResource("53_uoc0b")
 
@@ -2145,7 +2109,6 @@ color = Color(0.176471, 0.258824, 0.294118, 1)
 
 [connection signal="game_over" from="Plane" to="." method="_on_game_over"]
 [connection signal="waypoint_reached" from="Plane" to="." method="_on_plane_waypoint_reached"]
-[connection signal="area_entered" from="Final Area/FinalTrigger" to="Final Area" method="_on_final_trigger_area_entered"]
 [connection signal="body_entered" from="Obstacles/Sun/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="Obstacles/Sun/Area2D" to="Obstacles/Sun/Area2D" method="_on_body_entered"]
 [connection signal="timeout" from="Obstacles/Sun/Area2D/Timer" to="Obstacles/Sun/Area2D" method="_on_timer_timeout"]

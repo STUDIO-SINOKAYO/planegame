@@ -21,11 +21,6 @@ PlaneMusic="*res://Scenes/plane_music.tscn"
 Global="*res://Scripts/Global.gd"
 TimeSlowdown="*res://Scripts/TimeSlowdown.gd"
 
-[display]
-
-window/size/resizable=false
-window/stretch/mode="viewport"
-
 [input]
 
 ui_accept={
