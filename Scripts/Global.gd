@@ -8,6 +8,14 @@ var IsDrawing: bool = false : set = set_is_drawing
 
 # Game state tracking - simple and reliable
 var game_has_been_played_before: bool = false
+<<<<<<< Updated upstream
+=======
+var game_started: bool = false  ## Whether the actual gameplay has begun (first valid line drawn)
+var drawing_allowed: bool = false  ## Whether the player is allowed to draw (after camera transition)
+
+# Audio control
+var waypoint_sound_enabled: bool = true  ## Global control for waypoint sound
+>>>>>>> Stashed changes
 
 # Audio player for pencil sound
 var pencil_audio_player: AudioStreamPlayer

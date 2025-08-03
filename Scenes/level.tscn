@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 [gd_scene load_steps=167 format=3 uid="uid://ig7nbplla4pc"]
+=======
+[gd_scene load_steps=122 format=3 uid="uid://ig7nbplla4pc"]
+>>>>>>> Stashed changes
 
 [ext_resource type="Script" uid="uid://cqn84wdm076k5" path="res://Scripts/Level.gd" id="1_k5f4k"]
 [ext_resource type="Script" uid="uid://pakfejb3s2jx" path="res://Scripts/Plane.gd" id="2_6phgx"]
@@ -59,17 +63,27 @@
 [ext_resource type="Texture2D" uid="uid://w8eem3on3jpi" path="res://Assets/Sprites/LANDSNOW3.png" id="43_m4bds"]
 [ext_resource type="Script" uid="uid://lk8u8eonnnov" path="res://Scripts/Cursor.gd" id="44_gx30c"]
 [ext_resource type="Texture2D" uid="uid://cb2w4n1deig2t" path="res://Assets/Sprites/CURSOR.png" id="45_jmchl"]
+<<<<<<< Updated upstream
 [ext_resource type="Script" uid="uid://bfd76f72v2pyy" path="res://Scenes/ui.gd" id="50_54tli"]
 [ext_resource type="Texture2D" uid="uid://c4xxhlnltlhph" path="res://Assets/Sprites/BIRD.png" id="51_icsqr"]
+=======
+[ext_resource type="Script" uid="uid://bfd76f72v2pyy" path="res://Scripts/ui.gd" id="50_54tli"]
+>>>>>>> Stashed changes
 [ext_resource type="Texture2D" uid="uid://dfd0wjf6t6fh8" path="res://Assets/Sprites/PLAY.png" id="51_m4bds"]
 [ext_resource type="Texture2D" uid="uid://r2shy6eq8447" path="res://Assets/Sprites/SIGN.png" id="52_5oihu"]
 [ext_resource type="Texture2D" uid="uid://dk3ujljw3x52i" path="res://Assets/Sprites/PLAY2.png" id="52_t4ggf"]
 [ext_resource type="Texture2D" uid="uid://cen16b5c1bdaq" path="res://Assets/Sprites/ICEBERG.png" id="53_16bfe"]
 [ext_resource type="Texture2D" uid="uid://bsksucne12fqt" path="res://Assets/Sprites/LOGO.png" id="53_uoc0b"]
+<<<<<<< Updated upstream
 [ext_resource type="Texture2D" uid="uid://7uoiuw6h3rva" path="res://Assets/Sprites/MEGALODONWATERSPLASH.png" id="55_23rfw"]
 [ext_resource type="Texture2D" uid="uid://cx4rva20k3cp2" path="res://Assets/Sprites/WATERSPLASH1.png" id="56_16bfe"]
 [ext_resource type="Texture2D" uid="uid://fqprwqyq7o3v" path="res://Assets/Sprites/WATERSPLASH2.png" id="57_6g3im"]
 [ext_resource type="Texture2D" uid="uid://bpewowwsvo0uw" path="res://Assets/Sprites/WATERSPLASH3.png" id="58_w8uds"]
+=======
+[ext_resource type="Script" uid="uid://3tv75vtt4vbf" path="res://Scripts/tutorial.gd" id="54_ubg6v"]
+[ext_resource type="Texture2D" uid="uid://dcf1i3a40uifo" path="res://Assets/Sprites/TUTORIAL1.png" id="54_v15qs"]
+[ext_resource type="Texture2D" uid="uid://cdeurbrmrwe27" path="res://Assets/Sprites/TUTORIAL3.png" id="56_ht0u2"]
+>>>>>>> Stashed changes
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_754fn"]
 radius = 12.0416
@@ -2077,6 +2091,22 @@ texture = ExtResource("45_jmchl")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Cursor/CursorArea"]
 shape = SubResource("CircleShape2D_s14gf")
 
+<<<<<<< Updated upstream
+=======
+[node name="Tutorial" type="Node2D" parent="."]
+script = ExtResource("54_ubg6v")
+
+[node name="Dotted Line" type="Sprite2D" parent="Tutorial"]
+position = Vector2(325, 312)
+scale = Vector2(0.385, 0.385)
+texture = ExtResource("54_v15qs")
+
+[node name="Tutorial Text" type="Sprite2D" parent="Tutorial"]
+position = Vector2(562, 291)
+scale = Vector2(0.29, 0.29)
+texture = ExtResource("56_ht0u2")
+
+>>>>>>> Stashed changes
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource("50_54tli")
 
@@ -2246,21 +2276,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-
-[node name="DrawPrompt" type="RichTextLabel" parent="UI/Tutorial"]
-visible = false
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -378.0
-offset_top = -80.0
-offset_right = -109.0
-grow_horizontal = 0
-grow_vertical = 2
-text = "Start Drawing a Loop-The-Loop near the plane to keep urself afloat"
 
 [node name="StartScreen" type="Control" parent="UI"]
 layout_mode = 3
