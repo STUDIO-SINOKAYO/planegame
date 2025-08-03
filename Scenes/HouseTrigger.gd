@@ -5,4 +5,5 @@ extends Area2D
 
 
 func _on_body_entered(body: Node2D) -> void:
-	animation_player.play("rise")
+	if body.name == "Plane":
+		animation_player.play("rise")
