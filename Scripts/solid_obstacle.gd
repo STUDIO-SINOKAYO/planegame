@@ -1,17 +1,7 @@
-extends Area2D
+extends BaseObstacle
+class_name SolidObstacle
 
-@onready var timer = $Timer
-@onready var crash: AudioStreamPlayer = %Crash
+## Solid obstacle that crashes the plane on contact
 
-func _on_body_entered(body):
-	print("death")
-	body.get_node("CollisionShape2D").queue_free()
-	crash.play()
-	body.current_speed = 0
-	body.get_node("Sprite2D").region_rect = Rect2(1170, 0, 1170, 980)
-	body.dead = true
-	timer.start()
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _on_timer_timeout():
-	get_tree().reload_current_scene()
+func get_audio_player() -> AudioStreamPlayer:
+	return %Crash as AudioStreamPlayer
