@@ -619,6 +619,7 @@ radius = 2.0
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_k5f4k")
+drawing_line_width = 4.0
 drawing_line_color = Color(0.0870516, 0.788785, 0.85756, 1)
 stamina_drain_per_pixel = 0.04
 plane_proximity_distance = 300.0
