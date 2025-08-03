@@ -1,0 +1,11 @@
+extends BaseObstacle
+class_name BurnObstacle
+
+## Burning obstacle that ignites the plane on contact
+
+func get_audio_player() -> AudioStreamPlayer:
+	# Find the Burn audio player in the level scene (go up to level)
+	var level = get_tree().get_first_node_in_group("level")
+	if level:
+		return level.get_node("Burn") as AudioStreamPlayer
+	return null
