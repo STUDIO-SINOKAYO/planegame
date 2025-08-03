@@ -441,6 +441,15 @@ func set_velocity_line_visibility(show_line: bool) -> void:
 		velocity_line.visible = show_line
 
 #-------------------------------------------------------------------------------
+func disable_drawing() -> void:
+	"""Disable the ability to draw new lines - used in final area"""
+	# This could be implemented by setting a flag that the level script checks
+	# For now, we'll just emit a signal or call the level directly
+	var level = get_tree().get_first_node_in_group("level")
+	if level and level.has_method("set_drawing_enabled"):
+		level.set_drawing_enabled(false)
+
+#-------------------------------------------------------------------------------
 func _get_debug_info() -> String:
 	"""Get debug information string"""
 	return "Speed: %.1f | Loops: %d | Gravity: %s | Game Active: %s" % [

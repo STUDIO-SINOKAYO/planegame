@@ -1,4 +1,4 @@
-[gd_scene load_steps=193 format=3 uid="uid://ig7nbplla4pc"]
+[gd_scene load_steps=200 format=3 uid="uid://ig7nbplla4pc"]
 
 [ext_resource type="Script" uid="uid://cqn84wdm076k5" path="res://Scripts/Level.gd" id="1_k5f4k"]
 [ext_resource type="Script" uid="uid://pakfejb3s2jx" path="res://Scripts/Plane.gd" id="2_6phgx"]
@@ -41,7 +41,9 @@
 [ext_resource type="AudioStream" uid="uid://bcfvnj30rpi46" path="res://Assets/Sounds/plane_fire.ogg" id="20_3a44l"]
 [ext_resource type="AudioStream" uid="uid://83074sx4wfi0" path="res://Assets/Sounds/water.ogg" id="20_24uko"]
 [ext_resource type="Texture2D" uid="uid://rohq112wrgw3" path="res://Assets/Sprites/fireground.png" id="20_d3deu"]
+[ext_resource type="AudioStream" uid="uid://16q6vdtccpcq" path="res://Assets/Sounds/hooray.ogg" id="20_o2uvi"]
 [ext_resource type="PackedScene" uid="uid://crh7eg66g3enr" path="res://Scenes/burning_obstacle.tscn" id="20_pnhnk"]
+[ext_resource type="Texture2D" uid="uid://b5iwoclm46c5k" path="res://Assets/Sprites/CREDITS.png" id="21_x3r1c"]
 [ext_resource type="Texture2D" uid="uid://brpu0ekpasmjc" path="res://Assets/Sprites/RAIN.png" id="22_23rfw"]
 [ext_resource type="Texture2D" uid="uid://ui1cqaqr8ukm" path="res://Assets/Sprites/fire2.png" id="22_24uko"]
 [ext_resource type="Texture2D" uid="uid://djayrwti0pmmc" path="res://Assets/Sprites/fire4.png" id="22_fq0f7"]
@@ -50,17 +52,17 @@
 [ext_resource type="AudioStream" uid="uid://h7c10w6jlwnl" path="res://Assets/Sounds/plane_boost.ogg" id="25_u0did"]
 [ext_resource type="Texture2D" uid="uid://ducpqa3tltecg" path="res://Assets/Sprites/lightning.png" id="26_1cgv8"]
 [ext_resource type="Texture2D" uid="uid://b3chqkk6e56y2" path="res://Assets/Sprites/fire5.png" id="26_bp4cd"]
-[ext_resource type="Script" path="res://Scenes/TreeTrigger.gd" id="28_8rl1s"]
+[ext_resource type="Script" uid="uid://xnkrkyewbhc3" path="res://Scenes/TreeTrigger.gd" id="28_8rl1s"]
 [ext_resource type="Texture2D" uid="uid://dpk7f15mvh0y8" path="res://Assets/Sprites/WAVES2BACK.png" id="30_ht0u2"]
-[ext_resource type="Script" path="res://Scenes/LightningTrigger.gd" id="31_y6tmo"]
+[ext_resource type="Script" uid="uid://b8bsk6cpxxc24" path="res://Scenes/LightningTrigger.gd" id="31_y6tmo"]
 [ext_resource type="Texture2D" uid="uid://dpdt7g872b4mo" path="res://Assets/Sprites/MILL.png" id="32_ogdfn"]
 [ext_resource type="Texture2D" uid="uid://l2nx1ilpxvtt" path="res://Assets/Sprites/MILLWHEEL.png" id="33_l1uqm"]
 [ext_resource type="Texture2D" uid="uid://by4wxuk76rpin" path="res://Assets/Sprites/WAVES1FRONT.png" id="34_gx30c"]
 [ext_resource type="Texture2D" uid="uid://byqcb07uk6egf" path="res://Assets/Sprites/WHALE.png" id="35_jmchl"]
-[ext_resource type="Script" path="res://Scenes/WhaleTr.gd" id="36_py0mn"]
+[ext_resource type="Script" uid="uid://2ossii387hb4" path="res://Scenes/WhaleTr.gd" id="36_py0mn"]
 [ext_resource type="Texture2D" uid="uid://dbmueoa6lp7et" path="res://Assets/Sprites/MEGALODON.png" id="36_s14gf"]
 [ext_resource type="Texture2D" uid="uid://dm8hibwg4jjsw" path="res://Assets/Sprites/TREES4SNOW.png" id="37_cpxpw"]
-[ext_resource type="Script" path="res://Scenes/MegaloTr.gd" id="38_fwhgd"]
+[ext_resource type="Script" uid="uid://cgmoswixn2b1t" path="res://Scenes/MegaloTr.gd" id="38_fwhgd"]
 [ext_resource type="Texture2D" uid="uid://dq5srxi32mnoj" path="res://Assets/Sprites/HOUSESNOW1.png" id="38_wbq00"]
 [ext_resource type="Texture2D" uid="uid://bvw0rnejlt445" path="res://Assets/Sprites/HOUSESNOW2.png" id="39_dx6so"]
 [ext_resource type="Texture2D" uid="uid://d4iged6xrnjts" path="res://Assets/Sprites/HOUSESNOW3.png" id="40_54tli"]
@@ -83,9 +85,9 @@
 [ext_resource type="Texture2D" uid="uid://cx4rva20k3cp2" path="res://Assets/Sprites/WATERSPLASH1.png" id="56_16bfe"]
 [ext_resource type="Texture2D" uid="uid://fqprwqyq7o3v" path="res://Assets/Sprites/WATERSPLASH2.png" id="57_6g3im"]
 [ext_resource type="Texture2D" uid="uid://bpewowwsvo0uw" path="res://Assets/Sprites/WATERSPLASH3.png" id="58_w8uds"]
-[ext_resource type="Script" path="res://Scenes/HouseTrigger.gd" id="62_tcm81"]
+[ext_resource type="Script" uid="uid://bq3h2jiel2mo3" path="res://Scenes/HouseTrigger.gd" id="62_tcm81"]
 [ext_resource type="Texture2D" uid="uid://j86r0qvbehno" path="res://Assets/Sprites/TUTORIAL3.png" id="76_r74g4"]
-[ext_resource type="Script" path="res://Scenes/ResetTrigger.gd" id="79_o16m1"]
+[ext_resource type="Script" uid="uid://c82x1rm4jp3st" path="res://Scenes/ResetTrigger.gd" id="79_o16m1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_754fn"]
 radius = 12.0416
@@ -98,6 +100,43 @@ size = Vector2(11776, 994)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2lp24"]
 size = Vector2(323.5, 826)
+
+[sub_resource type="Animation" id="Animation_r07lu"]
+resource_name = "credits roll"
+length = 3.9975
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Credits:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3.86667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(921, 602), Vector2(932, -175)]
+}
+
+[sub_resource type="Animation" id="Animation_e6a55"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Credits:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(921, 602)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nhhdd"]
+_data = {
+&"RESET": SubResource("Animation_e6a55"),
+&"credits roll": SubResource("Animation_r07lu")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cpxpw"]
 size = Vector2(220, 811)
@@ -1053,7 +1092,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_043up"]
-size = Vector2(183, 1790)
+size = Vector2(49, 884)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e6a55"]
 radius = 1400.01
@@ -1069,9 +1108,6 @@ size = Vector2(54, 148)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s14gf"]
 radius = 2.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_043up"]
-size = Vector2(49, 884)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tk00g"]
 size = Vector2(304, 5742)
@@ -1133,7 +1169,7 @@ scale = Vector2(0.368, 1.276)
 texture = ExtResource("2_dx6so")
 
 [node name="Plane" type="CharacterBody2D" parent="."]
-position = Vector2(57, 337)
+position = Vector2(12832, 258)
 script = ExtResource("2_6phgx")
 max_speed = 300.0
 speed_deceleration = 0.5
@@ -1149,6 +1185,7 @@ polygon = PackedVector2Array(15, 0, -8, 8, -5, 0, -8, -8)
 zoom = Vector2(0.785, 0.785)
 limit_left = -1000
 limit_top = -150
+limit_right = 15430
 limit_bottom = -150
 position_smoothing_enabled = true
 editor_draw_limits = true
@@ -1333,6 +1370,20 @@ position = Vector2(-348, -85)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Final Area/FinalTrigger"]
 shape = SubResource("RectangleShape2D_2lp24")
+
+[node name="Hooray" type="AudioStreamPlayer" parent="Final Area/FinalTrigger"]
+stream = ExtResource("20_o2uvi")
+bus = &"Music"
+
+[node name="Credits" type="Sprite2D" parent="Final Area"]
+position = Vector2(921, 602)
+scale = Vector2(0.441673, 0.431897)
+texture = ExtResource("21_x3r1c")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Final Area"]
+libraries = {
+&"": SubResource("AnimationLibrary_nhhdd")
+}
 
 [node name="Obstacles" type="Node2D" parent="."]
 script = ExtResource("10_wbq00")

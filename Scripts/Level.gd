@@ -77,6 +77,7 @@ var current_screen: Array = []	# Points of current drawing based on SCREEN POS
 var detected_loop_paths: Array = []  # Store the paths of detected loops
 var is_drawing = false           
 var game_over = false            
+var drawing_enabled = true      # Whether drawing is currently allowed
 var center = Line2D.new() 		# FOR DEBUG (detect loops 2)
 var loop_centers: Array = []
 var waypoints: Array = []
@@ -120,7 +121,7 @@ func setup_cleanup_timer():
 # === INPUT HANDLING FUNCTIONS ===
 
 func _input(event):
-	if game_over:
+	if game_over or not drawing_enabled:
 		return
 	
 	if event is InputEventMouseButton:
@@ -790,3 +791,10 @@ func _on_plane_waypoint_reached(_pos: Vector2) -> void:
 
 func tutorial() -> void:
 	pass # Replace with function body.
+
+func set_drawing_enabled(enabled: bool) -> void:
+	"""Enable or disable drawing capability"""
+	drawing_enabled = enabled
+	if not enabled and is_drawing:
+		# If we're currently drawing when disabled, finish the current drawing
+		finish_drawing()

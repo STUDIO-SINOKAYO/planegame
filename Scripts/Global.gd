@@ -10,6 +10,9 @@ var IsDrawing: bool = false : set = set_is_drawing
 var game_has_been_played_before: bool = false
 var game_started: bool = false  ## Whether the actual gameplay has begun (first valid line drawn)
 
+# Audio settings
+var waypoint_sound_enabled: bool = true  ## Whether waypoint sounds should play
+
 # Audio player for pencil sound
 var pencil_audio_player: AudioStreamPlayer
 

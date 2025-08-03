@@ -21,11 +21,17 @@ func _on_final_trigger_area_entered(area: Area2D) -> void:
 	if area.name == "Cursor detection" and area.get_parent() == plane_node:
 		print("Plane entered final area - disabling drawing and creating waypoint")
 		
-		# Disable waypoint sound globally
+		# Disable waypoint sound globally idfk
 		Global.waypoint_sound_enabled = false
+		
+		# Play hooray audio
+		var hooray_audio = $FinalTrigger/Hooray as AudioStreamPlayer
+		if hooray_audio:
+			hooray_audio.play()
 		
 		# Disable drawing ability
 		plane_node.disable_drawing()
+		$AnimationPlayer.play("credits roll")
 		
 		# Create waypoint at Waypoint 1 position
 		if waypoint_1:
