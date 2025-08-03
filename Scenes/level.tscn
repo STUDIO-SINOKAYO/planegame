@@ -106,7 +106,6 @@ wait_time = 1.404
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Obstacles/Sun"]
 stream = ExtResource("11_qxfql")
-bus = &"SFX"
 
 [node name="Tree1" type="Node2D" parent="Obstacles"]
 position = Vector2(569, 511)
