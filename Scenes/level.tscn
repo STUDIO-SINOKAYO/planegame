@@ -1,4 +1,4 @@
-[gd_scene load_steps=106 format=3 uid="uid://ig7nbplla4pc"]
+[gd_scene load_steps=107 format=3 uid="uid://ig7nbplla4pc"]
 
 [ext_resource type="Script" uid="uid://cqn84wdm076k5" path="res://Scripts/Level.gd" id="1_k5f4k"]
 [ext_resource type="Script" uid="uid://pakfejb3s2jx" path="res://Scripts/Plane.gd" id="2_6phgx"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cfof2t4pe4mmt" path="res://Assets/Sprites/PLANE.png" id="4_8c0lf"]
 [ext_resource type="Script" uid="uid://cgrkp52cjio52" path="res://Scripts/cursor_detection.gd" id="5_jmchl"]
 [ext_resource type="Texture2D" uid="uid://doxgbjthq1fb8" path="res://Assets/Sprites/cloud1.png" id="5_luodc"]
+[ext_resource type="Texture2D" uid="uid://b8sisa5va837" path="res://Assets/Sprites/WHITEPLANE.png" id="5_s14gf"]
 [ext_resource type="Texture2D" uid="uid://c2ma8uiowqrt3" path="res://Assets/Sprites/cloud2.png" id="6_1cgv8"]
 [ext_resource type="Texture2D" uid="uid://bcqnc3csg7q4e" path="res://Assets/Sprites/land2.png" id="7_ais7f"]
 [ext_resource type="Texture2D" uid="uid://b1mar0ene2plg" path="res://Assets/Sprites/land4.png" id="8_re0q2"]
@@ -645,18 +646,25 @@ limit_bottom = -150
 
 [node name="Sprite2D" type="Sprite2D" parent="Plane"]
 z_index = 1
-position = Vector2(-5, -5)
+position = Vector2(0.58, -4.815)
 rotation = -0.232129
-scale = Vector2(0.1, 0.0648427)
+scale = Vector2(0.12, 0.078)
 texture = ExtResource("4_8c0lf")
 region_enabled = true
 region_rect = Rect2(0, 0, 1170, 980)
+
+[node name="Sprite2D2" type="Sprite2D" parent="Plane"]
+position = Vector2(4.099, -0.573)
+rotation = -0.218166
+scale = Vector2(0.445, 0.284)
+texture = ExtResource("5_s14gf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Plane"]
 position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_754fn")
 
 [node name="Cursor detection" type="Area2D" parent="Plane"]
+position = Vector2(0.17, 0)
 script = ExtResource("5_jmchl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Plane/Cursor detection"]

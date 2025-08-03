@@ -137,10 +137,11 @@ func _handle_mouse_motion(event: InputEventMouseMotion):
 # === DRAWING FUNCTIONS ===
 
 func start_drawing(screen_pos: Vector2, _world_pos: Vector2):
-	if current_stamina <= 0:
+	if current_stamina <= 0 or not Global.MouseEnteredRadius:
 		return
 		
 	is_drawing = true
+	Global.IsDrawing = true
 	current_drawing.clear()
 	current_screen.clear()
 	
@@ -174,6 +175,7 @@ func continue_drawing(screen_pos: Vector2, _world_pos: Vector2):
 func finish_drawing():
 	loop_centers = []
 	is_drawing = false
+	Global.IsDrawing = false
 	
 	if drawn_path_line and drawn_path_line.get_parent() == ui:
 		_move_line_to_world_space()
