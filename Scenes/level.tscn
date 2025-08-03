@@ -1,16 +1,22 @@
-[gd_scene load_steps=10 format=3 uid="uid://ig7nbplla4pc"]
+[gd_scene load_steps=14 format=3 uid="uid://ig7nbplla4pc"]
 
 [ext_resource type="Script" uid="uid://cqn84wdm076k5" path="res://Scripts/Level.gd" id="1_k5f4k"]
 [ext_resource type="Script" uid="uid://pakfejb3s2jx" path="res://Scripts/Plane.gd" id="2_6phgx"]
 [ext_resource type="Texture2D" uid="uid://d02dwmif63q64" path="res://icon.svg" id="2_81xng"]
-[ext_resource type="Texture2D" uid="uid://cfof2t4pe4mmt" path="res://Assets/PLANE.png" id="4_8c0lf"]
+[ext_resource type="Texture2D" uid="uid://cfof2t4pe4mmt" path="res://Assets/Sprites/PLANE.png" id="4_8c0lf"]
 [ext_resource type="PackedScene" uid="uid://ba0tj3luxxix5" path="res://Scenes/fire.tscn" id="5_wqkje"]
 [ext_resource type="PackedScene" uid="uid://csjtfwpgo02uf" path="res://Scenes/water.tscn" id="6_0f350"]
 [ext_resource type="PackedScene" uid="uid://dx16h0mn7uvo5" path="res://Scenes/clouds.tscn" id="7_8c0lf"]
 [ext_resource type="PackedScene" uid="uid://d2exe1tvrgqsv" path="res://Scenes/ground.tscn" id="8_754fn"]
+[ext_resource type="Texture2D" uid="uid://bdnkly22vm7fp" path="res://Assets/Sprites/THE SUN.png" id="9_oqgf2"]
+[ext_resource type="Script" uid="uid://dnpn0f20ri5rw" path="res://Scripts/sun.gd" id="10_qxfql"]
+[ext_resource type="AudioStream" uid="uid://bof2sa7cb31ir" path="res://Assets/Sounds/explosion.ogg" id="11_qxfql"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_754fn"]
 radius = 12.0416
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ha31o"]
+radius = 77.2787
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_k5f4k")
@@ -63,6 +69,27 @@ position = Vector2(374, 44)
 
 [node name="Ground" parent="Obstacles" instance=ExtResource("8_754fn")]
 position = Vector2(690, 750)
+
+[node name="Sun" type="Node2D" parent="Obstacles"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacles/Sun"]
+position = Vector2(1128, 266)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("9_oqgf2")
+
+[node name="Area2D" type="Area2D" parent="Obstacles/Sun"]
+script = ExtResource("10_qxfql")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Sun/Area2D"]
+position = Vector2(1126, 266)
+shape = SubResource("CircleShape2D_ha31o")
+
+[node name="Timer" type="Timer" parent="Obstacles/Sun/Area2D"]
+wait_time = 1.404
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Obstacles/Sun"]
+stream = ExtResource("11_qxfql")
+bus = &"SFX"
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -222,6 +249,9 @@ offset_bottom = 62.0
 
 [connection signal="game_over" from="Plane" to="." method="_on_game_over"]
 [connection signal="waypoint_reached" from="Plane" to="." method="_on_plane_waypoint_reached"]
+[connection signal="body_entered" from="Obstacles/Sun/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="Obstacles/Sun/Area2D" to="Obstacles/Sun/Area2D" method="_on_body_entered"]
+[connection signal="timeout" from="Obstacles/Sun/Area2D/Timer" to="Obstacles/Sun/Area2D" method="_on_timer_timeout"]
 [connection signal="pressed" from="UI/SettingsButton" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="UI/GameOverScreen/RestartButton" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="UI/SettingsPanel/Panel/CloseButton" to="." method="_on_close_settings_pressed"]

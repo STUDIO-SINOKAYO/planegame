@@ -18,5 +18,3 @@ texture = ExtResource("1_oltiy")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Solid Obstacle"]
 position = Vector2(0, -5)
 shape = SubResource("RectangleShape2D_s6h8e")
-
-[connection signal="body_entered" from="Solid Obstacle" to="Solid Obstacle" method="_on_body_entered"]

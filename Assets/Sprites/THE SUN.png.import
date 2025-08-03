@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfof2t4pe4mmt"
-path="res://.godot/imported/PLANE.png-bceefb17e0df6745cd9ba26dacec8020.ctex"
+uid="uid://bdnkly22vm7fp"
+path="res://.godot/imported/THE SUN.png-9bedae3c34441e5b2cbc74d9f0696c8e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/PLANE.png"
-dest_files=["res://.godot/imported/PLANE.png-bceefb17e0df6745cd9ba26dacec8020.ctex"]
+source_file="res://Assets/Sprites/THE SUN.png"
+dest_files=["res://.godot/imported/THE SUN.png-9bedae3c34441e5b2cbc74d9f0696c8e.ctex"]
 
 [params]
 
