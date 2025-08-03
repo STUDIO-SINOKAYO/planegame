@@ -19,11 +19,6 @@ func _ready() -> void:
 	if Global.should_skip_tutorial():
 		start_game_directly()
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		if draw_prompt.visible:
-			# Hide the draw prompt when the player clicks
-			draw_prompt.hide()
 
 func _on_play_button_pressed() -> void:
 	start_screen.hide()
@@ -38,13 +33,12 @@ func _on_play_button_pressed() -> void:
 	camera_tween = create_tween()
 	camera_tween.set_ease(Tween.EASE_OUT)
 	camera_tween.set_trans(Tween.TRANS_CUBIC)
-	camera_tween.tween_property(camera, "position", Vector2(260, -50), 3.0)
+	camera_tween.tween_property(camera, "position", Vector2(260, -50), 1.0)
 	
 	# Show draw prompt after tween is over (Godot 4 syntax)
 	camera_tween.finished.connect(_on_camera_tween_completed)
 
 func _on_camera_tween_completed() -> void:
-	draw_prompt.show()
 	
 	# Fade in the dotted line after camera transition
 	if tutorial_node:
@@ -56,9 +50,6 @@ func start_game_directly() -> void:
 	if start_screen:
 		start_screen.hide()
 	
-	# Ensure draw prompt is hidden
-	if draw_prompt:
-		draw_prompt.hide()
 	
 	# Show cursor
 	if cursor:

@@ -28,7 +28,7 @@
 [ext_resource type="Texture2D" uid="uid://cn88atdxeptr1" path="res://Assets/Sprites/Tree1.png" id="12_c7le1"]
 [ext_resource type="PackedScene" uid="uid://blnnng7cwudpl" path="res://Scenes/solid_obstacle.tscn" id="13_2klc5"]
 [ext_resource type="Script" path="res://Scenes/sun_trigger.gd" id="13_6g3im"]
-[ext_resource type="Script" uid="uid://dsgfgijoxi35c" path="res://Scenes/final_area.gd" id="14_ujtm6"]
+[ext_resource type="Script" path="res://Scenes/final_area.gd" id="14_ujtm6"]
 [ext_resource type="Texture2D" uid="uid://bt6hi8nvwtlpt" path="res://Assets/Sprites/tree3.png" id="15_00k4y"]
 [ext_resource type="Texture2D" uid="uid://c74d6k087ivsr" path="res://Assets/Sprites/house.png" id="15_vofx3"]
 [ext_resource type="Texture2D" uid="uid://cseuwuhyyle6a" path="res://Assets/Sprites/tree4.png" id="16_3a44l"]
@@ -67,7 +67,7 @@
 [ext_resource type="Texture2D" uid="uid://w8eem3on3jpi" path="res://Assets/Sprites/LANDSNOW3.png" id="43_m4bds"]
 [ext_resource type="Script" uid="uid://lk8u8eonnnov" path="res://Scripts/Cursor.gd" id="44_gx30c"]
 [ext_resource type="Texture2D" uid="uid://cb2w4n1deig2t" path="res://Assets/Sprites/CURSOR.png" id="45_jmchl"]
-[ext_resource type="Script" path="res://Scenes/ui.gd" id="50_54tli"]
+[ext_resource type="Script" uid="uid://bfd76f72v2pyy" path="res://Scenes/ui.gd" id="50_54tli"]
 [ext_resource type="Texture2D" uid="uid://c4xxhlnltlhph" path="res://Assets/Sprites/BIRD.png" id="51_icsqr"]
 [ext_resource type="Texture2D" uid="uid://dfd0wjf6t6fh8" path="res://Assets/Sprites/PLAY.png" id="51_m4bds"]
 [ext_resource type="Texture2D" uid="uid://r2shy6eq8447" path="res://Assets/Sprites/SIGN.png" id="52_5oihu"]
@@ -2445,30 +2445,6 @@ offset_top = 39.0
 offset_right = 40.0
 offset_bottom = 62.0
 
-[node name="Tutorial" type="Control" parent="UI"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-
-[node name="DrawPrompt" type="RichTextLabel" parent="UI/Tutorial"]
-visible = false
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -378.0
-offset_top = -80.0
-offset_right = -109.0
-grow_horizontal = 0
-grow_vertical = 2
-text = "Start Drawing a Loop-The-Loop near the plane to keep urself afloat"
-
 [node name="StartScreen" type="Control" parent="UI"]
 layout_mode = 3
 anchors_preset = 15
@@ -2479,19 +2455,20 @@ grow_vertical = 2
 
 [node name="PlayButton" type="TextureButton" parent="UI/StartScreen"]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 113.0
-offset_top = 117.0
-offset_right = 427.0
-offset_bottom = 219.0
+anchor_bottom = 1.0
+offset_left = -129.0
+offset_top = -125.0
+offset_right = 185.0
+offset_bottom = -23.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 texture_normal = ExtResource("51_m4bds")
 texture_pressed = ExtResource("52_t4ggf")
+texture_hover = ExtResource("52_t4ggf")
 
 [node name="TextureRect" type="TextureRect" parent="UI/StartScreen"]
 layout_mode = 1
