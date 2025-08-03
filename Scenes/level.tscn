@@ -595,169 +595,6 @@ size = Vector2(46, 55)
 [sub_resource type="CircleShape2D" id="CircleShape2D_53r2q"]
 radius = 44.0114
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_luodc"]
-radius = 38.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1cgv8"]
-size = Vector2(13, 64)
-
-[sub_resource type="Animation" id="Animation_l1uqm"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(5718, 563)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../Fire1:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(6155, 645)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../FireGround1:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 300)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("../Fire5:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("../Fire4:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-1.401, 350)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("../Fire3:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(2.143, 400)]
-}
-
-[sub_resource type="Animation" id="Animation_ogdfn"]
-resource_name = "fire appear"
-length = 4.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.59, 0.88),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(5718, 563), Vector2(5718, 296), Vector2(5718, 305)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../Fire1:position")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.32, 0.966667, 1.26667),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(6155, 645), Vector2(6155, 241), Vector2(6155, 251)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../FireGround1:position")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.966667, 2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 300), Vector2(0, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("../Fire5:position")
-tracks/3/interp = 2
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0.97, 2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 330), Vector2(0, 0)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("../Fire4:position")
-tracks/4/interp = 2
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0.97, 2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(-1.401, 350), Vector2(-1.401, 0)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("../Fire3:position")
-tracks/5/interp = 2
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0.99, 2.02),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(2.143, 400), Vector2(2.143, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_gx30c"]
-_data = {
-&"RESET": SubResource("Animation_l1uqm"),
-&"fire appear": SubResource("Animation_ogdfn")
-}
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_csjfj"]
 radius = 11.0
 
@@ -825,6 +662,169 @@ size = Vector2(8.5, 61)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_luodc"]
 size = Vector2(78, 183.5)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_luodc"]
+radius = 38.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1cgv8"]
+size = Vector2(13, 64)
+
+[sub_resource type="Animation" id="Animation_l1uqm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(5718, 563)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Fires/Fire1:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(6155, 600)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Fires/FireGround1:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 300)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Fires/Fire5:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 500)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Fires/Fire3:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.143, 500)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../Fires/Fire4:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1.401, 500)]
+}
+
+[sub_resource type="Animation" id="Animation_ogdfn"]
+resource_name = "fire appear"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.59, 0.88),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(5718, 563), Vector2(5718, 296), Vector2(5718, 305)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Fires/Fire1:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.35, 0.92, 1.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(6155, 600), Vector2(6155, 250), Vector2(6155, 259)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Fires/FireGround1:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.26667, 2.26667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 300), Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Fires/Fire5:position")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1.29, 2.27),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 500), Vector2(0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Fires/Fire3:position")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1.29, 2.28),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2.143, 500), Vector2(2.143, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../Fires/Fire4:position")
+tracks/5/interp = 2
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(1.27, 2.28),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-1.401, 500), Vector2(-1.401, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gx30c"]
+_data = {
+&"RESET": SubResource("Animation_l1uqm"),
+&"fire appear": SubResource("Animation_ogdfn")
+}
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vl2iv"]
 size = Vector2(1814, 91)
 
@@ -860,6 +860,14 @@ size = Vector2(271, 98)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r07lu"]
 size = Vector2(39, 235)
+
+[sub_resource type="Animation" id="Animation_6g3im"]
+resource_name = "rise"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w8uds"]
+_data = {
+&"rise": SubResource("Animation_6g3im")
+}
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e6a55"]
 radius = 1400.01
@@ -1486,17 +1494,18 @@ shape = SubResource("CircleShape2D_yv4qw")
 [node name="Fires" type="Node2D" parent="Obstacles"]
 
 [node name="Fire3" type="Node2D" parent="Obstacles/Fires"]
-position = Vector2(2.143, 400)
+position = Vector2(2.143, 500)
+scale = Vector2(1.5, 1.5)
 
 [node name="Sprite2D" type="Sprite2D" parent="Obstacles/Fires/Fire3"]
-position = Vector2(5788, 486)
+position = Vector2(3877.24, 329.333)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("24_csjfj")
 
 [node name="burning_obstacle" parent="Obstacles/Fires/Fire3" instance=ExtResource("20_pnhnk")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Fires/Fire3/burning_obstacle"]
-position = Vector2(5787, 362)
+position = Vector2(3875.24, 205.333)
 shape = SubResource("CircleShape2D_maxl3")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Obstacles/Fires/Fire3"]
@@ -1505,24 +1514,24 @@ libraries = {
 }
 
 [node name="Fire4" type="Node2D" parent="Obstacles/Fires"]
-position = Vector2(-1.401, 350)
+position = Vector2(-1.401, 500)
+scale = Vector2(1.5, 1.5)
 
 [node name="Sprite2D" type="Sprite2D" parent="Obstacles/Fires/Fire4"]
-position = Vector2(5947, 498)
+position = Vector2(3976.27, 338)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("22_fq0f7")
 
 [node name="burning_obstacle" parent="Obstacles/Fires/Fire4" instance=ExtResource("20_pnhnk")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Fires/Fire4/burning_obstacle"]
-position = Vector2(5947, 408)
+position = Vector2(3975.6, 250)
 shape = SubResource("CircleShape2D_d3deu")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Obstacles/Fires/Fire4"]
 libraries = {
 &"": SubResource("AnimationLibrary_md013")
 }
-autoplay = "shake"
 
 [node name="FireGround1" type="Node2D" parent="Obstacles/Fires"]
 position = Vector2(0, 300)
@@ -1551,7 +1560,7 @@ position = Vector2(6204, 587.5)
 shape = SubResource("RectangleShape2D_ag4x3")
 
 [node name="Fire1" type="Node2D" parent="Obstacles/Fires"]
-position = Vector2(6155, 645)
+position = Vector2(6155, 600)
 
 [node name="Sprite2D" type="Sprite2D" parent="Obstacles/Fires/Fire1"]
 position = Vector2(-468, 181)
@@ -1565,49 +1574,25 @@ position = Vector2(-1, 0)
 position = Vector2(-467, 215)
 shape = SubResource("CircleShape2D_53r2q")
 
-[node name="Fire2" type="Node2D" parent="Obstacles/Fires"]
-position = Vector2(5718, 563)
-
-[node name="Sprite2D" type="Sprite2D" parent="Obstacles/Fires/Fire2"]
-position = Vector2(-72, 286)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("22_24uko")
-
-[node name="burning_obstacle" parent="Obstacles/Fires/Fire2" instance=ExtResource("20_pnhnk")]
-position = Vector2(-1, -3)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Fires/Fire2/burning_obstacle"]
-position = Vector2(-70, 332)
-shape = SubResource("CircleShape2D_luodc")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Obstacles/Fires/Fire2/burning_obstacle"]
-position = Vector2(-79, 277)
-shape = SubResource("RectangleShape2D_1cgv8")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Obstacles/Fires/Fire2"]
-libraries = {
-&"": SubResource("AnimationLibrary_gx30c")
-}
-
 [node name="Fire5" type="Node2D" parent="Obstacles/Fires"]
-position = Vector2(0, 400)
+position = Vector2(0, 500)
+scale = Vector2(1.5, 1.5)
 
 [node name="Sprite2D" type="Sprite2D" parent="Obstacles/Fires/Fire5"]
-position = Vector2(6109, 522)
+position = Vector2(4146, 467.333)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("26_bp4cd")
 
 [node name="burning_obstacle" parent="Obstacles/Fires/Fire5" instance=ExtResource("20_pnhnk")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Fires/Fire5/burning_obstacle"]
-position = Vector2(6111, 443)
+position = Vector2(4148, 388)
 shape = SubResource("CircleShape2D_csjfj")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Obstacles/Fires/Fire5"]
 libraries = {
 &"": SubResource("AnimationLibrary_cpxpw")
 }
-autoplay = "shake"
 
 [node name="House" type="Node2D" parent="Obstacles"]
 position = Vector2(4468, 431)
@@ -1676,6 +1661,30 @@ shape = SubResource("RectangleShape2D_hcs0j")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Obstacles/HouseFire/burning_obstacle"]
 position = Vector2(-221, 84.25)
 shape = SubResource("RectangleShape2D_luodc")
+
+[node name="Fire2" type="Node2D" parent="Obstacles"]
+position = Vector2(5718, 563)
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacles/Fire2"]
+position = Vector2(-72, 286)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("22_24uko")
+
+[node name="burning_obstacle" parent="Obstacles/Fire2" instance=ExtResource("20_pnhnk")]
+position = Vector2(-1, -3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Fire2/burning_obstacle"]
+position = Vector2(-70, 332)
+shape = SubResource("CircleShape2D_luodc")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Obstacles/Fire2/burning_obstacle"]
+position = Vector2(-79, 277)
+shape = SubResource("RectangleShape2D_1cgv8")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Obstacles/Fire2"]
+libraries = {
+&"": SubResource("AnimationLibrary_gx30c")
+}
 
 [node name="GroundSnow1" type="Node2D" parent="Obstacles"]
 
@@ -1820,6 +1829,11 @@ shape = SubResource("RectangleShape2D_x3r1c")
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Obstacles/HouseSnow3/Solid Obstacle"]
 position = Vector2(11726.5, 403.5)
 shape = SubResource("RectangleShape2D_r07lu")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Obstacles/HouseSnow3"]
+libraries = {
+&"": SubResource("AnimationLibrary_w8uds")
+}
 
 [node name="GroundSnow4" type="Node2D" parent="Obstacles"]
 
