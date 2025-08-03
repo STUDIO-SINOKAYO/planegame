@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ig7nbplla4pc"]
+[gd_scene load_steps=22 format=3 uid="uid://ig7nbplla4pc"]
 
 [ext_resource type="Script" uid="uid://cqn84wdm076k5" path="res://Scripts/Level.gd" id="1_k5f4k"]
 [ext_resource type="Script" uid="uid://pakfejb3s2jx" path="res://Scripts/Plane.gd" id="2_6phgx"]
@@ -11,12 +11,27 @@
 [ext_resource type="Texture2D" uid="uid://bdnkly22vm7fp" path="res://Assets/Sprites/THE SUN.png" id="9_oqgf2"]
 [ext_resource type="Script" uid="uid://dnpn0f20ri5rw" path="res://Scripts/sun.gd" id="10_qxfql"]
 [ext_resource type="AudioStream" uid="uid://bof2sa7cb31ir" path="res://Assets/Sounds/explosion.ogg" id="11_qxfql"]
+[ext_resource type="Texture2D" uid="uid://cn88atdxeptr1" path="res://Assets/Sprites/Tree1.png" id="12_c7le1"]
+[ext_resource type="PackedScene" uid="uid://blnnng7cwudpl" path="res://Scenes/solid_obstacle.tscn" id="13_2klc5"]
+[ext_resource type="Texture2D" uid="uid://bkoltqpjyngtt" path="res://Assets/Sprites/tree2.png" id="14_nngtn"]
+[ext_resource type="Texture2D" uid="uid://c74d6k087ivsr" path="res://Assets/Sprites/house.png" id="15_vofx3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_754fn"]
 radius = 12.0416
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ha31o"]
 radius = 77.2787
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_00k4y"]
+size = Vector2(65.25, 94.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3a44l"]
+size = Vector2(42, 55)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0cmrb"]
+size = Vector2(127, 215)
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_pnhnk"]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_k5f4k")
@@ -65,23 +80,25 @@ position = Vector2(356, 293)
 position = Vector2(795, 416)
 
 [node name="Clouds" parent="Obstacles" instance=ExtResource("7_8c0lf")]
-position = Vector2(374, 44)
+position = Vector2(347, -41)
 
 [node name="Ground" parent="Obstacles" instance=ExtResource("8_754fn")]
 position = Vector2(690, 750)
 
 [node name="Sun" type="Node2D" parent="Obstacles"]
+position = Vector2(1090, 257)
 
 [node name="Sprite2D" type="Sprite2D" parent="Obstacles/Sun"]
-position = Vector2(1128, 266)
+position = Vector2(0.00012207, -1.99997)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("9_oqgf2")
 
 [node name="Area2D" type="Area2D" parent="Obstacles/Sun"]
+position = Vector2(2, -3)
 script = ExtResource("10_qxfql")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Sun/Area2D"]
-position = Vector2(1126, 266)
+position = Vector2(-4, -2)
 shape = SubResource("CircleShape2D_ha31o")
 
 [node name="Timer" type="Timer" parent="Obstacles/Sun/Area2D"]
@@ -90,6 +107,76 @@ wait_time = 1.404
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Obstacles/Sun"]
 stream = ExtResource("11_qxfql")
 bus = &"SFX"
+
+[node name="Tree1" type="Node2D" parent="Obstacles"]
+position = Vector2(569, 511)
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacles/Tree1"]
+position = Vector2(0, 2)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("12_c7le1")
+
+[node name="Solid Obstacle" parent="Obstacles/Tree1" instance=ExtResource("13_2klc5")]
+position = Vector2(0, -7)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Tree1/Solid Obstacle"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_00k4y")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Obstacles/Tree1/Solid Obstacle"]
+position = Vector2(10, -57)
+shape = SubResource("RectangleShape2D_3a44l")
+
+[node name="Tree2" type="Node2D" parent="Obstacles"]
+position = Vector2(333, 545)
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacles/Tree2"]
+position = Vector2(1, 1)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("14_nngtn")
+
+[node name="Solid Obstacle" parent="Obstacles/Tree2" instance=ExtResource("13_2klc5")]
+position = Vector2(6, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Tree2/Solid Obstacle"]
+
+[node name="Tree3" type="Node2D" parent="Obstacles"]
+position = Vector2(1166, 551)
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacles/Tree3"]
+
+[node name="Solid Obstacle" parent="Obstacles/Tree3" instance=ExtResource("13_2klc5")]
+position = Vector2(2, -1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Tree3/Solid Obstacle"]
+
+[node name="Tree4" type="Node2D" parent="Obstacles"]
+position = Vector2(962, 550)
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacles/Tree4"]
+
+[node name="Solid Obstacle" parent="Obstacles/Tree4" instance=ExtResource("13_2klc5")]
+position = Vector2(-3, -1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Tree4/Solid Obstacle"]
+
+[node name="House" type="Node2D" parent="Obstacles"]
+position = Vector2(1419, 535)
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacles/House"]
+position = Vector2(6, 2)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("15_vofx3")
+
+[node name="Solid Obstacle" parent="Obstacles/House" instance=ExtResource("13_2klc5")]
+position = Vector2(161, 141)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/House/Solid Obstacle"]
+position = Vector2(-152, -89)
+shape = SubResource("RectangleShape2D_0cmrb")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Obstacles/House/Solid Obstacle"]
+shape = SubResource("ConvexPolygonShape2D_pnhnk")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
