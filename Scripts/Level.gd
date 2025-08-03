@@ -1,10 +1,15 @@
 extends Node2D
 
-# Main game controller - handles drawing loops that create wind vortexes for the plane
+# ================================================================================================
+# LEVEL CONTROLLER - Main game controller for plane drawing mechanics
+# ================================================================================================
+# Handles drawing loops that create wind vortexes for the plane
 # Draw counterclockwise loops with mouse, plane gets pulled into vortexes and follows the red flow line
 # Only loops affect the plane - straight lines just start the game without physics effects
+# ================================================================================================
 
-# Node references - grabbed automatically when scene loads
+# === NODE REFERENCES ===
+# Grabbed automatically when scene loads
 @onready var plane: CharacterBody2D = $Plane
 @onready var ui: CanvasLayer = $UI  # UI layer for screen-space drawing
 @onready var stamina_bar: ProgressBar = $UI/StaminaContainer/StaminaBar
@@ -16,7 +21,8 @@ extends Node2D
 @onready var speed_label: Label = $UI/Statistics/SpeedLabel
 @onready var altitude_label: Label = $UI/Statistics/AltitudeLabel
 
-# Drawing stuff
+# === GAME STATE VARIABLES ===
+# Drawing system variables
 var drawn_path_line: Line2D      # The cyan line you see when drawing
 var finished_lines: Array = []   # Array of completed lines in world space
 var current_drawing: Array = []  # Points of what you're currently drawing
@@ -29,18 +35,22 @@ var center = Line2D.new() 		# FOR DEBUG (detect loops 2)
 var loop_centers: Array = []
 var waypoints: Array = []
 
-# Old drawing cleanup system
+# Cleanup system variables
 var cleanup_timer: Timer         # Timer for removing old drawings
 var old_drawing_fade_time: float = 1.0  # How long old drawings stay visible after new one
 
-# Stamina prevents infinite drawing spam
+# Stamina system variables (prevents infinite drawing spam)
 var max_stamina: float = 100.0        
 var current_stamina: float = 100.0    
 var stamina_drain_rate: float = 30.0  # Drains while drawing
 var stamina_regen_rate: float = 20.0  # Comes back when not drawing
 
-# Ground level where plane crashes
-var ground_level: float = 600.0
+# Game constants
+var ground_level: float = 600.0       # Ground level where plane crashes
+
+# ================================================================================================
+# INITIALIZATION
+# ================================================================================================
 
 func _ready():
 	setup_drawing()
@@ -49,6 +59,8 @@ func _ready():
 	# Signals are now connected through the editor instead of code
 	# Go to each button in the scene and connect their "pressed" signal
 	# Connect plane's "game_over" signal to _on_game_over() function
+
+# === INITIALIZATION FUNCTIONS ===
 
 func setup_drawing():
 	# Initialize the drawing system - first line will be created when needed
@@ -62,28 +74,33 @@ func setup_cleanup_timer():
 	cleanup_timer.timeout.connect(_on_cleanup_old_drawings)
 	add_child(cleanup_timer)
 
+# === INPUT HANDLING FUNCTIONS ===
+
 func _input(event):
 	if game_over:
 		return
 	
-	# Mouse button handling
 	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT:
-			if event.pressed and current_stamina > 0:
-				# Use viewport mouse position for screen coordinates
-				var screen_pos = get_viewport().get_mouse_position()
-				# Use global mouse position for world coordinates (physics)
-				var world_pos = get_global_mouse_position()
-				start_drawing(screen_pos, world_pos)
-			else:
-				finish_drawing()
-	
-	# Mouse dragging
+		_handle_mouse_button(event)
 	elif event is InputEventMouseMotion:
-		if is_drawing and current_stamina > 0:
+		_handle_mouse_motion(event)
+
+func _handle_mouse_button(event: InputEventMouseButton):
+	if event.button_index == MOUSE_BUTTON_LEFT:
+		if event.pressed and current_stamina > 0:
 			var screen_pos = get_viewport().get_mouse_position()
 			var world_pos = get_global_mouse_position()
-			continue_drawing(screen_pos, world_pos)
+			start_drawing(screen_pos, world_pos)
+		else:
+			finish_drawing()
+
+func _handle_mouse_motion(_event: InputEventMouseMotion):
+	if is_drawing and current_stamina > 0:
+		var screen_pos = get_viewport().get_mouse_position()
+		var world_pos = get_global_mouse_position()
+		continue_drawing(screen_pos, world_pos)
+
+# === DRAWING FUNCTIONS ===
 
 func start_drawing(screen_pos: Vector2, _world_pos: Vector2):
 	if current_stamina <= 0:
@@ -124,55 +141,73 @@ func finish_drawing():
 	loop_centers = []
 	is_drawing = false
 	
-	# Move the drawn line from UI layer back to world space for physics
 	if drawn_path_line and drawn_path_line.get_parent() == ui:
-		ui.remove_child(drawn_path_line)
-		add_child(drawn_path_line)  # Add to Level (world space)
-		
-		# Convert screen coordinates to world coordinates for proper positioning
-		drawn_path_line.clear_points()
-		var world_coordinates = []
-		for screen_point in current_drawing:
-			# Convert screen coordinates to world coordinates using the camera
-			var camera = get_viewport().get_camera_2d()
-			if camera:
-				var world_point = camera.global_position + (screen_point - get_viewport_rect().size * 0.5) / camera.zoom
-				drawn_path_line.add_point(world_point)
-				world_coordinates.append(world_point)
-			else:
-				# Fallback if no camera
-				drawn_path_line.add_point(screen_point)
-				world_coordinates.append(screen_point)
-		
-		# Update current_drawing to world coordinates for physics calculations
-		current_drawing = world_coordinates
-		
-		# Add this line to the finished lines array
-		finished_lines.append(drawn_path_line)
-		drawn_path_line = null  # Clear reference so new line can be created
-		
-		# Start cleanup timer to remove old drawings after 1 second
-		if cleanup_timer and finished_lines.size() > 1:
-			cleanup_timer.start()
+		_move_line_to_world_space()
+		_process_completed_drawing()
+
+func _move_line_to_world_space():
+	# Move the drawn line from UI layer back to world space for physics
+	ui.remove_child(drawn_path_line)
+	add_child(drawn_path_line)  # Add to Level (world space)
 	
+	# Convert screen coordinates to world coordinates for proper positioning
+	drawn_path_line.clear_points()
+	var world_coordinates = _convert_screen_to_world_coordinates()
+	
+	for world_point in world_coordinates:
+		drawn_path_line.add_point(world_point)
+	
+	# Update current_drawing to world coordinates for physics calculations
+	current_drawing = world_coordinates
+	
+	# Add this line to the finished lines array
+	finished_lines.append(drawn_path_line)
+	drawn_path_line = null  # Clear reference so new line can be created
+	
+	# Start cleanup timer to remove old drawings after 1 second
+	if cleanup_timer and finished_lines.size() > 1:
+		cleanup_timer.start()
+
+func _convert_screen_to_world_coordinates() -> Array:
+	var world_coordinates = []
+	for screen_point in current_drawing:
+		# Convert screen coordinates to world coordinates using the camera
+		var camera = get_viewport().get_camera_2d()
+		if camera:
+			var world_point = camera.global_position + (screen_point - get_viewport_rect().size * 0.5) / camera.zoom
+			world_coordinates.append(world_point)
+		else:
+			# Fallback if no camera
+			world_coordinates.append(screen_point)
+	return world_coordinates
+
+func _process_completed_drawing():
 	# Send the drawn path to the plane if it's long enough
 	if current_drawing.size() > 3 and plane:
 		var loops = detect_loops_2()                 # Check for loops = wind physics
-		if(loops > 0):
-			# Create the red line connecting loop centers AFTER reparenting
-			#create_red_line_after_reparent()
-			
-			# Send loop data to the plane for wind physics (no speed changes)
-			var loop_centers = get_loop_centers()  # Get the red dot positions
-			var loop_directions = get_loop_flow_directions()  # Direction each loop points
-			plane.set_wind_path(current_drawing, loops)  # Just for game start trigger
-			# plane.set_loop_centers(loop_centers)   # For suction effect
-			# plane.set_loop_paths(detected_loop_paths)  # For path following
-			# plane.set_loop_directions(loop_directions)  # Individual flow directions for each loop
+		if loops > 0:
+			_handle_detected_loops(loops)
 		else:
-			# No loops detected - just start the game if needed
-			if not plane.game_started:
-				plane.game_started = true
+			_handle_no_loops()
+
+func _handle_detected_loops(loops: int):
+	# Create the red line connecting loop centers AFTER reparenting
+	#create_red_line_after_reparent()
+	
+	# Send loop data to the plane for wind physics (no speed changes)
+	var _loop_centers = get_loop_centers()  # Get the red dot positions
+	var _loop_directions = get_loop_flow_directions()  # Direction each loop points
+	plane.set_wind_path(current_drawing, loops)  # Just for game start trigger
+	# plane.set_loop_centers(loop_centers)   # For suction effect
+	# plane.set_loop_paths(detected_loop_paths)  # For path following
+	# plane.set_loop_directions(loop_directions)  # Individual flow directions for each loop
+
+func _handle_no_loops():
+	# No loops detected - just start the game if needed
+	if not plane.game_started:
+		plane.game_started = true
+
+# === LOOP DETECTION FUNCTIONS ===
 
 func detect_loops() -> int:
 	# Simple loop detection - counts direction changes to estimate loops
@@ -200,123 +235,179 @@ func detect_loops() -> int:
 	return int(loops)
 
 func detect_loops_2() -> int:
-	center.clear_points()
-	detected_loop_paths.clear()  # Clear previous loop paths
-	
-	print("=== LOOP DETECTION DEBUG ===")
-	print("Drawing size: ", current_drawing.size())
-	
-	# Mita's loop detection algorithm - detects counterclockwise loops by finding
-	# specific directional pattern: UP movement, then LEFT movement, then DOWN movement
-	# Each detected pattern creates a wind vortex at the calculated loop center
-	#reset direction counts
-	var up_count = 0
-	var left_count = 0
-	var down_count = 0
-	
-	# Array to collect all loop centers before creating the red debug line
-	var loop_centers_found = []
-	loop_centers = []
-	
-	# Variables for calculating loop area and tracking directional changes
-	var area = 0
-	var up = false
-	var left = false
-	var up_coords = Vector2(0, 0)
-	var up_coords_global = Vector2(0, 0)
-	var left_coords = Vector2(0, 0)
-	var down_coords = Vector2(0, 0)
-	var down_coords_global = Vector2(0, 0)
-	var up_index = 0
-	var left_index = 0
-	var down_index = 0
+	_reset_loop_detection()
+	_print_loop_detection_debug()
 	
 	if current_drawing.size() < 10:
 		print("Drawing too small for loop detection")
 		return 0
-	var loops = 0
+	
+	var loop_data = _analyze_drawing_for_loops()
+	var loops = _finalize_loop_detection(loop_data)
+	
+	return loops
+
+func _reset_loop_detection():
+	center.clear_points()
+	detected_loop_paths.clear()  # Clear previous loop paths
+
+func _print_loop_detection_debug():
+	print("=== LOOP DETECTION DEBUG ===")
+	print("Drawing size: ", current_drawing.size())
+
+func _analyze_drawing_for_loops() -> Dictionary:
+	# Mita's loop detection algorithm - detects counterclockwise loops by finding
+	# specific directional pattern: UP movement, then LEFT movement, then DOWN movement
+	# Each detected pattern creates a wind vortex at the calculated loop center
+	
+	var loop_data = {
+		"up_count": 0,
+		"left_count": 0,
+		"down_count": 0,
+		"loop_centers_found": [],
+		"area": 0
+	}
+	
+	# Variables for tracking directional changes
+	var directional_state = _create_directional_state()
+	var prev_direction = Vector2.ZERO
 	
 	# Analyze each segment of the drawn line to detect directional changes
-	# Look for the pattern: upward movement → leftward movement → downward movement
-	var prev_x = 0
-	var prev_y = 0
 	for i in range(1, current_drawing.size()):
 		var current_direction = (current_drawing[i] - current_drawing[i-1]).normalized()
 		
-		if(i > 1):
-			# Detect upward movement (negative change in x direction)
-			if(prev_x != 0 && current_direction.x <= 0 && ((current_direction.x / prev_x) < 0)): #UP
-				up_count += 1
-				up = true
-				up_coords = current_screen[i]
-				up_coords_global = current_drawing[i]
-				up_index = i
-				print("UP detected at index: ", i)
-			# Detect leftward movement (negative change in y direction while moving left)
-			if(prev_y != 0 && current_direction.x <= 0 && (current_direction.y / prev_y) < 0): #LEFT
-				left_count += 1
-				left = true
-				left_coords = current_screen[i]
-				left_index = i
-				print("LEFT detected at index: ", i)
-			# Detect downward movement (positive change in x direction after going up and left)
-			if(prev_x != 0 && current_direction.x >= 0 && (current_direction.x / prev_x) < 0): #DOWN
-				down_count += 1
-				down_index = i
-				down_coords_global = current_drawing[i]
-				print("DOWN detected at index: ", i, " | up=", up, " left=", left)
-				# When we have UP→LEFT→DOWN sequence, create a loop center and calculate area
-				if up && left:
-					print("CREATING LOOP CENTER!")
-					down_coords = current_screen[i]
-					print("UP coords: ", up_coords)
-					print("LEFT coords: ", left_coords)
-					print("DOWN coords: ", down_coords)
-					
-					# Calculate elliptical area approximation for the detected loop
-					var a = up_coords.distance_to(down_coords) / 2
-					var b = ((up_coords + down_coords) / 2).distance_to(left_coords)
-					area += 3.1415 * a * b
-					print("AREA: ", area)
-					
-					# Calculate the center point between up and down coordinates
-					var loop_center_pos = (up_coords + down_coords) / 2
-					print("Calculated loop center: ", loop_center_pos)
-					loop_centers_found.append(loop_center_pos)
-					loop_centers.append((up_coords_global + down_coords_global) / 2)
-					
-					# Extract the path segment from this loop for wind physics
-					var loop_path = []
-					var start_idx = min(up_index, left_index)
-					var end_idx = down_index
-					for j in range(start_idx, min(end_idx + 1, current_drawing.size())):
-						loop_path.append(current_drawing[j])  # Use world coordinates for physics
-					
-					# Only store loops with enough points to be meaningful
-					if loop_path.size() > 3:  # Only add meaningful loops
-						detected_loop_paths.append(loop_path)
-					
-					# Reset flags to look for the next loop pattern
-					up = false
-					left = false
-					
+		if i > 1:
+			_check_directional_changes(i, current_direction, prev_direction, directional_state, loop_data)
+		
 		# Track the previous direction components for comparison
-		if current_direction.x != 0:
-			prev_x = current_direction.x
-		if current_direction.y != 0:
-			prev_y = current_direction.y
+		prev_direction = _update_previous_direction(current_direction, prev_direction)
 	
+	return loop_data
+
+func _create_directional_state() -> Dictionary:
+	return {
+		"up": false,
+		"left": false,
+		"up_coords": Vector2.ZERO,
+		"up_coords_global": Vector2.ZERO,
+		"left_coords": Vector2.ZERO,
+		"down_coords": Vector2.ZERO,
+		"down_coords_global": Vector2.ZERO,
+		"up_index": 0,
+		"left_index": 0,
+		"down_index": 0
+	}
+
+func _check_directional_changes(i: int, current_direction: Vector2, prev_direction: Vector2, directional_state: Dictionary, loop_data: Dictionary):
+	# Detect upward movement (negative change in x direction)
+	if _is_upward_movement(current_direction, prev_direction):
+		_handle_upward_movement(i, directional_state, loop_data)
+	
+	# Detect leftward movement (negative change in y direction while moving left)
+	if _is_leftward_movement(current_direction, prev_direction):
+		_handle_leftward_movement(i, directional_state, loop_data)
+	
+	# Detect downward movement (positive change in x direction after going up and left)
+	if _is_downward_movement(current_direction, prev_direction):
+		_handle_downward_movement(i, directional_state, loop_data)
+
+func _is_upward_movement(current_direction: Vector2, prev_direction: Vector2) -> bool:
+	return prev_direction.x != 0 && current_direction.x <= 0 && ((current_direction.x / prev_direction.x) < 0)
+
+func _is_leftward_movement(current_direction: Vector2, prev_direction: Vector2) -> bool:
+	return prev_direction.y != 0 && current_direction.x <= 0 && (current_direction.y / prev_direction.y) < 0
+
+func _is_downward_movement(current_direction: Vector2, prev_direction: Vector2) -> bool:
+	return prev_direction.x != 0 && current_direction.x >= 0 && (current_direction.x / prev_direction.x) < 0
+
+func _handle_upward_movement(i: int, directional_state: Dictionary, loop_data: Dictionary):
+	loop_data.up_count += 1
+	directional_state.up = true
+	directional_state.up_coords = current_screen[i]
+	directional_state.up_coords_global = current_drawing[i]
+	directional_state.up_index = i
+	print("UP detected at index: ", i)
+
+func _handle_leftward_movement(i: int, directional_state: Dictionary, loop_data: Dictionary):
+	loop_data.left_count += 1
+	directional_state.left = true
+	directional_state.left_coords = current_screen[i]
+	directional_state.left_index = i
+	print("LEFT detected at index: ", i)
+
+func _handle_downward_movement(i: int, directional_state: Dictionary, loop_data: Dictionary):
+	loop_data.down_count += 1
+	directional_state.down_index = i
+	directional_state.down_coords_global = current_drawing[i]
+	print("DOWN detected at index: ", i, " | up=", directional_state.up, " left=", directional_state.left)
+	
+	# When we have UP→LEFT→DOWN sequence, create a loop center and calculate area
+	if directional_state.up && directional_state.left:
+		_create_loop_from_sequence(i, directional_state, loop_data)
+
+func _create_loop_from_sequence(i: int, directional_state: Dictionary, loop_data: Dictionary):
+	print("CREATING LOOP CENTER!")
+	directional_state.down_coords = current_screen[i]
+	print("UP coords: ", directional_state.up_coords)
+	print("LEFT coords: ", directional_state.left_coords)
+	print("DOWN coords: ", directional_state.down_coords)
+	
+	# Calculate elliptical area approximation for the detected loop
+	var a = directional_state.up_coords.distance_to(directional_state.down_coords) / 2
+	var b = ((directional_state.up_coords + directional_state.down_coords) / 2).distance_to(directional_state.left_coords)
+	loop_data.area += 3.1415 * a * b
+	print("AREA: ", loop_data.area)
+	
+	# Calculate the center point between up and down coordinates
+	var loop_center_pos = (directional_state.up_coords + directional_state.down_coords) / 2
+	print("Calculated loop center: ", loop_center_pos)
+	loop_data.loop_centers_found.append(loop_center_pos)
+	loop_centers.append((directional_state.up_coords_global + directional_state.down_coords_global) / 2)
+	
+	# Extract the path segment from this loop for wind physics
+	_extract_loop_path(directional_state)
+	
+	# Reset flags to look for the next loop pattern
+	directional_state.up = false
+	directional_state.left = false
+
+func _extract_loop_path(directional_state: Dictionary):
+	var loop_path = []
+	var start_idx = min(directional_state.up_index, directional_state.left_index)
+	var end_idx = directional_state.down_index
+	for j in range(start_idx, min(end_idx + 1, current_drawing.size())):
+		loop_path.append(current_drawing[j])  # Use world coordinates for physics
+	
+	# Only store loops with enough points to be meaningful
+	if loop_path.size() > 3:  # Only add meaningful loops
+		detected_loop_paths.append(loop_path)
+
+func _update_previous_direction(current_direction: Vector2, prev_direction: Vector2) -> Vector2:
+	var updated_prev = prev_direction
+	if current_direction.x != 0:
+		updated_prev.x = current_direction.x
+	if current_direction.y != 0:
+		updated_prev.y = current_direction.y
+	return updated_prev
+
+func _finalize_loop_detection(loop_data: Dictionary) -> int:
+	_create_red_line_centers(loop_data.loop_centers_found)
+	
+	# Final loop count is the minimum of all three directional changes
+	# (ensures we only count complete UP→LEFT→DOWN sequences)
+	var loops = min(loop_data.up_count, loop_data.left_count, loop_data.down_count)
+	print("Final counts - up:", loop_data.up_count, " left:", loop_data.left_count, " down:", loop_data.down_count)
+	print("LOOPS: ", loops)
+	print("Loop centers found for red line: ", loop_centers.size())
+	
+	return loops
+
+func _create_red_line_centers(loop_centers_found: Array):
 	# Create the red debug line connecting all detected loop centers
 	# This shows the overall flow direction for the wind vortex system
 	if loop_centers_found.size() > 0:
 		# Don't create the red line here - it will be created after reparenting
 		pass
-	
-	# Final loop count is the minimum of all three directional changes
-	# (ensures we only count complete UP→LEFT→DOWN sequences)
-	loops = min(up_count, left_count, down_count)
-	print("Final counts - up:", up_count, " left:", left_count, " down:", down_count)
-	print("LOOPS: ", loops)
 	
 	# Store loop centers for later red line creation (after reparenting)
 	center.clear_points()  # Clear any previous points
@@ -327,48 +418,54 @@ func detect_loops_2() -> int:
 		
 		for loop_center_pos in loop_centers_found:
 			center.add_point(loop_center_pos)
-	
-	print("Loop centers found for red line: ", loop_centers.size())
-	
-	
-	return loops
+
+# === RED LINE FUNCTIONS ===
 
 func create_red_line_after_reparent():
 	# Create the red debug line connecting loop centers after drawing is reparented to world space
 	# This ensures the red line coordinates match the world coordinate system
 	if center.get_point_count() > 0:
-		# Remove existing red line if any
-		if center.get_parent():
-			center.get_parent().remove_child(center)
+		_remove_existing_red_line()
+		var world_centers = _convert_red_line_to_world_coordinates()
+		_create_world_space_red_line(world_centers)
+
+func _remove_existing_red_line():
+	# Remove existing red line if any
+	if center.get_parent():
+		center.get_parent().remove_child(center)
+
+func _convert_red_line_to_world_coordinates() -> Array:
+	# Convert screen coordinates to world coordinates for the red line
+	var world_centers = []
+	var camera = get_viewport().get_camera_2d()
+	
+	print("=== CREATING RED LINE AFTER REPARENT ===")
+	for i in range(center.get_point_count()):
+		var screen_center = center.get_point_position(i)
+		print("Screen center ", i, ": ", screen_center)
 		
-		# Convert screen coordinates to world coordinates for the red line
-		var world_centers = []
-		var camera = get_viewport().get_camera_2d()
-		
-		print("=== CREATING RED LINE AFTER REPARENT ===")
-		for i in range(center.get_point_count()):
-			var screen_center = center.get_point_position(i)
-			print("Screen center ", i, ": ", screen_center)
-			
-			if camera:
-				var world_center = camera.global_position + (screen_center - get_viewport_rect().size * 0.5) / camera.zoom
-				world_centers.append(world_center)
-				print("World center ", i, ": ", world_center)
-			else:
-				world_centers.append(screen_center)
-				print("World center ", i, " (no camera): ", screen_center)
-		
-		# Clear and recreate the red line with world coordinates
-		center.clear_points()
-		center.default_color = Color.RED
-		center.width = 7
-		add_child(center)  # Add to Level (world space) instead of UI
-		
-		# Add world coordinate points to the red line
-		for world_center in world_centers:
-			center.add_point(world_center)
-		
-		print("Red line created with ", center.get_point_count(), " world coordinate points")
+		if camera:
+			var world_center = camera.global_position + (screen_center - get_viewport_rect().size * 0.5) / camera.zoom
+			world_centers.append(world_center)
+			print("World center ", i, ": ", world_center)
+		else:
+			world_centers.append(screen_center)
+			print("World center ", i, " (no camera): ", screen_center)
+	
+	return world_centers
+
+func _create_world_space_red_line(world_centers: Array):
+	# Clear and recreate the red line with world coordinates
+	center.clear_points()
+	center.default_color = Color.RED
+	center.width = 7
+	add_child(center)  # Add to Level (world space) instead of UI
+	
+	# Add world coordinate points to the red line
+	for world_center in world_centers:
+		center.add_point(world_center)
+	
+	print("Red line created with ", center.get_point_count(), " world coordinate points")
 
 func get_loop_centers() -> Array:
 	# Extract the center points from the red line for loop suction physics
@@ -432,33 +529,22 @@ func get_loop_flow_directions() -> Array:
 	print("Final flow directions: ", directions)
 	return directions
 
+# === RENDERING FUNCTION ===
+
 func _draw():
 	# Only draw the red line connecting loop centers - no debug circles or arrows
 	pass
+
+# === MAIN PROCESS FUNCTION ===
 
 func _process(delta):
 	update_stamina(delta)      
 	update_stamina_bar()   
 	update_flight_info()    
 	create_plane_waypoints()
-	queue_redraw()             
-	
+	queue_redraw()
 
-func create_plane_waypoints():
-	var close = false
-	for i in range(0, current_drawing.size()):
-		##Check if plane is near current drawing
-		if plane.position.distance_to(current_drawing[i]) < 50:
-			close = true
-			break
-	if close:
-		for i in range(0, loop_centers.size()):
-			waypoints.append(loop_centers[i])
-		#Start first waypoint
-		if(loop_centers.size() > 0):
-			plane.create_waypoint_at_position(waypoints.pop_front())
-		#Reset loop_centers
-		loop_centers = []
+# === UI UPDATE FUNCTIONS ===
 
 func update_stamina(delta):
 	# Drain stamina while drawing, regen when not
@@ -482,16 +568,48 @@ func update_stamina_bar():
 	stamina_bar.add_theme_stylebox_override("fill", style)
 
 func update_flight_info():
+	_update_speed_display()
+	_update_altitude_display()
+
+func _update_speed_display():
 	# Update speed display (convert from pixels/sec to m/s for readability)
 	var speed_ms = plane.velocity.length() / 100.0  # Assume 100 pixels = 1 meter cus yk
 	speed_label.text = "Speed: %.1f m/s" % speed_ms
-	
+
+func _update_altitude_display():
 	# Update altitude display (higher Y = lower altitude, so invert it)
 	var altitude_m = (ground_level - plane.global_position.y) / 100.0  # Convert to meters
 	altitude_label.text = "Altitude: %.1f m" % max(0, altitude_m)  # Don't show negative altitude
 
+# === PLANE WAYPOINT FUNCTIONS ===
 
-# Button callbacks
+func create_plane_waypoints():
+	if _is_plane_near_drawing():
+		_add_loop_centers_to_waypoints()
+		_start_first_waypoint()
+		_reset_loop_centers()
+
+func _is_plane_near_drawing() -> bool:
+	for i in range(0, current_drawing.size()):
+		if plane.position.distance_to(current_drawing[i]) < 50:
+			return true
+	return false
+
+func _add_loop_centers_to_waypoints():
+	for i in range(0, loop_centers.size()):
+		waypoints.append(loop_centers[i])
+
+func _start_first_waypoint():
+	# Start first waypoint
+	if loop_centers.size() > 0:
+		plane.create_waypoint_at_position(waypoints.pop_front())
+
+func _reset_loop_centers():
+	# Reset loop_centers
+	loop_centers = []
+
+# === BUTTON CALLBACKS ===
+
 func _on_game_over():
 	game_over = true
 	game_over_screen.visible = true
@@ -517,6 +635,6 @@ func _on_cleanup_old_drawings():
 		finished_lines.remove_at(0)  # Remove from array
 
 
-func _on_plane_waypoint_reached(position: Vector2) -> void:
+func _on_plane_waypoint_reached(_pos: Vector2) -> void:
 	if waypoints.size() > 0:
 		plane.create_waypoint_at_position(waypoints.pop_front())
