@@ -1,4 +1,4 @@
-[gd_scene load_steps=187 format=3 uid="uid://ig7nbplla4pc"]
+[gd_scene load_steps=192 format=3 uid="uid://ig7nbplla4pc"]
 
 [ext_resource type="Script" uid="uid://cqn84wdm076k5" path="res://Scripts/Level.gd" id="1_k5f4k"]
 [ext_resource type="Script" uid="uid://pakfejb3s2jx" path="res://Scripts/Plane.gd" id="2_6phgx"]
@@ -19,12 +19,16 @@
 [ext_resource type="Texture2D" uid="uid://bt5gu5c2drbbh" path="res://Assets/Sprites/land3.png" id="10_bp4cd"]
 [ext_resource type="Texture2D" uid="uid://beyrwjtxgddlx" path="res://Assets/Sprites/CLOUD5NIMBUSifeveryoulluse.png" id="10_ht0u2"]
 [ext_resource type="Script" uid="uid://dnpn0f20ri5rw" path="res://Scripts/sun.gd" id="10_qxfql"]
+[ext_resource type="Texture2D" uid="uid://bqvrducuijw22" path="res://Assets/Sprites/WINDOW2.png" id="10_t4ggf"]
 [ext_resource type="Script" uid="uid://crbbxtm1ff3gi" path="res://Scripts/obstacles.gd" id="10_wbq00"]
+[ext_resource type="Texture2D" uid="uid://b3f7ku2kcyv48" path="res://Assets/Sprites/WALLPAPERENDING.png" id="11_2lp24"]
 [ext_resource type="AudioStream" uid="uid://bof2sa7cb31ir" path="res://Assets/Sounds/explosion.ogg" id="11_qxfql"]
+[ext_resource type="Texture2D" uid="uid://bdgh5pb82dpvd" path="res://Assets/Sprites/WINDOW3OVERLAY.png" id="11_uoc0b"]
 [ext_resource type="Texture2D" uid="uid://c6rxxv78xvprj" path="res://Assets/Sprites/CLOUD4NIMBUS.png" id="12_23rfw"]
 [ext_resource type="Texture2D" uid="uid://cn88atdxeptr1" path="res://Assets/Sprites/Tree1.png" id="12_c7le1"]
 [ext_resource type="PackedScene" uid="uid://blnnng7cwudpl" path="res://Scenes/solid_obstacle.tscn" id="13_2klc5"]
-[ext_resource type="Script" uid="uid://c83lgi8sglcif" path="res://Scenes/sun_trigger.gd" id="13_6g3im"]
+[ext_resource type="Script" path="res://Scenes/sun_trigger.gd" id="13_6g3im"]
+[ext_resource type="Script" uid="uid://dsgfgijoxi35c" path="res://Scenes/final_area.gd" id="14_ujtm6"]
 [ext_resource type="Texture2D" uid="uid://bt6hi8nvwtlpt" path="res://Assets/Sprites/tree3.png" id="15_00k4y"]
 [ext_resource type="Texture2D" uid="uid://c74d6k087ivsr" path="res://Assets/Sprites/house.png" id="15_vofx3"]
 [ext_resource type="Texture2D" uid="uid://cseuwuhyyle6a" path="res://Assets/Sprites/tree4.png" id="16_3a44l"]
@@ -44,17 +48,17 @@
 [ext_resource type="AudioStream" uid="uid://h7c10w6jlwnl" path="res://Assets/Sounds/plane_boost.ogg" id="25_u0did"]
 [ext_resource type="Texture2D" uid="uid://ducpqa3tltecg" path="res://Assets/Sprites/lightning.png" id="26_1cgv8"]
 [ext_resource type="Texture2D" uid="uid://b3chqkk6e56y2" path="res://Assets/Sprites/fire5.png" id="26_bp4cd"]
-[ext_resource type="Script" uid="uid://xnkrkyewbhc3" path="res://Scenes/TreeTrigger.gd" id="28_8rl1s"]
+[ext_resource type="Script" path="res://Scenes/TreeTrigger.gd" id="28_8rl1s"]
 [ext_resource type="Texture2D" uid="uid://dpk7f15mvh0y8" path="res://Assets/Sprites/WAVES2BACK.png" id="30_ht0u2"]
-[ext_resource type="Script" uid="uid://b8bsk6cpxxc24" path="res://Scenes/LightningTrigger.gd" id="31_y6tmo"]
+[ext_resource type="Script" path="res://Scenes/LightningTrigger.gd" id="31_y6tmo"]
 [ext_resource type="Texture2D" uid="uid://dpdt7g872b4mo" path="res://Assets/Sprites/MILL.png" id="32_ogdfn"]
 [ext_resource type="Texture2D" uid="uid://l2nx1ilpxvtt" path="res://Assets/Sprites/MILLWHEEL.png" id="33_l1uqm"]
 [ext_resource type="Texture2D" uid="uid://by4wxuk76rpin" path="res://Assets/Sprites/WAVES1FRONT.png" id="34_gx30c"]
 [ext_resource type="Texture2D" uid="uid://byqcb07uk6egf" path="res://Assets/Sprites/WHALE.png" id="35_jmchl"]
-[ext_resource type="Script" uid="uid://2ossii387hb4" path="res://Scenes/WhaleTr.gd" id="36_py0mn"]
+[ext_resource type="Script" path="res://Scenes/WhaleTr.gd" id="36_py0mn"]
 [ext_resource type="Texture2D" uid="uid://dbmueoa6lp7et" path="res://Assets/Sprites/MEGALODON.png" id="36_s14gf"]
 [ext_resource type="Texture2D" uid="uid://dm8hibwg4jjsw" path="res://Assets/Sprites/TREES4SNOW.png" id="37_cpxpw"]
-[ext_resource type="Script" uid="uid://cgmoswixn2b1t" path="res://Scenes/MegaloTr.gd" id="38_fwhgd"]
+[ext_resource type="Script" path="res://Scenes/MegaloTr.gd" id="38_fwhgd"]
 [ext_resource type="Texture2D" uid="uid://dq5srxi32mnoj" path="res://Assets/Sprites/HOUSESNOW1.png" id="38_wbq00"]
 [ext_resource type="Texture2D" uid="uid://bvw0rnejlt445" path="res://Assets/Sprites/HOUSESNOW2.png" id="39_dx6so"]
 [ext_resource type="Texture2D" uid="uid://d4iged6xrnjts" path="res://Assets/Sprites/HOUSESNOW3.png" id="40_54tli"]
@@ -63,22 +67,22 @@
 [ext_resource type="Texture2D" uid="uid://w8eem3on3jpi" path="res://Assets/Sprites/LANDSNOW3.png" id="43_m4bds"]
 [ext_resource type="Script" uid="uid://lk8u8eonnnov" path="res://Scripts/Cursor.gd" id="44_gx30c"]
 [ext_resource type="Texture2D" uid="uid://cb2w4n1deig2t" path="res://Assets/Sprites/CURSOR.png" id="45_jmchl"]
-[ext_resource type="Script" uid="uid://bfd76f72v2pyy" path="res://Scenes/ui.gd" id="50_54tli"]
+[ext_resource type="Script" path="res://Scenes/ui.gd" id="50_54tli"]
 [ext_resource type="Texture2D" uid="uid://c4xxhlnltlhph" path="res://Assets/Sprites/BIRD.png" id="51_icsqr"]
 [ext_resource type="Texture2D" uid="uid://dfd0wjf6t6fh8" path="res://Assets/Sprites/PLAY.png" id="51_m4bds"]
 [ext_resource type="Texture2D" uid="uid://r2shy6eq8447" path="res://Assets/Sprites/SIGN.png" id="52_5oihu"]
 [ext_resource type="Texture2D" uid="uid://dk3ujljw3x52i" path="res://Assets/Sprites/PLAY2.png" id="52_t4ggf"]
 [ext_resource type="Texture2D" uid="uid://cen16b5c1bdaq" path="res://Assets/Sprites/ICEBERG.png" id="53_16bfe"]
 [ext_resource type="Texture2D" uid="uid://bsksucne12fqt" path="res://Assets/Sprites/LOGO.png" id="53_uoc0b"]
-[ext_resource type="Script" uid="uid://dlppu7gbxq70b" path="res://Scenes/FireTrigger.gd" id="54_1wnhp"]
-[ext_resource type="Script" path="res://Scripts/tutorial.gd" id="54_ubg6v"]
+[ext_resource type="Script" path="res://Scenes/FireTrigger.gd" id="54_1wnhp"]
+[ext_resource type="Script" uid="uid://3tv75vtt4vbf" path="res://Scripts/tutorial.gd" id="54_ubg6v"]
 [ext_resource type="Texture2D" uid="uid://dcf1i3a40uifo" path="res://Assets/Sprites/TUTORIAL1.png" id="54_v15qs"]
 [ext_resource type="Texture2D" uid="uid://7uoiuw6h3rva" path="res://Assets/Sprites/MEGALODONWATERSPLASH.png" id="55_23rfw"]
 [ext_resource type="Texture2D" uid="uid://cx4rva20k3cp2" path="res://Assets/Sprites/WATERSPLASH1.png" id="56_16bfe"]
 [ext_resource type="Texture2D" uid="uid://fqprwqyq7o3v" path="res://Assets/Sprites/WATERSPLASH2.png" id="57_6g3im"]
 [ext_resource type="Texture2D" uid="uid://bpewowwsvo0uw" path="res://Assets/Sprites/WATERSPLASH3.png" id="58_w8uds"]
-[ext_resource type="Script" uid="uid://bq3h2jiel2mo3" path="res://Scenes/HouseTrigger.gd" id="62_tcm81"]
-[ext_resource type="Script" uid="uid://c82x1rm4jp3st" path="res://Scenes/ResetTrigger.gd" id="79_o16m1"]
+[ext_resource type="Script" path="res://Scenes/HouseTrigger.gd" id="62_tcm81"]
+[ext_resource type="Script" path="res://Scenes/ResetTrigger.gd" id="79_o16m1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_754fn"]
 radius = 12.0416
@@ -88,6 +92,9 @@ radius = 126.66
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_23rfw"]
 size = Vector2(11776, 994)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2lp24"]
+size = Vector2(323.5, 826)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cpxpw"]
 size = Vector2(220, 811)
@@ -351,33 +358,6 @@ tracks/1/keys = {
 "values": [Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_csjfj"]
-resource_name = "strike"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.433333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(220, 0), Vector2(220, -200)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.45),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1, 0.8)]
-}
-
 [sub_resource type="Animation" id="Animation_o16m1"]
 resource_name = "STAY"
 tracks/0/type = "value"
@@ -403,6 +383,33 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_csjfj"]
+resource_name = "strike"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.433333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(220, 0), Vector2(220, -200)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.45),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0.8)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ag4x3"]
@@ -1005,21 +1012,6 @@ tracks/0/keys = {
 "values": [Vector2(0, 300), Vector2(0, 300)]
 }
 
-[sub_resource type="Animation" id="Animation_6g3im"]
-resource_name = "rise"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.666667),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 300), Vector2(0, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_e3hal"]
 resource_name = "STAY"
 tracks/0/type = "value"
@@ -1033,6 +1025,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 300)]
+}
+
+[sub_resource type="Animation" id="Animation_6g3im"]
+resource_name = "rise"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 300), Vector2(0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_w8uds"]
@@ -1263,6 +1270,40 @@ texture = ExtResource("6_1cgv8")
 position = Vector2(10924, -72)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("6_1cgv8")
+
+[node name="Final Area" type="Node2D" parent="."]
+position = Vector2(13943, 349)
+script = ExtResource("14_ujtm6")
+
+[node name="CityScape" type="Node2D" parent="Final Area"]
+
+[node name="City" type="Sprite2D" parent="Final Area/CityScape"]
+position = Vector2(703, -51)
+scale = Vector2(0.415, 0.415)
+texture = ExtResource("11_2lp24")
+
+[node name="Window" type="Node2D" parent="Final Area"]
+
+[node name="Backwall" type="Sprite2D" parent="Final Area/Window"]
+position = Vector2(85, -56.4)
+scale = Vector2(0.412, 0.41)
+texture = ExtResource("10_t4ggf")
+
+[node name="Frontwall" type="Sprite2D" parent="Final Area/Window"]
+z_index = 5
+position = Vector2(89, -56.9)
+scale = Vector2(0.412, 0.412)
+texture = ExtResource("11_uoc0b")
+
+[node name="Waypoint 1" type="Node2D" parent="Final Area"]
+position = Vector2(546, 28)
+scale = Vector2(1.06322, 0.927509)
+
+[node name="FinalTrigger" type="Area2D" parent="Final Area"]
+position = Vector2(-348, -85)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Final Area/FinalTrigger"]
+shape = SubResource("RectangleShape2D_2lp24")
 
 [node name="Obstacles" type="Node2D" parent="."]
 script = ExtResource("10_wbq00")
@@ -2498,6 +2539,7 @@ shape = SubResource("RectangleShape2D_tk00g")
 
 [connection signal="game_over" from="Plane" to="." method="_on_game_over"]
 [connection signal="waypoint_reached" from="Plane" to="." method="_on_plane_waypoint_reached"]
+[connection signal="area_entered" from="Final Area/FinalTrigger" to="Final Area" method="_on_final_trigger_area_entered"]
 [connection signal="body_entered" from="Obstacles/SunTrigger" to="Obstacles/SunTrigger" method="_on_body_entered"]
 [connection signal="body_entered" from="Obstacles/Sun/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="Obstacles/Sun/Area2D" to="Obstacles/Sun/Area2D" method="_on_body_entered"]
