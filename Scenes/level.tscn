@@ -1,4 +1,4 @@
-[gd_scene load_steps=200 format=3 uid="uid://ig7nbplla4pc"]
+[gd_scene load_steps=198 format=3 uid="uid://ig7nbplla4pc"]
 
 [ext_resource type="Script" uid="uid://cqn84wdm076k5" path="res://Scripts/Level.gd" id="1_k5f4k"]
 [ext_resource type="Script" uid="uid://pakfejb3s2jx" path="res://Scripts/Plane.gd" id="2_6phgx"]
@@ -96,7 +96,7 @@ radius = 12.0416
 radius = 126.66
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_23rfw"]
-size = Vector2(11776, 994)
+size = Vector2(15723, 994)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2lp24"]
 size = Vector2(323.5, 826)
@@ -139,7 +139,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cpxpw"]
-size = Vector2(220, 811)
+size = Vector2(220, 1775.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_icsqr"]
 size = Vector2(1337.5, 92)
@@ -363,15 +363,6 @@ radius = 81.0062
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e3hal"]
 size = Vector2(105.952, 695.238)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dw52x"]
-size = Vector2(21.75, 226)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ais7f"]
-size = Vector2(39, 132)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_re0q2"]
-size = Vector2(7.25, 133)
 
 [sub_resource type="Animation" id="Animation_5o4ln"]
 loop_mode = 1
@@ -1092,7 +1083,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_043up"]
-size = Vector2(49, 884)
+size = Vector2(49, 1630)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e6a55"]
 radius = 1400.01
@@ -1111,6 +1102,9 @@ radius = 2.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tk00g"]
 size = Vector2(304, 5742)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i2khn"]
+size = Vector2(521, 3902)
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_k5f4k")
@@ -1231,7 +1225,7 @@ color = Color(0.04, 0.04, 0.04, 1)
 [node name="StaticBody2D" type="StaticBody2D" parent="Table"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Table/StaticBody2D"]
-position = Vector2(7631, 1196)
+position = Vector2(6432.5, 1217)
 shape = SubResource("RectangleShape2D_23rfw")
 
 [node name="Decor" type="Node2D" parent="."]
@@ -1392,7 +1386,7 @@ position = Vector2(2221, 116)
 script = ExtResource("13_6g3im")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/SunTrigger"]
-position = Vector2(86, 139)
+position = Vector2(86, -343.25)
 shape = SubResource("RectangleShape2D_cpxpw")
 
 [node name="Ground2" type="Node2D" parent="Obstacles"]
@@ -1642,20 +1636,6 @@ position = Vector2(220, 0)
 position = Vector2(5226, 147)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("26_1cgv8")
-
-[node name="Solid Obstacle" parent="Obstacles/Lightning" instance=ExtResource("13_2klc5")]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Lightning/Solid Obstacle"]
-position = Vector2(5256, 181)
-shape = SubResource("RectangleShape2D_dw52x")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Obstacles/Lightning/Solid Obstacle"]
-position = Vector2(5214, 151)
-shape = SubResource("RectangleShape2D_ais7f")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="Obstacles/Lightning/Solid Obstacle"]
-position = Vector2(5185, 49)
-shape = SubResource("RectangleShape2D_re0q2")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Obstacles/Lightning"]
 libraries = {
@@ -2369,7 +2349,7 @@ texture = ExtResource("76_r74g4")
 position = Vector2(741, 320)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tutorial/Area2D"]
-position = Vector2(14.5, -44)
+position = Vector2(14.5, -417)
 shape = SubResource("RectangleShape2D_043up")
 
 [node name="UI" type="CanvasLayer" parent="."]
@@ -2590,10 +2570,10 @@ volume_db = -6.749
 
 [node name="ColorRect" type="ColorRect" parent="."]
 z_index = -50
-offset_left = -3999.0
-offset_top = 2235.0
-offset_right = 11576.0
-offset_bottom = 4752.0
+offset_left = -2845.0
+offset_top = 3544.0
+offset_right = 12730.0
+offset_bottom = 6061.0
 color = Color(0.176471, 0.258824, 0.294118, 1)
 
 [node name="BeginningTrigger" type="Area2D" parent="."]
@@ -2602,6 +2582,12 @@ script = ExtResource("79_o16m1")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BeginningTrigger"]
 position = Vector2(1291, -263)
 shape = SubResource("RectangleShape2D_tk00g")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-1349.5, -784)
+shape = SubResource("RectangleShape2D_i2khn")
 
 [connection signal="game_over" from="Plane" to="." method="_on_game_over"]
 [connection signal="waypoint_reached" from="Plane" to="." method="_on_plane_waypoint_reached"]
