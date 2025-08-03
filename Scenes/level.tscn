@@ -1,4 +1,4 @@
-[gd_scene load_steps=167 format=3 uid="uid://ig7nbplla4pc"]
+[gd_scene load_steps=181 format=3 uid="uid://ig7nbplla4pc"]
 
 [ext_resource type="Script" uid="uid://cqn84wdm076k5" path="res://Scripts/Level.gd" id="1_k5f4k"]
 [ext_resource type="Script" uid="uid://pakfejb3s2jx" path="res://Scripts/Plane.gd" id="2_6phgx"]
@@ -44,13 +44,17 @@
 [ext_resource type="AudioStream" uid="uid://h7c10w6jlwnl" path="res://Assets/Sounds/plane_boost.ogg" id="25_u0did"]
 [ext_resource type="Texture2D" uid="uid://ducpqa3tltecg" path="res://Assets/Sprites/lightning.png" id="26_1cgv8"]
 [ext_resource type="Texture2D" uid="uid://b3chqkk6e56y2" path="res://Assets/Sprites/fire5.png" id="26_bp4cd"]
+[ext_resource type="Script" uid="uid://xnkrkyewbhc3" path="res://Scenes/TreeTrigger.gd" id="28_8rl1s"]
 [ext_resource type="Texture2D" uid="uid://dpk7f15mvh0y8" path="res://Assets/Sprites/WAVES2BACK.png" id="30_ht0u2"]
+[ext_resource type="Script" uid="uid://b8bsk6cpxxc24" path="res://Scenes/LightningTrigger.gd" id="31_y6tmo"]
 [ext_resource type="Texture2D" uid="uid://dpdt7g872b4mo" path="res://Assets/Sprites/MILL.png" id="32_ogdfn"]
 [ext_resource type="Texture2D" uid="uid://l2nx1ilpxvtt" path="res://Assets/Sprites/MILLWHEEL.png" id="33_l1uqm"]
 [ext_resource type="Texture2D" uid="uid://by4wxuk76rpin" path="res://Assets/Sprites/WAVES1FRONT.png" id="34_gx30c"]
 [ext_resource type="Texture2D" uid="uid://byqcb07uk6egf" path="res://Assets/Sprites/WHALE.png" id="35_jmchl"]
+[ext_resource type="Script" uid="uid://2ossii387hb4" path="res://Scenes/WhaleTr.gd" id="36_py0mn"]
 [ext_resource type="Texture2D" uid="uid://dbmueoa6lp7et" path="res://Assets/Sprites/MEGALODON.png" id="36_s14gf"]
 [ext_resource type="Texture2D" uid="uid://dm8hibwg4jjsw" path="res://Assets/Sprites/TREES4SNOW.png" id="37_cpxpw"]
+[ext_resource type="Script" uid="uid://cgmoswixn2b1t" path="res://Scenes/MegaloTr.gd" id="38_fwhgd"]
 [ext_resource type="Texture2D" uid="uid://dq5srxi32mnoj" path="res://Assets/Sprites/HOUSESNOW1.png" id="38_wbq00"]
 [ext_resource type="Texture2D" uid="uid://bvw0rnejlt445" path="res://Assets/Sprites/HOUSESNOW2.png" id="39_dx6so"]
 [ext_resource type="Texture2D" uid="uid://d4iged6xrnjts" path="res://Assets/Sprites/HOUSESNOW3.png" id="40_54tli"]
@@ -59,17 +63,19 @@
 [ext_resource type="Texture2D" uid="uid://w8eem3on3jpi" path="res://Assets/Sprites/LANDSNOW3.png" id="43_m4bds"]
 [ext_resource type="Script" uid="uid://lk8u8eonnnov" path="res://Scripts/Cursor.gd" id="44_gx30c"]
 [ext_resource type="Texture2D" uid="uid://cb2w4n1deig2t" path="res://Assets/Sprites/CURSOR.png" id="45_jmchl"]
-[ext_resource type="Script" uid="uid://bfd76f72v2pyy" path="res://Scenes/ui.gd" id="50_54tli"]
+[ext_resource type="Script" path="res://Scenes/ui.gd" id="50_54tli"]
 [ext_resource type="Texture2D" uid="uid://c4xxhlnltlhph" path="res://Assets/Sprites/BIRD.png" id="51_icsqr"]
 [ext_resource type="Texture2D" uid="uid://dfd0wjf6t6fh8" path="res://Assets/Sprites/PLAY.png" id="51_m4bds"]
 [ext_resource type="Texture2D" uid="uid://r2shy6eq8447" path="res://Assets/Sprites/SIGN.png" id="52_5oihu"]
 [ext_resource type="Texture2D" uid="uid://dk3ujljw3x52i" path="res://Assets/Sprites/PLAY2.png" id="52_t4ggf"]
 [ext_resource type="Texture2D" uid="uid://cen16b5c1bdaq" path="res://Assets/Sprites/ICEBERG.png" id="53_16bfe"]
 [ext_resource type="Texture2D" uid="uid://bsksucne12fqt" path="res://Assets/Sprites/LOGO.png" id="53_uoc0b"]
+[ext_resource type="Script" uid="uid://dlppu7gbxq70b" path="res://Scenes/FireTrigger.gd" id="54_1wnhp"]
 [ext_resource type="Texture2D" uid="uid://7uoiuw6h3rva" path="res://Assets/Sprites/MEGALODONWATERSPLASH.png" id="55_23rfw"]
 [ext_resource type="Texture2D" uid="uid://cx4rva20k3cp2" path="res://Assets/Sprites/WATERSPLASH1.png" id="56_16bfe"]
 [ext_resource type="Texture2D" uid="uid://fqprwqyq7o3v" path="res://Assets/Sprites/WATERSPLASH2.png" id="57_6g3im"]
 [ext_resource type="Texture2D" uid="uid://bpewowwsvo0uw" path="res://Assets/Sprites/WATERSPLASH3.png" id="58_w8uds"]
+[ext_resource type="Script" uid="uid://bq3h2jiel2mo3" path="res://Scenes/HouseTrigger.gd" id="62_tcm81"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_754fn"]
 radius = 12.0416
@@ -116,7 +122,7 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(199, -0.0005, 0, 0.0005, 0),
+"points": PackedFloat32Array(-300, -0.0005, 0, 0.0005, 0),
 "times": PackedFloat32Array(0)
 }
 
@@ -141,7 +147,7 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(-200, -0.25, 0, 0.25, 0, 210, -0.25, 0, 0.25, 0, 199, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(-300, -0.25, 0, 0.25, 0, 210, -0.25, 0, 0.25, 0, 199, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 0.533333, 1)
 }
 
@@ -215,7 +221,7 @@ tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(539, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(1000, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
 tracks/4/type = "value"
@@ -303,6 +309,9 @@ radius = 52.0384
 [sub_resource type="CircleShape2D" id="CircleShape2D_6y3s5"]
 radius = 81.0062
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e3hal"]
+size = Vector2(105.952, 695.238)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dw52x"]
 size = Vector2(21.75, 226)
 
@@ -371,6 +380,9 @@ _data = {
 &"RESET": SubResource("Animation_5o4ln"),
 &"strike": SubResource("Animation_csjfj")
 }
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bavf1"]
+size = Vector2(156, 1621)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_y6tmo"]
 radius = 23.0
@@ -487,6 +499,9 @@ _data = {
 &"whal": SubResource("Animation_23rfw")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e6a55"]
+size = Vector2(151, 2080)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uty0w"]
 size = Vector2(212, 423)
 
@@ -553,6 +568,9 @@ _data = {
 &"RESET": SubResource("Animation_5oihu"),
 &"chomp": SubResource("Animation_icsqr")
 }
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nhhdd"]
+size = Vector2(94, 2221)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y6tmo"]
 size = Vector2(213, 198.5)
@@ -903,6 +921,9 @@ _data = {
 &"fire appear": SubResource("Animation_ogdfn")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6dbqg"]
+size = Vector2(180, 2027)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vl2iv"]
 size = Vector2(1814, 91)
 
@@ -939,21 +960,6 @@ size = Vector2(271, 98)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r07lu"]
 size = Vector2(39, 235)
 
-[sub_resource type="Animation" id="Animation_6g3im"]
-resource_name = "rise"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.666667),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 300), Vector2(0, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_w8uds"]
 length = 0.001
 tracks/0/type = "value"
@@ -969,11 +975,29 @@ tracks/0/keys = {
 "values": [Vector2(0, 300)]
 }
 
+[sub_resource type="Animation" id="Animation_6g3im"]
+resource_name = "rise"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 300), Vector2(0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_w8uds"]
 _data = {
 &"RESET": SubResource("Animation_w8uds"),
 &"rise": SubResource("Animation_6g3im")
 }
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_043up"]
+size = Vector2(179.5, 2318.5)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e6a55"]
 radius = 1400.01
@@ -1198,7 +1222,7 @@ position = Vector2(2221, 116)
 script = ExtResource("13_6g3im")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/SunTrigger"]
-position = Vector2(77, 140.5)
+position = Vector2(86, 139)
 shape = SubResource("RectangleShape2D_cpxpw")
 
 [node name="Ground2" type="Node2D" parent="Obstacles"]
@@ -1237,7 +1261,7 @@ position = Vector2(2627, 1248)
 shape = SubResource("CircleShape2D_16bfe")
 
 [node name="Sun" type="Node2D" parent="Obstacles"]
-position = Vector2(2382, 199)
+position = Vector2(2382, -300)
 
 [node name="Sprite2D" type="Sprite2D" parent="Obstacles/Sun"]
 position = Vector2(67, -128.4)
@@ -1308,7 +1332,7 @@ position = Vector2(-55, 10)
 shape = SubResource("CircleShape2D_gf56v")
 
 [node name="Tree4" type="Node2D" parent="Obstacles/Trees"]
-position = Vector2(3468, 539)
+position = Vector2(3468, 1000)
 
 [node name="Sprite2D" type="Sprite2D" parent="Obstacles/Trees/Tree4"]
 position = Vector2(-8, -47)
@@ -1429,6 +1453,14 @@ volume_db = -5.298
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Obstacles/Water"]
 
+[node name="trigger" type="Area2D" parent="Obstacles/Water"]
+script = ExtResource("28_8rl1s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Water/trigger"]
+position = Vector2(-244.048, -41.6667)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_e3hal")
+
 [node name="Cloud5" type="Sprite2D" parent="Obstacles"]
 position = Vector2(3440, -254)
 scale = Vector2(0.7, 0.7)
@@ -1460,6 +1492,13 @@ shape = SubResource("RectangleShape2D_re0q2")
 libraries = {
 &"": SubResource("AnimationLibrary_ag4x3")
 }
+
+[node name="trigger" type="Area2D" parent="Obstacles/Lightning"]
+script = ExtResource("31_y6tmo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Lightning/trigger"]
+position = Vector2(4987, -68)
+shape = SubResource("RectangleShape2D_bavf1")
 
 [node name="Cloud10" type="Sprite2D" parent="Obstacles"]
 position = Vector2(5562, -212)
@@ -1530,6 +1569,13 @@ libraries = {
 &"": SubResource("AnimationLibrary_6g3im")
 }
 
+[node name="trigger" type="Area2D" parent="Obstacles/Whale"]
+script = ExtResource("36_py0mn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Whale/trigger"]
+position = Vector2(6969, -746)
+shape = SubResource("RectangleShape2D_e6a55")
+
 [node name="Megalo" type="Node2D" parent="Obstacles"]
 position = Vector2(0, 600)
 
@@ -1552,6 +1598,13 @@ shape = SubResource("CircleShape2D_8rl1s")
 libraries = {
 &"": SubResource("AnimationLibrary_16bfe")
 }
+
+[node name="trigger" type="Area2D" parent="Obstacles/Megalo"]
+script = ExtResource("38_fwhgd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Megalo/trigger"]
+position = Vector2(8147, -815.5)
+shape = SubResource("RectangleShape2D_nhhdd")
 
 [node name="Iceberg" type="Node2D" parent="Obstacles"]
 
@@ -1839,6 +1892,13 @@ libraries = {
 &"": SubResource("AnimationLibrary_gx30c")
 }
 
+[node name="trigger" type="Area2D" parent="Obstacles/Fire2"]
+script = ExtResource("54_1wnhp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Fire2/trigger"]
+position = Vector2(-430, -542.5)
+shape = SubResource("RectangleShape2D_6dbqg")
+
 [node name="GroundSnow1" type="Node2D" parent="Obstacles"]
 
 [node name="Sprite2D" type="Sprite2D" parent="Obstacles/GroundSnow1"]
@@ -1988,6 +2048,13 @@ shape = SubResource("RectangleShape2D_r07lu")
 libraries = {
 &"": SubResource("AnimationLibrary_w8uds")
 }
+
+[node name="Trigger" type="Area2D" parent="Obstacles/HouseSnow3"]
+script = ExtResource("62_tcm81")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/HouseSnow3/Trigger"]
+position = Vector2(11402.3, -705.75)
+shape = SubResource("RectangleShape2D_043up")
 
 [node name="GroundSnow4" type="Node2D" parent="Obstacles"]
 
@@ -2325,10 +2392,17 @@ color = Color(0.176471, 0.258824, 0.294118, 1)
 
 [connection signal="game_over" from="Plane" to="." method="_on_game_over"]
 [connection signal="waypoint_reached" from="Plane" to="." method="_on_plane_waypoint_reached"]
+[connection signal="body_entered" from="Obstacles/SunTrigger" to="Obstacles/SunTrigger" method="_on_body_entered"]
 [connection signal="body_entered" from="Obstacles/Sun/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="Obstacles/Sun/Area2D" to="Obstacles/Sun/Area2D" method="_on_body_entered"]
 [connection signal="timeout" from="Obstacles/Sun/Area2D/Timer" to="Obstacles/Sun/Area2D" method="_on_timer_timeout"]
 [connection signal="body_entered" from="Obstacles/Water/Area2D" to="Obstacles/Water/Area2D" method="_on_body_entered"]
+[connection signal="body_entered" from="Obstacles/Water/trigger" to="Obstacles/Water/trigger" method="_on_body_entered"]
+[connection signal="body_entered" from="Obstacles/Lightning/trigger" to="Obstacles/Lightning/trigger" method="_on_body_entered"]
+[connection signal="body_entered" from="Obstacles/Whale/trigger" to="Obstacles/Whale/trigger" method="_on_body_entered"]
+[connection signal="body_entered" from="Obstacles/Megalo/trigger" to="Obstacles/Megalo/trigger" method="_on_body_entered"]
+[connection signal="body_entered" from="Obstacles/Fire2/trigger" to="Obstacles/Fire2/trigger" method="_on_body_entered"]
+[connection signal="body_entered" from="Obstacles/HouseSnow3/Trigger" to="Obstacles/HouseSnow3/Trigger" method="_on_body_entered"]
 [connection signal="pressed" from="UI/SettingsButton" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="UI/GameOverScreen/RestartButton" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="UI/SettingsPanel/Panel/CloseButton" to="." method="_on_close_settings_pressed"]
