@@ -1,8 +1,4 @@
-<<<<<<< Updated upstream
 [gd_scene load_steps=193 format=3 uid="uid://ig7nbplla4pc"]
-=======
-[gd_scene load_steps=194 format=3 uid="uid://ig7nbplla4pc"]
->>>>>>> Stashed changes
 
 [ext_resource type="Script" uid="uid://cqn84wdm076k5" path="res://Scripts/Level.gd" id="1_k5f4k"]
 [ext_resource type="Script" uid="uid://pakfejb3s2jx" path="res://Scripts/Plane.gd" id="2_6phgx"]
@@ -33,13 +29,8 @@
 [ext_resource type="Texture2D" uid="uid://c6rxxv78xvprj" path="res://Assets/Sprites/CLOUD4NIMBUS.png" id="12_23rfw"]
 [ext_resource type="Texture2D" uid="uid://cn88atdxeptr1" path="res://Assets/Sprites/Tree1.png" id="12_c7le1"]
 [ext_resource type="PackedScene" uid="uid://blnnng7cwudpl" path="res://Scenes/solid_obstacle.tscn" id="13_2klc5"]
-<<<<<<< Updated upstream
-[ext_resource type="Script" path="res://Scenes/sun_trigger.gd" id="13_6g3im"]
-[ext_resource type="Script" path="res://Scenes/final_area.gd" id="14_ujtm6"]
-=======
 [ext_resource type="Script" uid="uid://c83lgi8sglcif" path="res://Scenes/sun_trigger.gd" id="13_6g3im"]
 [ext_resource type="Script" uid="uid://dsgfgijoxi35c" path="res://Scenes/final_area.gd" id="14_ujtm6"]
->>>>>>> Stashed changes
 [ext_resource type="Texture2D" uid="uid://bt6hi8nvwtlpt" path="res://Assets/Sprites/tree3.png" id="15_00k4y"]
 [ext_resource type="Texture2D" uid="uid://c74d6k087ivsr" path="res://Assets/Sprites/house.png" id="15_vofx3"]
 [ext_resource type="Texture2D" uid="uid://cseuwuhyyle6a" path="res://Assets/Sprites/tree4.png" id="16_3a44l"]
@@ -85,11 +76,7 @@
 [ext_resource type="Texture2D" uid="uid://dk3ujljw3x52i" path="res://Assets/Sprites/PLAY2.png" id="52_t4ggf"]
 [ext_resource type="Texture2D" uid="uid://cen16b5c1bdaq" path="res://Assets/Sprites/ICEBERG.png" id="53_16bfe"]
 [ext_resource type="Texture2D" uid="uid://bsksucne12fqt" path="res://Assets/Sprites/LOGO.png" id="53_uoc0b"]
-<<<<<<< Updated upstream
-[ext_resource type="Script" path="res://Scenes/FireTrigger.gd" id="54_1wnhp"]
-=======
 [ext_resource type="Script" uid="uid://dlppu7gbxq70b" path="res://Scenes/FireTrigger.gd" id="54_1wnhp"]
->>>>>>> Stashed changes
 [ext_resource type="Script" uid="uid://3tv75vtt4vbf" path="res://Scripts/tutorial.gd" id="54_ubg6v"]
 [ext_resource type="Texture2D" uid="uid://dcf1i3a40uifo" path="res://Assets/Sprites/TUTORIAL1.png" id="54_v15qs"]
 [ext_resource type="Texture2D" uid="uid://7uoiuw6h3rva" path="res://Assets/Sprites/MEGALODONWATERSPLASH.png" id="55_23rfw"]
